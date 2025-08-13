@@ -15,9 +15,9 @@ export default function App() {
   const imgAlt = isMobile ? "Welcome vertical view" : "Welcome horizontal view";
 
   return (
-    <div className="bg-black min-h-[100svh] flex flex-col justify-end">
+    <div className="bg-black h-[100svh] flex flex-col justify-end relative overflow-hidden">
 
-        <div className="w-full flex-grow">
+        <div className="w-full flex-1">
           <OptimizedImage
             src={imgSrc}
             alt={imgAlt}
@@ -31,7 +31,10 @@ export default function App() {
           />
         </div>
 
-        <BarraDeTareas />
+        {/* Contenedor fijo para la barra de tareas en móviles */}
+        <div className={`${isMobile ? 'fixed bottom-0 left-0 right-0 z-50' : ''}`}>
+          <BarraDeTareas />
+        </div>
 
     </div>
 

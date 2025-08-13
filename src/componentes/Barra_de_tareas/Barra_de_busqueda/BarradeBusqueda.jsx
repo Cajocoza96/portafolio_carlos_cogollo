@@ -1,48 +1,38 @@
 import React, { useRef, useEffect } from "react";
 import { HiSearch } from "react-icons/hi";
-import useIsMobile from "../../hooks/useIsMobile";
 
-export default function BarradeBusqueda() {
+export default function BarradeBusqueda(){
     const inputRef = useRef(null);
-    const isMobile = useIsMobile();
 
+    const handleFocus = () => {
+        // Esperar a que el teclado aparezca antes de hacer scroll
+        setTimeout(() => {
+            if (inputRef.current) {
+                inputRef.current.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'center',
+                    inline: 'nearest'
+                });
+            }
+        }, 300); // Ajusta este tiempo si es necesario
+    };
+
+    // Prevenir zoom en iOS cuando se hace focus en el input
     useEffect(() => {
-        if (!isMobile) return;
-
-        const handleFocus = () => {
-            // Pequeño delay para asegurar que el teclado esté completamente visible
-            setTimeout(() => {
-                // Scroll hacia la parte inferior de la página
-                window.scrollTo({
-                    top: document.documentElement.scrollHeight,
-                    behavior: 'smooth'
-                });
-            }, 300); // Ajusta este tiempo si es necesario
+        const preventZoom = (e) => {
+            if (e.target.tagName === 'INPUT') {
+                e.target.style.fontSize = '16px';
+            }
         };
 
-        const handleBlur = () => {
-            // Opcional: volver arriba cuando se cierra el teclado
-            setTimeout(() => {
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
-            }, 100);
+        document.addEventListener('touchstart', preventZoom, { passive: true });
+        
+        return () => {
+            document.removeEventListener('touchstart', preventZoom);
         };
+    }, []);
 
-        const inputElement = inputRef.current;
-        if (inputElement) {
-            inputElement.addEventListener('focus', handleFocus);
-            inputElement.addEventListener('blur', handleBlur);
-
-            return () => {
-                inputElement.removeEventListener('focus', handleFocus);
-                inputElement.removeEventListener('blur', handleBlur);
-            };
-        }
-    }, [isMobile]);
-
-    return (
+    return(
         <div className="bg-white dark:bg-gray-500 h-10 w-full
                         flex flex-row items-center justify-baseline gap-4 rounded-sm
                         text-black dark:text-white">
@@ -52,11 +42,13 @@ export default function BarradeBusqueda() {
                 ref={inputRef}
                 type="text" 
                 placeholder="Escribe aquí para buscar."
+                onFocus={handleFocus}
                 className="w-[80%]
                             placeholder:text-gray-500 dark:placeholder:text-gray-500
-                            text-sm lg:text-base 2xl:text-xl
-                            placeholder:text-sm lg:placeholder:text-base 2xl:placeholder:text-xl 
+                            text-base lg:text-base 2xl:text-xl
+                            placeholder:text-base lg:placeholder:text-base 2xl:placeholder:text-xl 
                             border-none focus:outline-none focus:ring-0"
+                style={{ fontSize: '16px' }} // Previene zoom en iOS
             />
         </div>
     );
