@@ -15,7 +15,7 @@ export default function App() {
   const imgAlt = isMobile ? "Welcome vertical view" : "Welcome horizontal view";
 
   return (
-    <div className="h-[100svh] flex flex-col justify-end">
+    <div className="bg-black h-[100svh] flex flex-col justify-end">
 
         <div className="w-full">
           <OptimizedImage
