@@ -1,10 +1,10 @@
 import React, { useRef } from "react";
 import { HiSearch } from "react-icons/hi";
-import useVirtualKeyboard from "../../../hooks/useVirtualKeyboard";
+import useScrollVirtualKeyboard from "../../../hooks/useScrollVirtualKeyboard";
 
 export default function BarradeBusqueda(){
     const inputRef = useRef(null);
-    const { handleInputFocus } = useVirtualKeyboard();
+    const { handleInputFocus } = useScrollVirtualKeyboard();
 
     const handleFocus = () => {
         handleInputFocus(inputRef.current);

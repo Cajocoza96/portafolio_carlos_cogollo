@@ -4,7 +4,7 @@ import { useEffect, useRef } from 'react';
  * Hook personalizado para manejar el comportamiento del teclado virtual en dispositivos móviles
  * Detecta cuando el teclado se abre/cierra y maneja el scroll automático
  */
-export default function useVirtualKeyboard() {
+export default function useScrollVirtualKeyboard() {
   const initialViewportHeight = useRef(window.visualViewport?.height || window.innerHeight);
   const isKeyboardOpen = useRef(false);
 
@@ -57,9 +57,8 @@ export default function useVirtualKeyboard() {
       }, 100); // Pequeño delay para asegurar que el teclado esté completamente visible
     };
 
+    //restablecer la posición del scroll cuando el teclado se cierra
     const handleKeyboardClose = () => {
-      // Opcional: restablecer la posición del scroll cuando el teclado se cierra
-      // Descomenta si quieres este comportamiento
       /*
       setTimeout(() => {
         window.scrollTo({
