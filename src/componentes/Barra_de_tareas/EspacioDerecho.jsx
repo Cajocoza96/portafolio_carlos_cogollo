@@ -6,9 +6,9 @@ import HoraFecha from "./Hora_y_fecha/HoraFecha";
 export default function EspacioDerecho() {
     return (
         <div className="w-full h-10 text-white hidden
-                        md:flex flex-row items-center 
-                        md:justify-center lg:justify-end
-                        md:col-span-3 lg:col-span-1">
+                        lg:flex flex-row items-center 
+                        lg:justify-end
+                        lg:col-span-1">
 
             <div className="hover:bg-blue-500 dark:bg-gray-600
                             h-10 p-2 flex items-center
