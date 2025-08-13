@@ -1,36 +1,14 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef } from "react";
 import { HiSearch } from "react-icons/hi";
+import useVirtualKeyboard from "../hooks/useVirtualKeyboard";
 
 export default function BarradeBusqueda(){
     const inputRef = useRef(null);
+    const { handleInputFocus } = useVirtualKeyboard();
 
     const handleFocus = () => {
-        // Esperar a que el teclado aparezca antes de hacer scroll
-        setTimeout(() => {
-            if (inputRef.current) {
-                inputRef.current.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'center',
-                    inline: 'nearest'
-                });
-            }
-        }, 300); // Ajusta este tiempo si es necesario
+        handleInputFocus(inputRef.current);
     };
-
-    // Prevenir zoom en iOS cuando se hace focus en el input
-    useEffect(() => {
-        const preventZoom = (e) => {
-            if (e.target.tagName === 'INPUT') {
-                e.target.style.fontSize = '16px';
-            }
-        };
-
-        document.addEventListener('touchstart', preventZoom, { passive: true });
-        
-        return () => {
-            document.removeEventListener('touchstart', preventZoom);
-        };
-    }, []);
 
     return(
         <div className="bg-white dark:bg-gray-500 h-10 w-full
@@ -45,10 +23,9 @@ export default function BarradeBusqueda(){
                 onFocus={handleFocus}
                 className="w-[80%]
                             placeholder:text-gray-500 dark:placeholder:text-gray-500
-                            text-base lg:text-base 2xl:text-xl
-                            placeholder:text-base lg:placeholder:text-base 2xl:placeholder:text-xl 
+                            text-sm lg:text-base 2xl:text-xl
+                            placeholder:text-sm lg:placeholder:text-base 2xl:placeholder:text-xl 
                             border-none focus:outline-none focus:ring-0"
-                style={{ fontSize: '16px' }} // Previene zoom en iOS
             />
         </div>
     );
