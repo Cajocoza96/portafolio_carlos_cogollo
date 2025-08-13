@@ -1,30 +1,32 @@
-import React, { useRef} from "react";
+import React, { useRef } from "react";
 
 import useIsMobile from "../../hooks/useIsMobile";
+import { useCloseKeyboardOnScroll } from "../../hooks/useCloseKeyboardOnScroll";
 import windowsEscritorioHorizontal from "/assets/img/escritorio/normal/windowsEscritorioHorizontal.webp";
 import windowsEscritorioVertical from "/assets/img/escritorio/normal/windowsEscritorioVertical.webp";
 
 import OptimizedImage, { IMAGE_CONFIGS } from "../common/OptimizedImage";
 import BarraDeTareas from "../Barra_de_tareas/BarraDeTareas";
 
-import { useCloseKeyboardOnScroll } from "../../hooks/useCloseKeyboardOnScroll";
-
 export default function Escritorio() {
     const isMobile = useIsMobile();
+    const scrollContainerRef = useRef(null);
+
+    useCloseKeyboardOnScroll({
+        container: null,
+        touchOnly: true,
+        delay: 100,
+        excludeSelectors: []
+    });
+
     const imgSrc = isMobile ? windowsEscritorioVertical : windowsEscritorioHorizontal;
     const imgAlt = isMobile ? "Welcome vertical view" : "Welcome horizontal view";
 
-    const scrollContainerRef = useRef(null);
-
-    // Configurar el hook para cerrar el teclado al hacer scroll
-    useCloseKeyboardOnScroll({
-        container: scrollContainerRef,
-        delay: 100 // Pequeño delay para mejor UX
-    });
-
     return (
         <>
-            <div className="w-full" ref={scrollContainerRef}>
+            <div
+                ref={scrollContainerRef}
+                className="w-full">
                 <OptimizedImage
                     src={imgSrc}
                     alt={imgAlt}
