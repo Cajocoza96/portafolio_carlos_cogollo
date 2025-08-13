@@ -15,9 +15,9 @@ export default function App() {
   const imgAlt = isMobile ? "Welcome vertical view" : "Welcome horizontal view";
 
   return (
-    <div className="bg-black h-[100svh] flex flex-col relative overflow-hidden">
+    <div className="bg-black min-h-[100svh] flex flex-col justify-end">
 
-        <div className="flex-1 relative">
+        <div className="w-full flex-grow">
           <OptimizedImage
             src={imgSrc}
             alt={imgAlt}
@@ -31,9 +31,7 @@ export default function App() {
           />
         </div>
 
-        <div className="absolute bottom-0 left-0 right-0 z-10">
         <BarraDeTareas />
-        </div>
 
     </div>
 
