@@ -15,7 +15,7 @@ export default function App() {
   const imgAlt = isMobile ? "Welcome vertical view" : "Welcome horizontal view";
 
   return (
-    <div className="bg-black h-[100dvh] flex flex-col justify-end">
+    <div className="bg-black h-[100svh] flex flex-col justify-end">
 
         <div className="w-full flex-1">
           <OptimizedImage
@@ -25,13 +25,13 @@ export default function App() {
             asBackground={true}
             backgroundSize="cover"
             backgroundPosition="center"
-            minHeight="100%"
+            minHeight="100svh"
             showSkeleton={false}
             {...IMAGE_CONFIGS.CRITICAL}
           />
         </div>
 
-        <div className="flex-shrink-0">
+        <div className="shrink-0">
         <BarraDeTareas />
         </div>
 
