@@ -13,7 +13,7 @@ export default function Escritorio() {
     const scrollContainerRef = useRef(null);
 
     useCloseKeyboardOnScroll({
-        container: null,
+        container: scrollContainerRef,
         touchOnly: true,
         delay: 100,
         excludeSelectors: []
