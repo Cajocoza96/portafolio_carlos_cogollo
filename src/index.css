@@ -9,4 +9,77 @@
     box-sizing: border-box;
     -webkit-tap-highlight-color: transparent;
   }
+
+  /* Solución CSS para teclado virtual */
+  @supports (height: 100svh) {
+    .app-container {
+      height: 100svh;
+    }
+  }
+
+  /* Prevenir zoom en inputs en iOS Safari */
+  @media screen and (-webkit-min-device-pixel-ratio: 0) {
+
+    select,
+    textarea,
+    input[type="text"],
+    input[type="password"],
+    input[type="datetime"],
+    input[type="datetime-local"],
+    input[type="date"],
+    input[type="month"],
+    input[type="time"],
+    input[type="week"],
+    input[type="number"],
+    input[type="email"],
+    input[type="url"],
+    input[type="search"],
+    input[type="tel"],
+    input[type="color"] {
+      font-size: 16px !important;
+    }
+  }
+
+  /* Manejo del viewport cuando el teclado virtual está activo */
+  @media screen and (max-width: 768px) {
+    .keyboard-active {
+      height: 100svh !important;
+      position: relative;
+    }
+
+    .keyboard-active .taskbar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 9999;
+    }
+
+    .keyboard-active .background-image {
+      height: 100svh !important;
+      min-height: 100svh !important;
+    }
+  }
+
+  /* Alternativa: usar environment variables de iOS para safe areas */
+  @supports (padding: max(0px)) {
+    .safe-area-bottom {
+      padding-bottom: max(0px, env(safe-area-inset-bottom));
+    }
+  }
+
+  /* Solución para interactive-widget en navegadores compatibles */
+  @supports (height: 100svh) and (height: 100dvh) {
+    .dynamic-viewport {
+      height: 100dvh;
+      /* Dynamic viewport height */
+    }
+
+    @media (max-width: 768px) {
+      .dynamic-viewport.has-keyboard {
+        height: 100svh;
+        /* Small viewport height cuando el teclado está activo */
+      }
+    }
+  }
 }

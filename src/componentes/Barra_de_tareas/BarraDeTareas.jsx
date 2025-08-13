@@ -6,9 +6,12 @@ import EspacioCentro from "./EspacioCentro";
 
 export default function BarraDeTareas() {
     return (
-        <div className="bg-blue-700 dark:bg-black
+        <div 
+            className="bg-blue-700 dark:bg-black
                         grid grid-cols-1 sm:grid-cols-[3fr_1fr]
-                        lg:grid-cols-3  ">
+                        lg:grid-cols-3"
+            data-testid="barra-de-tareas"
+        >
             <EspacioIzquierdo/>
             <EspacioCentro />
             <EspacioDerecho/>
