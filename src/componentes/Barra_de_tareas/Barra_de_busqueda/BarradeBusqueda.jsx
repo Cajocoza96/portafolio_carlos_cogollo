@@ -9,12 +9,11 @@ export default function BarradeBusqueda(){
             <HiSearch className="ml-2 text-sm lg:text-xl 2xl:text-2xl"/>
             
             <input type="text" placeholder="Escribe aquí para buscar."
-                className="w-[80%] bg-transparent
+                className="w-[80%]
                             placeholder:text-gray-500 dark:placeholder:text-gray-500
                             text-sm lg:text-base 2xl:text-xl
                             placeholder:text-sm lg:placeholder:text-base 2xl:placeholder:text-xl 
-                            border-none focus:outline-none focus:ring-0"
-                inputMode="search" />
+                            border-none focus:outline-none focus:ring-0"/>
         </div>
     );
 }
