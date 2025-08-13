@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import { HiSearch } from "react-icons/hi";
-import useVirtualKeyboard from "../hooks/useVirtualKeyboard";
+import useVirtualKeyboard from "../../../hooks/useVirtualKeyboard";
 
 export default function BarradeBusqueda(){
     const inputRef = useRef(null);
