@@ -14,9 +14,7 @@ export default function Escritorio() {
 
     useCloseKeyboardOnScroll({
         container: scrollContainerRef,
-        touchOnly: true,
         delay: 100,
-        excludeSelectors: []
     });
 
     const imgSrc = isMobile ? windowsEscritorioVertical : windowsEscritorioHorizontal;
