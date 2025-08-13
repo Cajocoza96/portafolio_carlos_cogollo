@@ -32,7 +32,7 @@ export default function App() {
   return (
     <div className={`bg-black flex flex-col justify-end transition-all duration-200 ${
       isMobile && isKeyboardVisible 
-        ? 'h-screen' // Usar altura fija cuando el teclado está visible
+        ? 'h-[100svh]' // Usar altura fija cuando el teclado está visible
         : 'h-[100svh]' // Altura dinámica normal
     }`}>
       <div className="w-full">
@@ -43,7 +43,7 @@ export default function App() {
           asBackground={true}
           backgroundSize="cover"
           backgroundPosition="center"
-          minHeight={isMobile && isKeyboardVisible ? "100vh" : "100svh"}
+          minHeight={isMobile && isKeyboardVisible ? "100svh" : "100svh"}
           showSkeleton={false}
           {...IMAGE_CONFIGS.CRITICAL}
         />
