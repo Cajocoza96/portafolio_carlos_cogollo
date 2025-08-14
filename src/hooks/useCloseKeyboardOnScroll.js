@@ -13,7 +13,6 @@ export function useCloseKeyboardOnScroll(options = {}) {
   const isAtBottom = useRef(false);
   const recentInputFocus = useRef(false);
   const focusTimeoutRef = useRef(null);
-  const programmaticScroll = useRef(false);
 
   const closeKeyboard = useCallback(() => {
     const activeElement = document.activeElement;
@@ -74,15 +73,13 @@ export function useCloseKeyboardOnScroll(options = {}) {
       // Actualizar si estamos en el fondo
       isAtBottom.current = checkIfAtBottom(targetElement);
       
-      // Verificar si hay movimiento de scroll significativo
-      const hasScrollMovement = Math.abs(currentScrollTop - lastScrollTop.current) > 10;
-      
       // Solo cerrar el teclado si:
-      // 1. No hay un focus muy reciente (más de 2 segundos), Y
-      // 2. Hay movimiento de scroll real, Y
-      // 3. No estamos en el fondo O no hay focus reciente
-      if (!recentInputFocus.current && hasScrollMovement && 
-          (!isAtBottom.current || !recentInputFocus.current)) {
+      // 1. No estamos en el fondo del scroll, O
+      // 2. Estamos en el fondo pero NO hay un focus reciente en el input, O
+      // 3. Hay movimiento de scroll real (no solo el bounce del navegador)
+      const hasScrollMovement = Math.abs(currentScrollTop - lastScrollTop.current) > 5;
+      
+      if (!isAtBottom.current || (!recentInputFocus.current && hasScrollMovement)) {
         closeKeyboard();
       }
       
@@ -101,7 +98,7 @@ export function useCloseKeyboardOnScroll(options = {}) {
       );
       
       if (isInputElement) {
-        // Marcar que hay un focus reciente con tiempo extendido
+        // Marcar que hay un focus reciente
         recentInputFocus.current = true;
         
         // Limpiar timeout anterior si existe
@@ -109,11 +106,10 @@ export function useCloseKeyboardOnScroll(options = {}) {
           clearTimeout(focusTimeoutRef.current);
         }
         
-        // Resetear el flag después de más tiempo para permitir 
-        // que useScrollVirtualKeyboard haga su trabajo
+        // Resetear el flag después de un tiempo
         focusTimeoutRef.current = setTimeout(() => {
           recentInputFocus.current = false;
-        }, 2000); // 2 segundos de gracia (más tiempo)
+        }, 1000); // 1 segundo de gracia
       }
     };
 
