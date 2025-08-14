@@ -14,7 +14,9 @@ export default function Escritorio() {
 
     useCloseKeyboardOnScroll({
         container: scrollContainerRef,
+        touchOnly: true,
         delay: 100,
+        excludeSelectors: []
     });
 
     const imgSrc = isMobile ? windowsEscritorioVertical : windowsEscritorioHorizontal;
@@ -24,7 +26,9 @@ export default function Escritorio() {
         <>
             <div
                 ref={scrollContainerRef}
-                className="w-full">
+                className="w-full overflow-y-auto"
+                style={{ height: '100svh'}}
+                >
                 <OptimizedImage
                     src={imgSrc}
                     alt={imgAlt}
