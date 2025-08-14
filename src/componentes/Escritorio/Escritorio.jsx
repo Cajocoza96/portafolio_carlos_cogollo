@@ -1,7 +1,6 @@
 import React from "react";
 
 import useIsMobile from "../../hooks/useIsMobile";
-import { useCloseKeyboardOnScroll } from "../../hooks/useCloseKeyboardOnScroll";
 import windowsEscritorioHorizontal from "/assets/img/escritorio/normal/windowsEscritorioHorizontal.webp";
 import windowsEscritorioVertical from "/assets/img/escritorio/normal/windowsEscritorioVertical.webp";
 
@@ -12,14 +11,6 @@ export default function Escritorio() {
     const isMobile = useIsMobile();
     const imgSrc = isMobile ? windowsEscritorioVertical : windowsEscritorioHorizontal;
     const imgAlt = isMobile ? "Welcome vertical view" : "Welcome horizontal view";
-    
-    // Implementar el hook para cerrar el teclado en scroll global (window)
-    useCloseKeyboardOnScroll({
-        container: null, // null = window (scroll global)
-        touchOnly: true,
-        delay: 0, // Sin delay para respuesta más rápida
-        excludeSelectors: [] // Puedes agregar selectores que quieras excluir si es necesario
-    });
 
     return (
         <>
