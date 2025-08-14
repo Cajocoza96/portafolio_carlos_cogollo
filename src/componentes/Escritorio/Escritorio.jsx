@@ -10,25 +10,27 @@ import BarraDeTareas from "../Barra_de_tareas/BarraDeTareas";
 
 export default function Escritorio() {
     const isMobile = useIsMobile();
-    const scrollContainerRef = useRef(null);
-
-    useCloseKeyboardOnScroll({
-        container: scrollContainerRef,
-        touchOnly: true,
-        delay: 100,
-        excludeSelectors: []
-    });
-
     const imgSrc = isMobile ? windowsEscritorioVertical : windowsEscritorioHorizontal;
     const imgAlt = isMobile ? "Welcome vertical view" : "Welcome horizontal view";
+    
+    // Crear referencia al contenedor donde se detectará el scroll
+    const containerRef = useRef(null);
+    
+    // Implementar el hook para cerrar el teclado en scroll
+    useCloseKeyboardOnScroll({
+        container: containerRef,
+        touchOnly: true,
+        delay: 100, // Pequeño delay para suavizar la experiencia
+        excludeSelectors: [] // Puedes agregar selectores que quieras excluir si es necesario
+    });
 
     return (
         <>
-            <div
-                ref={scrollContainerRef}
-                className="w-full overflow-y-auto"
-                style={{ height: '100svh'}}
-                >
+            <div 
+                ref={containerRef}
+                className="w-full overflow-auto"
+                style={{ height: '100svh' }} // Asegurar que tenga altura para scroll
+            >
                 <OptimizedImage
                     src={imgSrc}
                     alt={imgAlt}
