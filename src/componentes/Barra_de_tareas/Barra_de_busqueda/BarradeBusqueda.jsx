@@ -1,7 +1,6 @@
 import React, { useRef } from "react";
 import { HiSearch } from "react-icons/hi";
 import useScrollVirtualKeyboard from "../../../hooks/useScrollVirtualKeyboard";
-import { useCloseKeyboardOnScroll } from "../../../hooks/useCloseKeyboardOnScroll";
 
 export default function BarradeBusqueda(){
     const inputRef = useRef(null);
@@ -10,11 +9,6 @@ export default function BarradeBusqueda(){
     const handleFocus = () => {
         handleInputFocus(inputRef.current);
     };
-
-    useCloseKeyboardOnScroll({
-        container: null,
-        delay: 0
-    });
 
     return(
         <div className="bg-white dark:bg-gray-500 h-10 w-full
