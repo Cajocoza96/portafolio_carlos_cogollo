@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import useIsMobile from "../../hooks/useIsMobile";
 import windowsEscritorioHorizontal from "/assets/img/escritorio/normal/windowsEscritorioHorizontal.webp";
@@ -7,10 +7,18 @@ import windowsEscritorioVertical from "/assets/img/escritorio/normal/windowsEscr
 import OptimizedImage, { IMAGE_CONFIGS } from "../common/OptimizedImage";
 import BarraDeTareas from "../Barra_de_tareas/BarraDeTareas";
 
+import VentanaInicio from "../Ventana_Inicio/VentanaInicio";
+
 export default function Escritorio() {
     const isMobile = useIsMobile();
     const imgSrc = isMobile ? windowsEscritorioVertical : windowsEscritorioHorizontal;
     const imgAlt = isMobile ? "Welcome vertical view" : "Welcome horizontal view";
+
+    const [verVentanaInicio, setVerVentanaInicio] = useState(false);
+
+    const toggleVerVentanaInicio = () => {
+        setVerVentanaInicio(!verVentanaInicio);
+    }
 
     return (
         <>
@@ -28,8 +36,13 @@ export default function Escritorio() {
                 />
             </div>
 
-            <BarraDeTareas />
+            {verVentanaInicio && (
+                <div className="absolute bottom-10 left-0 right-0">
+                    <VentanaInicio />
+                </div>
+            )}
 
+            <BarraDeTareas toggleVerVentanaInicio={toggleVerVentanaInicio} />
         </>
     );
 }
