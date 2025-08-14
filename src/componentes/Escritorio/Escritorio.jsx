@@ -19,7 +19,7 @@ export default function Escritorio() {
     const toggleVerVentanaInicio = () => {
         setVerVentanaInicio(!verVentanaInicio);
     }
-    
+
 
     return (
         <>
@@ -38,12 +38,7 @@ export default function Escritorio() {
             </div>
 
             {verVentanaInicio && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center"
-                    onClick={toggleVerVentanaInicio}>
-                    <div className="fixed bottom-10 left-0 right-0">
-                        <VentanaInicio />
-                    </div>
-                </div>
+                <VentanaInicio toggleVerVentanaInicio={toggleVerVentanaInicio}/>
             )}
 
             <BarraDeTareas toggleVerVentanaInicio={toggleVerVentanaInicio} />
