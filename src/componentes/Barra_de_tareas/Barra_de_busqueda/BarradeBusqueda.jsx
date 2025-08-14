@@ -13,9 +13,7 @@ export default function BarradeBusqueda(){
 
     useCloseKeyboardOnScroll({
         container: null,
-        touchOnly: true,
-        delay: 0,
-        excludeSelectors: []
+        delay: 0
     });
 
     return(
