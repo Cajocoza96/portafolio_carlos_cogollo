@@ -9,6 +9,8 @@ import BarraDeTareas from "../Barra_de_tareas/BarraDeTareas";
 
 import VentanaInicio from "../Ventana_Inicio/VentanaInicio";
 
+import ContIconArcEscritorio from "./ContIconArcEscritorio";
+
 export default function Escritorio() {
     const isMobile = useIsMobile();
     const imgSrc = isMobile ? windowsEscritorioVertical : windowsEscritorioHorizontal;
@@ -36,6 +38,8 @@ export default function Escritorio() {
                     {...IMAGE_CONFIGS.CRITICAL}
                 />
             </div>
+
+            <ContIconArcEscritorio />
 
             {verVentanaInicio && (
                 <VentanaInicio toggleVerVentanaInicio={toggleVerVentanaInicio}/>
