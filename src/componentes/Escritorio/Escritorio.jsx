@@ -7,7 +7,7 @@ import windowsEscritorioVertical from "/assets/img/escritorio/normal/windowsEscr
 import OptimizedImage, { IMAGE_CONFIGS } from "../common/OptimizedImage";
 import BarraDeTareas from "../Barra_de_tareas/BarraDeTareas";
 
-import VentanaInicio from "../Ventana_Inicio/VentanaInicio";
+import VentanaInicio from "../Ventanas/Ventana_inicio/VentanaInicio";
 
 import ContIconArcEscritorio from "./ContIconArcEscritorio";
 
@@ -22,6 +22,11 @@ export default function Escritorio() {
         setVerVentanaInicio(!verVentanaInicio);
     }
 
+    const [verArchivo, setVerArchivo] = useState(false);
+
+    const toggleVerArchivo = () => {
+        setVerArchivo(!verArchivo);
+    }
 
     return (
         <>
@@ -39,13 +44,23 @@ export default function Escritorio() {
                 />
             </div>
 
-            <ContIconArcEscritorio />
+            <ContIconArcEscritorio 
+                toggleVerArchivo={toggleVerArchivo}
+                verArchivo={verArchivo}
+                />
 
             {verVentanaInicio && (
-                <VentanaInicio toggleVerVentanaInicio={toggleVerVentanaInicio}/>
+                <VentanaInicio 
+                    toggleVerVentanaInicio={toggleVerVentanaInicio}
+                    toggleVerArchivo={toggleVerArchivo}
+                    verArchivo={verArchivo}
+                />
             )}
 
-            <BarraDeTareas toggleVerVentanaInicio={toggleVerVentanaInicio} />
+            <BarraDeTareas 
+                toggleVerVentanaInicio={toggleVerVentanaInicio} 
+                verArchivo={verArchivo}
+            />
         </>
     );
 }

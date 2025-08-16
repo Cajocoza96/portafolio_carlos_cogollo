@@ -10,4 +10,8 @@
     -webkit-tap-highlight-color: transparent;
   }
 
+  @theme {
+    --breakpoint-2xs: 600px;
+  }
+
 }

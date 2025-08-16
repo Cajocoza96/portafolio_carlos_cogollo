@@ -4,13 +4,13 @@ import EspacioIzquierdo from "./EspacioIzquierdo";
 import EspacioDerecho from "./EspacioDerecho";
 import EspacioCentro from "./EspacioCentro";
 
-export default function BarraDeTareas({ toggleVerVentanaInicio }) {
+export default function BarraDeTareas({ toggleVerVentanaInicio, verArchivo }) {
     return (
-        <div className="bg-blue-700 dark:bg-black
-                        grid grid-cols-1 sm:grid-cols-[3fr_1fr]
+        <div className="bg-blue-700 dark:bg-black gap-1
+                        grid grid-cols-[3fr_1fr] md:grid-cols-[3fr_1fr_1fr]
                         lg:grid-cols-3 z-60 ">
             <EspacioIzquierdo toggleVerVentanaInicio={toggleVerVentanaInicio}/>
-            <EspacioCentro />
+            <EspacioCentro verArchivo={verArchivo}/>
             <EspacioDerecho/>
         </div>
     );
