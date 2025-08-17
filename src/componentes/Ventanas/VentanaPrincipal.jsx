@@ -122,7 +122,8 @@ export default function VentanaPrincipal({ toggleVerArchivo }) {
                     <div className="text-black text-sm flex flex-row items-center">
                         {/* Botón minimizar */}
                         <div
-                            className="hover:bg-gray-300 active:bg-gray-300 
+                            className="bg-gray-300 
+                                        lg:bg-white lg:hover:bg-gray-300
                                         h-8 w-11 flex items-center justify-center touch-manipulation"
                             onClick={(e) => e.stopPropagation()}
                             onTouchStart={handleTouchStart(() => {})}
@@ -133,7 +134,9 @@ export default function VentanaPrincipal({ toggleVerArchivo }) {
 
                         {/* Botón maximizar/restaurar */}
                         <div
-                            className="hover:bg-gray-300 active:bg-gray-300 h-8 w-11 flex items-center justify-center touch-manipulation"
+                            className="bg-gray-300 
+                                        lg:bg-white lg:hover:bg-gray-300 
+                                        h-8 w-11 flex items-center justify-center touch-manipulation"
                             onClick={(e) => {
                                 e.stopPropagation();
                                 toggleMaximize();
@@ -150,7 +153,10 @@ export default function VentanaPrincipal({ toggleVerArchivo }) {
 
                         {/* Botón cerrar */}
                         <div
-                            className="hover:bg-red-600 hover:text-white active:bg-red-600 active:text-white h-8 w-11 flex items-center justify-center touch-manipulation"
+                            className="bg-red-600  text-white
+                                        lg:bg-white lg:text-black
+                                        lg:hover:bg-red-600 lg:hover:text-white 
+                                        h-8 w-11 flex items-center justify-center touch-manipulation"
                             onClick={(e) => {
                                 e.stopPropagation();
                                 toggleVerArchivo();

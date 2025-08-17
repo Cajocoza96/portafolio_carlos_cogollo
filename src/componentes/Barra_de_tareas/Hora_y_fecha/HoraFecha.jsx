@@ -1,10 +1,13 @@
 import React from "react";
+import { useCurrentTime } from "../../../hooks/useCurrentTime";
 
 export default function HoraFecha() {
+    const { formattedTime, formattedDate } = useCurrentTime();
+
     return (
         <div className="flex flex-col items-center text-xs">
-            <p>04:47 p.m.</p>
-            <p>11/08/2025</p>
+            <p>{formattedTime}</p>
+            <p>{formattedDate}</p>
         </div>
     );
 }
