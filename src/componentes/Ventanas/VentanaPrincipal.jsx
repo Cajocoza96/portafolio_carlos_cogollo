@@ -122,8 +122,7 @@ export default function VentanaPrincipal({ toggleVerArchivo }) {
                     <div className="text-black text-sm flex flex-row items-center">
                         {/* Botón minimizar */}
                         <div
-                            className="bg-gray-300 
-                                        lg:bg-white lg:hover:bg-gray-300
+                            className="bg-white hover:bg-gray-300
                                         h-8 w-11 flex items-center justify-center touch-manipulation"
                             onClick={(e) => e.stopPropagation()}
                             onTouchStart={handleTouchStart(() => {})}
@@ -134,8 +133,7 @@ export default function VentanaPrincipal({ toggleVerArchivo }) {
 
                         {/* Botón maximizar/restaurar */}
                         <div
-                            className="bg-gray-300 
-                                        lg:bg-white lg:hover:bg-gray-300 
+                            className="bg-white hover:bg-gray-300 
                                         h-8 w-11 flex items-center justify-center touch-manipulation"
                             onClick={(e) => {
                                 e.stopPropagation();
@@ -153,9 +151,8 @@ export default function VentanaPrincipal({ toggleVerArchivo }) {
 
                         {/* Botón cerrar */}
                         <div
-                            className="bg-red-600  text-white
-                                        lg:bg-white lg:text-black
-                                        lg:hover:bg-red-600 lg:hover:text-white 
+                            className="bg-white text-black
+                                        hover:bg-red-600 hover:text-white 
                                         h-8 w-11 flex items-center justify-center touch-manipulation"
                             onClick={(e) => {
                                 e.stopPropagation();
