@@ -1,13 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import { HiMenu, HiUserCircle, HiCog } from "react-icons/hi";
 import { HiPower } from "react-icons/hi2";
 import { FaRegFileAlt } from "react-icons/fa";
 
-export default function ContVentanaInicio({ toggleVerVentanaInicio, toggleVerArchivo, verArchivo }) {
+import OpcionesApagado from "./Opcion_usua_config_apagado/OpcionesApagado";
+
+export default function ContVentanaInicio({ toggleVerVentanaInicio, toggleVerArchivo }) {
+
+    const [verOpcionesApagado, setVerOpcionesApagado] = useState(false);
+
+    const toggleVerOpcionesApagado = () => {
+        setVerOpcionesApagado(!verOpcionesApagado);
+    }
+
     return (
         <div className="h-full w-full mx-auto 
-                        grid grid-cols-[47px_3fr_3fr] 2xs:grid-cols-[45px_2fr_3fr]">
-
+                        grid grid-cols-[47px_3fr_3fr] 2xs:grid-cols-[45px_2fr_3fr] relative">
+            
+            {verOpcionesApagado && (
+                <OpcionesApagado toggleVerOpcionesApagado={toggleVerOpcionesApagado}/>
+            )}
+            
             <div className="flex flex-col h-full overflow-y-auto">
                 <div className="w-full h-full flex flex-col justify-between">
                     <div className="hover:bg-blue-500 dark:bg-gray-700
@@ -33,7 +46,8 @@ export default function ContVentanaInicio({ toggleVerVentanaInicio, toggleVerArc
                         <div className="hover:bg-blue-500 dark:bg-gray-700
                                         active:bg-blue-400 dark:active:bg-gray-600
                                         h-10 w-10 p-1
-                                        flex items-center justify-center">
+                                        flex items-center justify-center"
+                            onClick={toggleVerOpcionesApagado}>
                             <HiPower className="text-base lg:text-xl 2xl:text-2xl text-white" />
                         </div>
                     </div>
