@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { HiOutlineLockClosed, HiOutlineMoon, HiPower, HiOutlineArrowPath } from "react-icons/hi2";
 
 export default function OpcionesApagado({ toggleVerOpcionesApagado, 

@@ -5,10 +5,12 @@ import { FaRegFileAlt } from "react-icons/fa";
 
 import OpcionesApagado from "./Opcion_usua_config_apagado/OpcionesApagado";
 
-export default function ContVentanaInicio({ toggleVerVentanaInicio, toggleVerArchivo, 
-                                            toggleVerVentanaBloqueo, toggleVerVentanaSuspendido,
-                                            toggleVerVentanaApagado, toggleVerVentanaReinicio,
-                                            setUserInteracted }) {
+import InfoUsuario from "./Opcion_usua_config_apagado/InfoUsuario";
+
+export default function ContVentanaInicio({ toggleVerVentanaInicio, toggleVerArchivo,
+    toggleVerVentanaBloqueo, toggleVerVentanaSuspendido,
+    toggleVerVentanaApagado, toggleVerVentanaReinicio,
+    setUserInteracted }) {
 
     const [verOpcionesApagado, setVerOpcionesApagado] = useState(false);
 
@@ -16,12 +18,24 @@ export default function ContVentanaInicio({ toggleVerVentanaInicio, toggleVerArc
         setVerOpcionesApagado(!verOpcionesApagado);
     }
 
+
+    const [verInfoUsuario, setVerInfoUsuario] = useState(false);
+
+    const toogleVerInfoUsuario = () => {
+        setVerInfoUsuario(!verInfoUsuario);
+    }
+
     return (
         <div className="h-full w-full mx-auto 
                         grid grid-cols-[47px_3fr_3fr] 2xs:grid-cols-[45px_2fr_3fr] relative">
-            
+
+            {verInfoUsuario && (
+                <InfoUsuario toogleVerInfoUsuario={toogleVerInfoUsuario}/>
+            )}
+
+
             {verOpcionesApagado && (
-                <OpcionesApagado 
+                <OpcionesApagado
                     toggleVerOpcionesApagado={toggleVerOpcionesApagado}
                     toggleVerVentanaBloqueo={toggleVerVentanaBloqueo}
                     toggleVerVentanaSuspendido={toggleVerVentanaSuspendido}
@@ -30,13 +44,13 @@ export default function ContVentanaInicio({ toggleVerVentanaInicio, toggleVerArc
                     setUserInteracted={setUserInteracted}
                 />
             )}
-            
+
             <div className="flex flex-col h-full overflow-y-auto">
                 <div className="w-full h-full flex flex-col justify-between">
                     <div className="hover:bg-blue-500 dark:bg-gray-700
                                     active:bg-blue-400 dark:active:bg-gray-600
                                     h-10 w-10 p-1
-                                    flex items-center justify-center">
+                                    flex items-center justify-center" title="Inicio">
                         <HiMenu className="text-base lg:text-xl 2xl:text-2xl text-white" />
                     </div>
 
@@ -44,20 +58,21 @@ export default function ContVentanaInicio({ toggleVerVentanaInicio, toggleVerArc
                         <div className="hover:bg-blue-500 dark:bg-gray-700
                                         active:bg-blue-400 dark:active:bg-gray-600
                                         h-10 w-10 p-1
-                                        flex items-center justify-center">
+                                        flex items-center justify-center" 
+                            onClick={toogleVerInfoUsuario} title="Carlos Cogollo">
                             <HiUserCircle className="text-base lg:text-xl 2xl:text-2xl text-white" />
                         </div>
                         <div className="hover:bg-blue-500 dark:bg-gray-700
                                         active:bg-blue-400 dark:active:bg-gray-600
                                         h-10 w-10 p-1
-                                        flex items-center justify-center">
+                                        flex items-center justify-center" title="Configuración">
                             <HiCog className="text-base lg:text-xl 2xl:text-2xl text-white" />
                         </div>
                         <div className="hover:bg-blue-500 dark:bg-gray-700
                                         active:bg-blue-400 dark:active:bg-gray-600
                                         h-10 w-10 p-1
                                         flex items-center justify-center"
-                            onClick={toggleVerOpcionesApagado}>
+                            onClick={toggleVerOpcionesApagado} title="Inicio/apagado">
                             <HiPower className="text-base lg:text-xl 2xl:text-2xl text-white" />
                         </div>
                     </div>
@@ -206,7 +221,7 @@ export default function ContVentanaInicio({ toggleVerVentanaInicio, toggleVerArc
                             toggleVerArchivo()
                             toggleVerVentanaInicio()
                         }}
-                        >
+                    >
                         <FaRegFileAlt className="text-xl lg:text-2xl 2xl:text-3xl text-white" />
                         <p className="text-xs lg:text-sm 2xl:text-base 
                                             text-white text-center"
