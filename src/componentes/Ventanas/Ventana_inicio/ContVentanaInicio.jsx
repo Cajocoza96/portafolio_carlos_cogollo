@@ -5,7 +5,9 @@ import { FaRegFileAlt } from "react-icons/fa";
 
 import OpcionesApagado from "./Opcion_usua_config_apagado/OpcionesApagado";
 
-export default function ContVentanaInicio({ toggleVerVentanaInicio, toggleVerArchivo }) {
+export default function ContVentanaInicio({ toggleVerVentanaInicio, toggleVerArchivo, 
+                                            toggleVerVentanaBloqueo, toggleVerVentanaSuspendido,
+                                            toggleVerVentanaApagado, toggleVerVentanaReinicio}) {
 
     const [verOpcionesApagado, setVerOpcionesApagado] = useState(false);
 
@@ -18,7 +20,13 @@ export default function ContVentanaInicio({ toggleVerVentanaInicio, toggleVerArc
                         grid grid-cols-[47px_3fr_3fr] 2xs:grid-cols-[45px_2fr_3fr] relative">
             
             {verOpcionesApagado && (
-                <OpcionesApagado toggleVerOpcionesApagado={toggleVerOpcionesApagado}/>
+                <OpcionesApagado 
+                    toggleVerOpcionesApagado={toggleVerOpcionesApagado}
+                    toggleVerVentanaBloqueo={toggleVerVentanaBloqueo}
+                    toggleVerVentanaSuspendido={toggleVerVentanaSuspendido}
+                    toggleVerVentanaApagado={toggleVerVentanaApagado}
+                    toggleVerVentanaReinicio={toggleVerVentanaReinicio}
+                />
             )}
             
             <div className="flex flex-col h-full overflow-y-auto">

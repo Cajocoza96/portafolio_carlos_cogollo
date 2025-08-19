@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { HiOutlineLockClosed, HiOutlineMoon, HiPower, HiOutlineArrowPath } from "react-icons/hi2";
 
-export default function OpcionesApagado({ toggleVerOpcionesApagado }) {
+export default function OpcionesApagado({ toggleVerOpcionesApagado, 
+                                            toggleVerVentanaBloqueo, toggleVerVentanaSuspendido,
+                                            toggleVerVentanaApagado, toggleVerVentanaReinicio }) {
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center"
@@ -13,7 +15,8 @@ export default function OpcionesApagado({ toggleVerOpcionesApagado }) {
                 <div className="w-full h-full p-1">
                     <div className="hover:bg-blue-500 dark:bg-gray-700
                                 active:bg-blue-400 dark:active:bg-gray-600
-                                h-auto w-auto p-1 overflow-hidden select-none">
+                                h-auto w-auto p-1 overflow-hidden select-none"
+                        onClick={toggleVerVentanaBloqueo}>
                         <div className="text-white flex flex-row items-center gap-2">
                             <HiOutlineLockClosed className="text-base lg:text-xl 2xl:text-2xl" />
                             <p className="text-xs lg:text-sm 2xl:text-base">
@@ -24,7 +27,8 @@ export default function OpcionesApagado({ toggleVerOpcionesApagado }) {
 
                     <div className="hover:bg-blue-500 dark:bg-gray-700
                                 active:bg-blue-400 dark:active:bg-gray-600
-                                h-auto w-auto p-1 overflow-hidden select-none">
+                                h-auto w-auto p-1 overflow-hidden select-none"
+                        onClick={toggleVerVentanaSuspendido}>
                         <div className="text-white flex flex-row items-center gap-2">
                             <HiOutlineMoon className="text-base lg:text-xl 2xl:text-2xl" />
                             <p className="text-xs lg:text-sm 2xl:text-base">
@@ -35,7 +39,8 @@ export default function OpcionesApagado({ toggleVerOpcionesApagado }) {
 
                     <div className="hover:bg-blue-500 dark:bg-gray-700
                                 active:bg-blue-400 dark:active:bg-gray-600
-                                h-auto w-auto p-1 overflow-hidden select-none">
+                                h-auto w-auto p-1 overflow-hidden select-none"
+                        onClick={toggleVerVentanaApagado}>
                         <div className="text-white flex flex-row items-center gap-2">
                             <HiPower className="text-base lg:text-xl 2xl:text-2xl" />
                             <p className="text-xs lg:text-sm 2xl:text-base">
@@ -46,7 +51,8 @@ export default function OpcionesApagado({ toggleVerOpcionesApagado }) {
 
                     <div className="hover:bg-blue-500 dark:bg-gray-700
                                 active:bg-blue-400 dark:active:bg-gray-600
-                                h-auto w-auto p-1 overflow-hidden select-none">
+                                h-auto w-auto p-1 overflow-hidden select-none"
+                        onClick={toggleVerVentanaReinicio}>
                         <div className="text-white flex flex-row items-center gap-2">
                             <HiOutlineArrowPath className="text-base lg:text-xl 2xl:text-2xl" />
                             <p className="text-xs lg:text-sm 2xl:text-base">
