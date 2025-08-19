@@ -3,7 +3,40 @@ import { HiOutlineLockClosed, HiOutlineMoon, HiPower, HiOutlineArrowPath } from 
 
 export default function OpcionesApagado({ toggleVerOpcionesApagado, 
                                             toggleVerVentanaBloqueo, toggleVerVentanaSuspendido,
-                                            toggleVerVentanaApagado, toggleVerVentanaReinicio }) {
+                                            toggleVerVentanaApagado, toggleVerVentanaReinicio,
+                                            setUserInteracted}) {
+
+    // Función que se ejecuta al hacer clic en "Bloquear"
+    const handleBloquearClick = () => {
+        // Activar la interacción del usuario para permitir audio
+        setUserInteracted(true);
+        // Ejecutar la función original de bloquear
+        toggleVerVentanaBloqueo();
+    };
+
+    // Función que se ejecuta al hacer clic en "Suspender"
+    const handleSuspenderClick = () => {
+        // Activar la interacción del usuario para permitir audio
+        setUserInteracted(true);
+        // Ejecutar la función original de suspender
+        toggleVerVentanaSuspendido();
+    };
+
+    // Función que se ejecuta al hacer clic en "Apagar"
+    const handleApagarClick = () => {
+        // Activar la interacción del usuario para permitir audio
+        setUserInteracted(true);
+        // Ejecutar la función original de apagar
+        toggleVerVentanaApagado();
+    };
+
+    // Función que se ejecuta al hacer clic en "Reiniciar"
+    const handleReiniciarClick = () => {
+        // Activar la interacción del usuario para permitir audio
+        setUserInteracted(true);
+        // Ejecutar la función original de reiniciar
+        toggleVerVentanaReinicio();
+    };
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center"
@@ -13,10 +46,12 @@ export default function OpcionesApagado({ toggleVerOpcionesApagado,
                                 w-[35%] 2xs:w-[30%] md:w-[25%] lg:w-[20%] 2xl:w-[15%]
                                 absolute bottom-20 left-0">
                 <div className="w-full h-full p-1">
+
+                    {/*Aqui quiero que se active la logica que permite reproducir el audio */}
                     <div className="hover:bg-blue-500 dark:bg-gray-700
                                 active:bg-blue-400 dark:active:bg-gray-600
                                 h-auto w-auto p-1 overflow-hidden select-none"
-                        onClick={toggleVerVentanaBloqueo}>
+                        onClick={handleBloquearClick}>
                         <div className="text-white flex flex-row items-center gap-2">
                             <HiOutlineLockClosed className="text-base lg:text-xl 2xl:text-2xl" />
                             <p className="text-xs lg:text-sm 2xl:text-base">
@@ -24,11 +59,12 @@ export default function OpcionesApagado({ toggleVerOpcionesApagado,
                             </p>
                         </div>
                     </div>
+                    {/**/}
 
                     <div className="hover:bg-blue-500 dark:bg-gray-700
                                 active:bg-blue-400 dark:active:bg-gray-600
                                 h-auto w-auto p-1 overflow-hidden select-none"
-                        onClick={toggleVerVentanaSuspendido}>
+                        onClick={handleSuspenderClick}>
                         <div className="text-white flex flex-row items-center gap-2">
                             <HiOutlineMoon className="text-base lg:text-xl 2xl:text-2xl" />
                             <p className="text-xs lg:text-sm 2xl:text-base">
@@ -40,7 +76,7 @@ export default function OpcionesApagado({ toggleVerOpcionesApagado,
                     <div className="hover:bg-blue-500 dark:bg-gray-700
                                 active:bg-blue-400 dark:active:bg-gray-600
                                 h-auto w-auto p-1 overflow-hidden select-none"
-                        onClick={toggleVerVentanaApagado}>
+                        onClick={handleApagarClick}>
                         <div className="text-white flex flex-row items-center gap-2">
                             <HiPower className="text-base lg:text-xl 2xl:text-2xl" />
                             <p className="text-xs lg:text-sm 2xl:text-base">
@@ -52,7 +88,7 @@ export default function OpcionesApagado({ toggleVerOpcionesApagado,
                     <div className="hover:bg-blue-500 dark:bg-gray-700
                                 active:bg-blue-400 dark:active:bg-gray-600
                                 h-auto w-auto p-1 overflow-hidden select-none"
-                        onClick={toggleVerVentanaReinicio}>
+                        onClick={handleReiniciarClick}>
                         <div className="text-white flex flex-row items-center gap-2">
                             <HiOutlineArrowPath className="text-base lg:text-xl 2xl:text-2xl" />
                             <p className="text-xs lg:text-sm 2xl:text-base">

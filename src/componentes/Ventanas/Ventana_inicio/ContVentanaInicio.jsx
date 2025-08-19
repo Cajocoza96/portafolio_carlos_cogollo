@@ -7,7 +7,8 @@ import OpcionesApagado from "./Opcion_usua_config_apagado/OpcionesApagado";
 
 export default function ContVentanaInicio({ toggleVerVentanaInicio, toggleVerArchivo, 
                                             toggleVerVentanaBloqueo, toggleVerVentanaSuspendido,
-                                            toggleVerVentanaApagado, toggleVerVentanaReinicio}) {
+                                            toggleVerVentanaApagado, toggleVerVentanaReinicio,
+                                            setUserInteracted }) {
 
     const [verOpcionesApagado, setVerOpcionesApagado] = useState(false);
 
@@ -26,6 +27,7 @@ export default function ContVentanaInicio({ toggleVerVentanaInicio, toggleVerArc
                     toggleVerVentanaSuspendido={toggleVerVentanaSuspendido}
                     toggleVerVentanaApagado={toggleVerVentanaApagado}
                     toggleVerVentanaReinicio={toggleVerVentanaReinicio}
+                    setUserInteracted={setUserInteracted}
                 />
             )}
             

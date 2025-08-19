@@ -10,9 +10,8 @@ import RisaRamon from "../../../../assets/audio/RisaRamon.mp3";
 
 import useIsMobile from "../../../../hooks/useIsMobile";
 
-export default function VistaApagadoInicio({ accionApagadoInicio, mentiraApagadoInicio }) {
+export default function VistaApagadoInicio({ accionApagadoInicio, mentiraApagadoInicio, userInteracted = false }) {
     const [showSecondContainer, setShowSecondContainer] = useState(false);
-    const [userInteracted, setUserInteracted] = useState(false);
     const audioRef = useRef(null);
 
     // Estados para las dimensiones del confetti
@@ -47,20 +46,6 @@ export default function VistaApagadoInicio({ accionApagadoInicio, mentiraApagado
     }, [isMobile]); // Se ejecuta cuando cambia isMobile
 
     useEffect(() => {
-        // Función para detectar la primera interacción del usuario
-        const enableAudio = () => {
-            setUserInteracted(true);
-            // Remover los event listeners después de la primera interacción
-            document.removeEventListener('click', enableAudio);
-            document.removeEventListener('keydown', enableAudio);
-            document.removeEventListener('touchstart', enableAudio);
-        };
-
-        // Agregar event listeners para detectar interacción
-        document.addEventListener('click', enableAudio);
-        document.addEventListener('keydown', enableAudio);
-        document.addEventListener('touchstart', enableAudio);
-
         // Timer para mostrar el segundo contenedor después de 5 segundos
         const timer = setTimeout(() => {
             setShowSecondContainer(true);
@@ -69,9 +54,6 @@ export default function VistaApagadoInicio({ accionApagadoInicio, mentiraApagado
         // Cleanup
         return () => {
             clearTimeout(timer);
-            document.removeEventListener('click', enableAudio);
-            document.removeEventListener('keydown', enableAudio);
-            document.removeEventListener('touchstart', enableAudio);
         };
     }, []);
 
@@ -89,49 +71,38 @@ export default function VistaApagadoInicio({ accionApagadoInicio, mentiraApagado
 
     const handleContainerClick = (e) => {
         e.stopPropagation();
-        // Si el usuario no ha interactuado aún, marcar como interactuado
-        if (!userInteracted) {
-            setUserInteracted(true);
-        }
     };
 
     return (
         <div className="bg-blue-700 w-screen h-[100svh]  
                         fixed inset-0 z-80"
             onClick={handleContainerClick}>
-            
+
             {/* Audio element oculto */}
-            <audio 
-                ref={audioRef} 
-                src={RisaRamon} 
+            <audio
+                ref={audioRef}
+                src={RisaRamon}
                 preload="auto"
                 style={{ display: 'none' }}
             />
 
             {/* Primer contenedor - se muestra los primeros 5 segundos */}
             {!showSecondContainer && (
-                <div className="border border-white h-[100svh] flex flex-col items-center justify-center gap-3">
+                <div className="h-[100svh] flex flex-col items-center justify-center gap-3">
                     <FaSpinner className="animate-spin text-xl lg:text-2xl 2xl:text-3xl 
                                         text-white text-center"/>
 
                     <span className="text-base lg:text-xl 2xl:text-2xl 
-                                text-white text-center">
+                                text-white text-center select-none">
                         {accionApagadoInicio} el equipo
                     </span>
-                    
-                    {!userInteracted && (
-                        <p className="text-xs lg:text-sm 2xl:text-base 
-                                    text-white/70 text-center mt-4">
-                            Haz clic en cualquier lugar para habilitar el sonido
-                        </p>
-                    )}
                 </div>
             )}
 
             {/* Segundo contenedor - se muestra después de 5 segundos */}
             {showSecondContainer && (
-                <div className="border border-white h-[100svh] flex flex-col items-center justify-center gap-3">
-                    <Confetti 
+                <div className="h-[100svh] flex flex-col items-center justify-center gap-3">
+                    <Confetti
                         width={confettiDimensions.width}
                         height={confettiDimensions.height}
                         numberOfPieces={300}
@@ -148,12 +119,12 @@ export default function VistaApagadoInicio({ accionApagadoInicio, mentiraApagado
                     </div>
 
                     <p className="text-base lg:text-xl 2xl:text-2xl 
-                                text-white text-center">
+                                text-white text-center select-none">
                         Mentira <span translate="no">xD</span>
                     </p>
 
                     <span className="text-base lg:text-xl 2xl:text-2xl 
-                                text-white text-center">
+                                text-white text-center select-none">
                         No se ha {mentiraApagadoInicio}
                     </span>
                 </div>

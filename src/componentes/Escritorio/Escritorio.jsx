@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import useIsMobile from "../../hooks/useIsMobile";
 import windowsEscritorioHorizontal from "/assets/img/escritorio/normal/windowsEscritorioHorizontal.webp";
@@ -33,12 +33,32 @@ export default function Escritorio() {
 
     /*Estados para ventana de bloqueo, suspendido, apagado y reiniciando*/
 
+    // Estado para controlar la interacción del usuario para el audio
+    const [userInteracted, setUserInteracted] = useState(false);
+
     /*Estado para ver ventana de bloqueo*/
     const [verVentanaBloqueo, setVerVentanaBloqueo] = useState(false);
 
     const toggleVerVentanaBloqueo = () => {
         setVerVentanaBloqueo(!verVentanaBloqueo);
     }
+
+    useEffect(() => {
+        let timer;
+        if (verVentanaBloqueo) {
+            timer = setTimeout(() => {
+                setVerVentanaBloqueo(false);
+            }, 14000);
+        }
+
+        //limpiar el timer cuando el componente se desmonte o cuando verVentanaBloqueo cambie
+        return () => {
+            if (timer) {
+                clearTimeout(timer);
+            }
+        }
+    }, [verVentanaBloqueo]);
+
 
     /*Estado para ver ventana de suspendido*/
     const [verVentanaSuspendido, setVerVentanaSuspendido] = useState(false);
@@ -47,12 +67,44 @@ export default function Escritorio() {
         setVerVentanaSuspendido(!verVentanaSuspendido);
     }
 
+    useEffect(() => {
+        let timer;
+        if (verVentanaSuspendido) {
+            timer = setTimeout(() => {
+                setVerVentanaSuspendido(false);
+            }, 14000);
+        }
+
+        //limpiar el timer cuando el componente se desmonte o cuando verVentanaBloqueo cambie
+        return () => {
+            if (timer) {
+                clearTimeout(timer);
+            }
+        }
+    }, [verVentanaSuspendido]);
+
     /*Estado para ver ventana de apagado*/
     const [verVentanaApagado, setVerVentanaApagado] = useState(false);
 
     const toggleVerVentanaApagado = () => {
         setVerVentanaApagado(!verVentanaApagado);
     }
+
+    useEffect(() => {
+        let timer;
+        if (verVentanaApagado) {
+            timer = setTimeout(() => {
+                setVerVentanaApagado(false);
+            }, 14000);
+        }
+
+        //limpiar el timer cuando el componente se desmonte o cuando verVentanaBloqueo cambie
+        return () => {
+            if (timer) {
+                clearTimeout(timer);
+            }
+        }
+    }, [verVentanaApagado]);
 
     /*Estado para ver ventana de reinicio*/
     const [verVentanaReinicio, setVerVentanaReinicio] = useState(false);
@@ -61,7 +113,21 @@ export default function Escritorio() {
         setVerVentanaReinicio(!verVentanaReinicio);
     }
 
-    
+    useEffect(() => {
+        let timer;
+        if (verVentanaReinicio) {
+            timer = setTimeout(() => {
+                setVerVentanaReinicio(false);
+            }, 14000);
+        }
+
+        //limpiar el timer cuando el componente se desmonte o cuando verVentanaBloqueo cambie
+        return () => {
+            if (timer) {
+                clearTimeout(timer);
+            }
+        }
+    }, [verVentanaReinicio]);
 
     return (
         <>
@@ -79,13 +145,13 @@ export default function Escritorio() {
                 />
             </div>
 
-            <ContIconArcEscritorio 
+            <ContIconArcEscritorio
                 toggleVerArchivo={toggleVerArchivo}
                 verArchivo={verArchivo}
-                />
+            />
 
             {verVentanaInicio && (
-                <VentanaInicio 
+                <VentanaInicio
                     toggleVerVentanaInicio={toggleVerVentanaInicio}
                     toggleVerArchivo={toggleVerArchivo}
                     toggleVerVentanaBloqueo={toggleVerVentanaBloqueo}
@@ -93,44 +159,50 @@ export default function Escritorio() {
                     toggleVerVentanaApagado={toggleVerVentanaApagado}
                     toggleVerVentanaReinicio={toggleVerVentanaReinicio}
                     verArchivo={verArchivo}
-                    
+
+                    setUserInteracted={setUserInteracted}
+
                 />
             )}
-            
+
             {/*Esto es para ver la ventana de bloqueo*/}
             {verVentanaBloqueo && (
-                <VistaApagadoInicio 
+                <VistaApagadoInicio
                     accionApagadoInicio="Bloqueando"
                     mentiraApagadoInicio="bloqueado"
+                    userInteracted={userInteracted}
                 />
             )}
 
             {/*Esto es para ver la ventana de suspendido*/}
             {verVentanaSuspendido && (
-                <VistaApagadoInicio 
+                <VistaApagadoInicio
                     accionApagadoInicio="Suspendiendo"
                     mentiraApagadoInicio="suspendido"
+                    userInteracted={userInteracted}
                 />
             )}
 
             {/*Esto es para ver la ventana de apagado*/}
             {verVentanaApagado && (
-                <VistaApagadoInicio 
+                <VistaApagadoInicio
                     accionApagadoInicio="Apagando"
                     mentiraApagadoInicio="apagado"
+                    userInteracted={userInteracted}
                 />
             )}
 
             {/*Esto es para ver la ventana de reinicio*/}
             {verVentanaReinicio && (
-                <VistaApagadoInicio 
+                <VistaApagadoInicio
                     accionApagadoInicio="Reiniciando"
                     mentiraApagadoInicio="reiniciado"
+                    userInteracted={userInteracted}
                 />
             )}
-            
-            <BarraDeTareas 
-                toggleVerVentanaInicio={toggleVerVentanaInicio} 
+
+            <BarraDeTareas
+                toggleVerVentanaInicio={toggleVerVentanaInicio}
                 verArchivo={verArchivo}
             />
         </>

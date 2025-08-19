@@ -4,7 +4,7 @@ import ContVentanaInicio from "./ContVentanaInicio";
 export default function VentanaInicio({ toggleVerVentanaInicio, toggleVerArchivo, 
                                         toggleVerVentanaBloqueo, toggleVerVentanaSuspendido,
                                         toggleVerVentanaApagado, toggleVerVentanaReinicio,
-                                        verArchivo }) {
+                                        verArchivo, setUserInteracted }) {
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center" 
                 onClick={toggleVerVentanaInicio}>
@@ -20,6 +20,7 @@ export default function VentanaInicio({ toggleVerVentanaInicio, toggleVerArchivo
                     toggleVerVentanaApagado={toggleVerVentanaApagado}
                     toggleVerVentanaReinicio={toggleVerVentanaReinicio}
                     verArchivo={verArchivo}
+                    setUserInteracted={setUserInteracted}
                 />
                 </div>
             </div>
