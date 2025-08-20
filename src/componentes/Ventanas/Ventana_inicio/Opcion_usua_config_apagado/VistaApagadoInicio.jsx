@@ -6,7 +6,7 @@ import caritaRisa from "../../../../assets/lottie/caritaRisa.json";
 
 import Confetti from "react-confetti";
 
-import RisaRamon from "../../../../assets/audio/RisaRamon.mp3";
+import RisaRamon from "/assets/audio/RisaRamon.mp3";
 
 import useIsMobile from "../../../../hooks/useIsMobile";
 
