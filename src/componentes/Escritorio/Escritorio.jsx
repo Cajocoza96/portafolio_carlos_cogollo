@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 
 import useIsMobile from "../../hooks/useIsMobile";
 import windowsEscritorioHorizontal from "/assets/img/escritorio/normal/windowsEscritorioHorizontal.webp";
@@ -15,8 +15,14 @@ import VistaApagadoInicio from "../Ventanas/Ventana_inicio/Opcion_usua_config_ap
 
 export default function Escritorio() {
     const isMobile = useIsMobile();
-    const imgSrc = isMobile ? windowsEscritorioVertical : windowsEscritorioHorizontal;
-    const imgAlt = isMobile ? "Welcome vertical view" : "Welcome horizontal view";
+
+    // Memoizar la configuración de la imagen para evitar recálculos innecesarios
+    const imageConfig = useMemo(() => {
+        return {
+            src: isMobile ? windowsEscritorioVertical : windowsEscritorioHorizontal,
+            alt: isMobile ? "Bienvenido vista vertical" : "Bienvenido vista horizontal"
+        };
+    }, [isMobile]);
 
     const [verVentanaInicio, setVerVentanaInicio] = useState(false);
 
@@ -133,8 +139,8 @@ export default function Escritorio() {
         <>
             <div className="w-full">
                 <OptimizedImage
-                    src={imgSrc}
-                    alt={imgAlt}
+                    src={imageConfig.src}
+                    alt={imageConfig.alt}
                     className="w-screen brightness-60 dark:brightness-50"
                     asBackground={true}
                     backgroundSize="cover"
