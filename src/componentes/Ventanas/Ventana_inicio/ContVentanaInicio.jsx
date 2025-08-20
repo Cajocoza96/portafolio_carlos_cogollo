@@ -57,30 +57,30 @@ export default function ContVentanaInicio({ toggleVerVentanaInicio, toggleVerArc
 
             <div className="flex flex-col h-full overflow-y-auto">
                 <div className="w-full h-full flex flex-col justify-between">
-                    <div className="hover:bg-blue-500 dark:bg-gray-700
-                                    active:bg-blue-400 dark:active:bg-gray-600
+                    <div className="hover:bg-blue-600 hover:dark:bg-gray-700
+                                    active:bg-blue-500 dark:active:bg-gray-600
                                     h-10 w-10 p-1
                                     flex items-center justify-center" title="Inicio">
                         <HiMenu className="text-base lg:text-xl 2xl:text-2xl text-white" />
                     </div>
 
                     <div className="flex flex-col justity-center">
-                        <div className="hover:bg-blue-500 dark:bg-gray-700
-                                        active:bg-blue-400 dark:active:bg-gray-600
+                        <div className="hover:bg-blue-600 hover:dark:bg-gray-700
+                                        active:bg-blue-500 dark:active:bg-gray-600
                                         h-10 w-10 p-1
                                         flex items-center justify-center"
                             onClick={toogleVerInfoUsuario} title="Carlos Cogollo">
                             <HiUserCircle className="text-base lg:text-xl 2xl:text-2xl text-white" />
                         </div>
-                        <div className="hover:bg-blue-500 dark:bg-gray-700
-                                        active:bg-blue-400 dark:active:bg-gray-600
+                        <div className="hover:bg-blue-600 hover:dark:bg-gray-700
+                                        active:bg-blue-500 dark:active:bg-gray-600
                                         h-10 w-10 p-1
                                         flex items-center justify-center" title="Configuración"
                             onClick={toggleVerConfigTema}>
                             <HiCog className="text-base lg:text-xl 2xl:text-2xl text-white" />
                         </div>
-                        <div className="hover:bg-blue-500 dark:bg-gray-700
-                                        active:bg-blue-400 dark:active:bg-gray-600
+                        <div className="hover:bg-blue-600 hover:dark:bg-gray-700
+                                        active:bg-blue-500 dark:active:bg-gray-600
                                         h-10 w-10 p-1
                                         flex items-center justify-center"
                             onClick={toggleVerOpcionesApagado} title="Inicio/apagado">
@@ -93,8 +93,8 @@ export default function ContVentanaInicio({ toggleVerVentanaInicio, toggleVerArc
             <div className="flex flex-col h-full overflow-y-auto select-none">
                 <div className="w-full h-full grid grid-cols-1">
                     <div className="flex flex-col gap-1">
-                        <div className="hover:bg-blue-500 dark:bg-gray-700
-                                        active:bg-blue-400 dark:active:bg-gray-600
+                        <div className="hover:bg-blue-600 hover:dark:bg-gray-700
+                                        active:bg-blue-500 dark:active:bg-gray-600
                                         h-10 w-full p-1
                                         flex items-center ">
                             <div className="ml-1">
@@ -104,8 +104,8 @@ export default function ContVentanaInicio({ toggleVerVentanaInicio, toggleVerArc
                             </div>
                         </div>
 
-                        <div className="hover:bg-blue-500 dark:bg-gray-700
-                                        active:bg-blue-400 dark:active:bg-gray-600
+                        <div className="hover:bg-blue-600 hover:dark:bg-gray-700
+                                        active:bg-blue-500 dark:active:bg-gray-600
                                         h-10 w-full p-1
                                         flex items-center"
                             onClick={() => {
@@ -126,10 +126,10 @@ export default function ContVentanaInicio({ toggleVerVentanaInicio, toggleVerArc
                     </div>
 
                     <div className="flex flex-col gap-2">
-                        <div className="hover:bg-blue-500 dark:bg-gray-700
-                                                    active:bg-blue-400 dark:active:bg-gray-600
-                                                    h-10 w-full p-1
-                                                    flex items-center ">
+                        <div className="hover:bg-blue-600 hover:dark:bg-gray-700
+                                        active:bg-blue-500 dark:active:bg-gray-600
+                                        h-10 w-full p-1
+                                        flex items-center ">
                             <div className="ml-1">
                                 <p className="text-xs lg:text-sm 2xl:text-base text-white">
                                     C
@@ -137,10 +137,10 @@ export default function ContVentanaInicio({ toggleVerVentanaInicio, toggleVerArc
                             </div>
                         </div>
 
-                        <div className="hover:bg-blue-500 dark:bg-gray-700
-                                                active:bg-blue-400 dark:active:bg-gray-600
-                                                h-10 w-full p-1
-                                                flex items-center ">
+                        <div className="hover:bg-blue-600 hover:dark:bg-gray-700
+                                        active:bg-blue-500 dark:active:bg-gray-600
+                                        h-10 w-full p-1
+                                        flex items-center ">
                             <div className="flex flex-row items-center
                                                     h-auto w-auto py-1 gap-2">
                                 <FaRegFileAlt className="text-xl lg:text-2xl 2xl:text-3xl 
@@ -155,10 +155,10 @@ export default function ContVentanaInicio({ toggleVerVentanaInicio, toggleVerArc
                     </div>
 
                     <div className="flex flex-col gap-2">
-                        <div className="hover:bg-blue-500 dark:bg-gray-700
-                                                    active:bg-blue-400 dark:active:bg-gray-600
-                                                    h-10 w-full p-1
-                                                    flex items-center ">
+                        <div className="hover:bg-blue-600 hover:dark:bg-gray-700
+                                        active:bg-blue-500 dark:active:bg-gray-600
+                                        h-10 w-full p-1
+                                        flex items-center ">
                             <div className="ml-1">
                                 <p className="text-xs lg:text-sm 2xl:text-base text-white">
                                     H
@@ -166,10 +166,10 @@ export default function ContVentanaInicio({ toggleVerVentanaInicio, toggleVerArc
                             </div>
                         </div>
 
-                        <div className="hover:bg-blue-500 dark:bg-gray-700
-                                                active:bg-blue-400 dark:active:bg-gray-600
-                                                h-10 w-full p-1
-                                                flex items-center ">
+                        <div className="hover:bg-blue-600 hover:dark:bg-gray-700
+                                        active:bg-blue-500 dark:active:bg-gray-600
+                                        h-10 w-full p-1
+                                        flex items-center ">
                             <div className="flex flex-row items-center
                                                     h-auto w-auto py-1 gap-2">
                                 <FaRegFileAlt className="text-xl lg:text-2xl 2xl:text-3xl 
@@ -184,10 +184,10 @@ export default function ContVentanaInicio({ toggleVerVentanaInicio, toggleVerArc
                     </div>
 
                     <div className="flex flex-col gap-2">
-                        <div className="hover:bg-blue-500 dark:bg-gray-700
-                                                    active:bg-blue-400 dark:active:bg-gray-600
-                                                    h-10 w-full p-1
-                                                    flex items-center ">
+                        <div className="hover:bg-blue-600 hover:dark:bg-gray-700
+                                        active:bg-blue-500 dark:active:bg-gray-600
+                                        h-10 w-full p-1
+                                        flex items-center ">
                             <div className="ml-1">
                                 <p className="text-xs lg:text-sm 2xl:text-base text-white">
                                     P
@@ -195,10 +195,10 @@ export default function ContVentanaInicio({ toggleVerVentanaInicio, toggleVerArc
                             </div>
                         </div>
 
-                        <div className="hover:bg-blue-500 dark:bg-gray-700
-                                                active:bg-blue-400 dark:active:bg-gray-600
-                                                h-10 w-full p-1
-                                                flex items-center ">
+                        <div className="hover:bg-blue-600 hover:dark:bg-gray-700
+                                        active:bg-blue-500 dark:active:bg-gray-600
+                                        h-10 w-full p-1
+                                        flex items-center ">
                             <div className="flex flex-row items-center
                                                     h-auto w-auto py-1 gap-2">
                                 <FaRegFileAlt className="text-xl lg:text-2xl 2xl:text-3xl 

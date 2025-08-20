@@ -7,8 +7,8 @@ export default function EspacioCentro({ verArchivo }) {
                         flex flex-row items-center lg:justify-start">
 
             {verArchivo && (
-                <div className="hover:bg-blue-600 dark:bg-gray-700 
-                                active:bg-blue-500 dark:active:bg-gray-600
+                <div className="hover:bg-blue-700 hover:dark:bg-gray-800
+                                active:bg-blue-600 dark:active:bg-gray-700
                                 border-b-2 border-blue-300 dark:border-gray-300
                                 h-10 w-12 p-1 flex items-center justify-center
                                 text-sm lg:text-xl 2xl:text-2xl">

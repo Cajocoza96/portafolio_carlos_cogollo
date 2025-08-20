@@ -19,15 +19,15 @@ export default function EspacioDerecho() {
                         lg:justify-end
                         lg:col-span-1">
 
-            <div className="hover:bg-blue-600 dark:bg-gray-700
-                            active:bg-blue-500 dark:active:bg-gray-600
+            <div className="hover:bg-blue-700 hover:dark:bg-gray-800
+                            active:bg-blue-600 dark:active:bg-gray-700
                             h-10 p-2 flex items-center
                             text-sm lg:text-base 2xl:text-xl" title="Sin Ayuda">
                 <HiOutlineQuestionMarkCircle />
             </div>
 
-            <div className="hover:bg-blue-600 dark:bg-gray-700
-                            active:bg-blue-500 dark:active:bg-gray-600
+            <div className="hover:bg-blue-700 hover:dark:bg-gray-800
+                            active:bg-blue-600 dark:active:bg-gray-700
                             h-10 p-2 flex items-center
                             text-sm lg:text-base 2xl:text-xl" title="No Disponible">
                 <div className="relative inline-block  text-xl 2xl:text-2xl">
@@ -36,15 +36,15 @@ export default function EspacioDerecho() {
                 </div>
             </div>
 
-            <div className="hover:bg-blue-600 dark:bg-gray-700
-                            active:bg-blue-500 dark:active:bg-gray-600
+            <div className="hover:bg-blue-700 hover:dark:bg-gray-800
+                            active:bg-blue-600 dark:active:bg-gray-700
                             h-10 p-2 flex items-center
                             text-sm lg:text-base 2xl:text-xl" title="No Disponible">
                 <HiVolumeOff />
             </div>
 
-            <div className="hover:bg-blue-600 dark:bg-gray-700
-                            active:bg-blue-500 dark:active:bg-gray-600
+            <div className="hover:bg-blue-700 hover:dark:bg-gray-800
+                            active:bg-blue-600 dark:active:bg-gray-700
                             h-10 p-2 flex items-center
                             text-sm lg:text-base 2xl:text-xl" title={isOnline ? "Conectado" : "Desconectado"}>
                 {isOnline ? <HiWifi /> :
@@ -55,25 +55,24 @@ export default function EspacioDerecho() {
                 }
             </div>
 
-            <div className="hover:bg-blue-600 dark:bg-gray-700
-                            active:bg-blue-500 dark:active:bg-gray-600
+            <div className="hover:bg-blue-700 hover:dark:bg-gray-800
+                            active:bg-blue-600 dark:active:bg-gray-700
                             h-10 p-2 flex items-center">
                 <HoraFecha />
             </div>
 
-            <div className="hover:bg-blue-600 dark:bg-gray-700
-                            active:bg-blue-500 dark:active:bg-gray-600
+            <div className="hover:bg-blue-700 hover:dark:bg-gray-800
+                            active:bg-blue-600 dark:active:bg-gray-700
                             h-10 p-2 flex items-center
                             text-sm lg:text-base 2xl:text-xl" title="Sin Notificaciones">
                 <HiOutlineChatBubbleOvalLeft />
             </div>
 
-            <div className="hover:bg-blue-600 dark:bg-gray-700
-                            active:bg-blue-500 dark:active:bg-gray-600
+            <div className="hover:bg-blue-700 hover:dark:bg-gray-800
+                            active:bg-blue-600 dark:active:bg-gray-700
                             h-10 p-1 flex items-center
                             text-sm lg:text-base 2xl:text-xl
                             border border-white">
-
             </div>
         </div>
     );

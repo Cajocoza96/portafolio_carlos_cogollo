@@ -6,10 +6,10 @@ export default function InfoUsuario({ toogleVerInfoUsuario }) {
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center" 
                 onClick={toogleVerInfoUsuario}>
-            <div className="bg-blue-700 dark:bg-gray-700 h-auto 
-                                w-[49%] 2xs:w-[37%] md:w-[35%] lg:w-[20%] 2xl:w-[20%]
-                                absolute bottom-40 left-0
-                                flex flex-col items-center justify-center select-none"
+            <div className="bg-blue-800 dark:bg-gray-900 h-auto 
+                            w-[49%] 2xs:w-[37%] md:w-[35%] lg:w-[20%] 2xl:w-[20%]
+                            absolute bottom-40 left-0
+                            flex flex-col items-center justify-center select-none"
                 onClick={(e)=> e.stopPropagation()}
                 >
 

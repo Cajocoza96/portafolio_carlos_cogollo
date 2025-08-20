@@ -8,10 +8,11 @@ export default function EspacioIzquierdo({ toggleVerVentanaInicio }) {
         <div className="w-full h-10 text-white
                         flex flex-row items-center justify-start">
 
-            <div className="hover:bg-blue-600 dark:bg-gray-700
-                            active:bg-blue-500 dark:active:bg-gray-600
-                            hover:text-yellow-600 h-10 w-12 p-1
-                            active:text-yellow-500
+            <div className="h-10 w-12 p-1
+                            hover:bg-blue-700 hover:dark:bg-gray-800
+                            active:bg-blue-600 dark:active:bg-gray-700
+                            hover:text-orange-700 dark:hover:text-blue-600
+                            active:text-orange-600 dark:active:text-blue-500
                             flex items-center justify-center
                             text-sm lg:text-base 2xl:text-xl"
                     onClick={toggleVerVentanaInicio}>
