@@ -9,7 +9,9 @@ export default function InfoUsuario({ toogleVerInfoUsuario }) {
             <div className="bg-blue-700 dark:bg-gray-700 h-auto 
                                 w-[49%] 2xs:w-[37%] md:w-[35%] lg:w-[20%] 2xl:w-[20%]
                                 absolute bottom-40 left-0
-                                flex flex-col items-center justify-center select-none">
+                                flex flex-col items-center justify-center select-none"
+                onClick={(e)=> e.stopPropagation()}
+                >
 
                 <div className="w-[95%] h-auto py-4 px-1 flex flex-col gap-2">
 

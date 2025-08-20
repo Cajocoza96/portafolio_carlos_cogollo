@@ -4,8 +4,8 @@ import { HiPower } from "react-icons/hi2";
 import { FaRegFileAlt } from "react-icons/fa";
 
 import OpcionesApagado from "./Opcion_usua_config_apagado/OpcionesApagado";
-
 import InfoUsuario from "./Opcion_usua_config_apagado/InfoUsuario";
+import ConfiguracionTema from "./Opcion_usua_config_apagado/ConfiguracionTema";
 
 export default function ContVentanaInicio({ toggleVerVentanaInicio, toggleVerArchivo,
     toggleVerVentanaBloqueo, toggleVerVentanaSuspendido,
@@ -25,14 +25,24 @@ export default function ContVentanaInicio({ toggleVerVentanaInicio, toggleVerArc
         setVerInfoUsuario(!verInfoUsuario);
     }
 
+
+    const [verConfigTema, setVerConfigTema] = useState(false);
+
+    const toggleVerConfigTema = () => {
+        setVerConfigTema(!verConfigTema);
+    }
+
     return (
         <div className="h-full w-full mx-auto 
                         grid grid-cols-[47px_3fr_3fr] 2xs:grid-cols-[45px_2fr_3fr] relative">
 
             {verInfoUsuario && (
-                <InfoUsuario toogleVerInfoUsuario={toogleVerInfoUsuario}/>
+                <InfoUsuario toogleVerInfoUsuario={toogleVerInfoUsuario} />
             )}
 
+            {verConfigTema && (
+                <ConfiguracionTema toggleVerConfigTema={toggleVerConfigTema} />
+            )}
 
             {verOpcionesApagado && (
                 <OpcionesApagado
@@ -58,14 +68,15 @@ export default function ContVentanaInicio({ toggleVerVentanaInicio, toggleVerArc
                         <div className="hover:bg-blue-500 dark:bg-gray-700
                                         active:bg-blue-400 dark:active:bg-gray-600
                                         h-10 w-10 p-1
-                                        flex items-center justify-center" 
+                                        flex items-center justify-center"
                             onClick={toogleVerInfoUsuario} title="Carlos Cogollo">
                             <HiUserCircle className="text-base lg:text-xl 2xl:text-2xl text-white" />
                         </div>
                         <div className="hover:bg-blue-500 dark:bg-gray-700
                                         active:bg-blue-400 dark:active:bg-gray-600
                                         h-10 w-10 p-1
-                                        flex items-center justify-center" title="Configuración">
+                                        flex items-center justify-center" title="Configuración"
+                            onClick={toggleVerConfigTema}>
                             <HiCog className="text-base lg:text-xl 2xl:text-2xl text-white" />
                         </div>
                         <div className="hover:bg-blue-500 dark:bg-gray-700
