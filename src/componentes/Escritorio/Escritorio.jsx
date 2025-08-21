@@ -13,6 +13,8 @@ import ContIconArcEscritorio from "./ContIconArcEscritorio";
 
 import VistaApagadoInicio from "../Ventanas/Ventana_inicio/Opcion_usua_config_apagado/VistaApagadoInicio";
 
+import VentanaBusqueda from "../Ventanas/Ventana_busqueda/VentanaBusqueda";
+
 export default function Escritorio() {
     const isMobile = useIsMobile();
 
@@ -35,6 +37,13 @@ export default function Escritorio() {
 
     const toggleVerArchivo = () => {
         setVerArchivo(!verArchivo);
+    }
+
+
+    const [verVentanaBusqueda, setVerVentanaBusqueda] = useState(false);
+
+    const toggleVerVentanaBusqueda = () => {
+        setVerVentanaBusqueda(!verVentanaBusqueda);
     }
 
     /*Estados para ventana de bloqueo, suspendido, apagado y reiniciando*/
@@ -167,7 +176,13 @@ export default function Escritorio() {
                     verArchivo={verArchivo}
 
                     setUserInteracted={setUserInteracted}
+                />
+            )}
 
+            {verVentanaBusqueda && (
+                <VentanaBusqueda 
+                    toggleVerVentanaInicio={toggleVerVentanaInicio}
+                    toggleVerVentanaBusqueda={toggleVerVentanaBusqueda}
                 />
             )}
 
@@ -209,6 +224,15 @@ export default function Escritorio() {
 
             <BarraDeTareas
                 toggleVerVentanaInicio={toggleVerVentanaInicio}
+                toggleVerVentanaBusqueda={toggleVerVentanaBusqueda}
+
+                verVentanaInicio={verVentanaInicio}
+                setVerVentanaInicio={setVerVentanaInicio}
+                
+                verVentanaBusqueda={verVentanaBusqueda}
+                setVerVentanaBusqueda={setVerVentanaBusqueda}
+                
+
                 verArchivo={verArchivo}
             />
         </>

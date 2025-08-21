@@ -2,13 +2,23 @@ import React, { useRef } from "react";
 import { HiSearch } from "react-icons/hi";
 import useScrollVirtualKeyboard from "../../../hooks/useScrollVirtualKeyboard";
 
-export default function BarradeBusqueda() {
+export default function BarradeBusqueda({ toggleVerVentanaBusqueda, 
+                                            setVerVentanaInicio, verVentanaInicio }) {
+
     const inputRef = useRef(null);
     const { handleInputFocus } = useScrollVirtualKeyboard();
 
     const handleFocus = () => {
         handleInputFocus(inputRef.current);
     };
+
+    const handleClickVentanaInicioBusqueda = () => {
+        if(verVentanaInicio){
+            setVerVentanaInicio(false);
+        }
+
+        toggleVerVentanaBusqueda()
+    }
 
     return (
         <div className="bg-white dark:bg-gray-700 h-10 w-full
@@ -19,6 +29,7 @@ export default function BarradeBusqueda() {
             <input
                 ref={inputRef}
                 type="text"
+                onClick={handleClickVentanaInicioBusqueda}
                 placeholder="Escribe aquí para buscar."
                 onFocus={handleFocus}
                 className="w-[80%]

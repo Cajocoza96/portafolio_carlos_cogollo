@@ -2,7 +2,17 @@ import React from "react";
 import { FaWindows } from "react-icons/fa";
 import BarradeBusqueda from "./Barra_de_busqueda/BarradeBusqueda";
 
-export default function EspacioIzquierdo({ toggleVerVentanaInicio }) {
+export default function EspacioIzquierdo({ toggleVerVentanaInicio, toggleVerVentanaBusqueda,
+                                            setVerVentanaBusqueda, verVentanaBusqueda,
+                                            setVerVentanaInicio, verVentanaInicio }) {
+
+    const handleClickVentanaInicioBusqueda = () => {
+        if (verVentanaBusqueda) {
+            setVerVentanaBusqueda(false);
+        }
+
+        toggleVerVentanaInicio()
+    }
 
     return (
         <div className="w-full h-10 text-white
@@ -15,11 +25,15 @@ export default function EspacioIzquierdo({ toggleVerVentanaInicio }) {
                             active:text-orange-600 dark:active:text-blue-500
                             flex items-center justify-center
                             text-sm lg:text-base 2xl:text-xl"
-                    onClick={toggleVerVentanaInicio}>
+                onClick={handleClickVentanaInicioBusqueda}>
                 <FaWindows />
             </div>
 
-            <BarradeBusqueda/>
+            <BarradeBusqueda
+                toggleVerVentanaBusqueda={toggleVerVentanaBusqueda}
+                setVerVentanaInicio={setVerVentanaInicio}
+                verVentanaInicio={verVentanaInicio}
+            />
 
         </div>
     );
