@@ -7,10 +7,10 @@ import OpcionesApagado from "./Opcion_usua_config_apagado/OpcionesApagado";
 import InfoUsuario from "./Opcion_usua_config_apagado/InfoUsuario";
 import ConfiguracionTema from "./Opcion_usua_config_apagado/ConfiguracionTema";
 
-export default function ContVentanaInicio({ toggleVerVentanaInicio, toggleVerArchivo,
+export default function ContVentanaInicio({ toggleVerVentanaInicio, toggleVerAcercaDe,
     toggleVerVentanaBloqueo, toggleVerVentanaSuspendido,
     toggleVerVentanaApagado, toggleVerVentanaReinicio,
-    setUserInteracted }) {
+    verAcercaDe, setUserInteracted }) {
 
     const [verOpcionesApagado, setVerOpcionesApagado] = useState(false);
 
@@ -30,6 +30,17 @@ export default function ContVentanaInicio({ toggleVerVentanaInicio, toggleVerArc
 
     const toggleVerConfigTema = () => {
         setVerConfigTema(!verConfigTema);
+    }
+
+
+    const handleClickVerAcercaDe = () => {
+        if (verAcercaDe) {
+            toggleVerVentanaInicio()
+            return
+        } else {
+            toggleVerAcercaDe();
+            toggleVerVentanaInicio()
+        }
     }
 
     return (
@@ -108,10 +119,7 @@ export default function ContVentanaInicio({ toggleVerVentanaInicio, toggleVerArc
                                         active:bg-blue-500 dark:active:bg-gray-600
                                         h-10 w-full p-1
                                         flex items-center"
-                            onClick={() => {
-                                toggleVerArchivo()
-                                toggleVerVentanaInicio()
-                            }}>
+                            onClick={handleClickVerAcercaDe}>
                             <div className="flex flex-row items-center
                                             h-auto w-auto py-1 gap-2">
                                 <FaRegFileAlt className="text-xl lg:text-2xl 
@@ -228,11 +236,7 @@ export default function ContVentanaInicio({ toggleVerVentanaInicio, toggleVerArc
                                     h-20 w-full overflow-hidden
                                     hover:border-2 hover:border-white active:border-white
                                     flex flex-col items-center justify-center"
-                        onClick={() => {
-                            toggleVerArchivo()
-                            toggleVerVentanaInicio()
-                        }}
-                    >
+                        onClick={handleClickVerAcercaDe}>
                         <FaRegFileAlt className="text-xl lg:text-2xl 2xl:text-3xl text-white" />
                         <p className="text-xs lg:text-sm 2xl:text-base 
                                             text-white text-center"

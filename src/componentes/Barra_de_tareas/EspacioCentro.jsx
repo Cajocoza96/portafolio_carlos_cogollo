@@ -1,12 +1,12 @@
 import React from "react";
 import { FaRegFileAlt } from "react-icons/fa";
 
-export default function EspacioCentro({ verArchivo }) {
+export default function EspacioCentro({ verAcercaDe }) {
     return (
         <div className="w-full h-10 text-white
                         flex flex-row items-center lg:justify-start">
 
-            {verArchivo && (
+            {verAcercaDe && (
                 <div className="hover:bg-blue-700 hover:dark:bg-gray-800
                                 active:bg-blue-600 dark:active:bg-gray-700
                                 border-b-2 border-blue-300 dark:border-gray-300

@@ -7,7 +7,7 @@ import infoBlocNotas from "../../data/infoBlocNotas.json";
 
 import useIsMobile from "../../hooks/useIsMobile";
 
-export default function VentanaPrincipal({ toggleVerArchivo }) {
+export default function VentanaPrincipal({ toggleVerAcercaDe }) {
     const mensajeBlocNotas = infoBlocNotas.textoBlocDeNotas;
 
     const isMobile = useIsMobile();
@@ -139,8 +139,8 @@ export default function VentanaPrincipal({ toggleVerArchivo }) {
                 {/* Barra de título */}
                 <div
                     className="drag-handle w-full flex flex-row items-center justify-between bg-gray-100 border-b border-gray-300 h-8 select-none"
-                    onDoubleClick={handleDoubleClick}
-                >
+                    onDoubleClick={handleDoubleClick}>
+                        
                     <div className="text-black ml-3 text-sm flex flex-row items-center gap-1">
                         <FaRegFileAlt />
                         <p>Acerca de.txt</p>
@@ -183,9 +183,9 @@ export default function VentanaPrincipal({ toggleVerArchivo }) {
                                         h-8 w-11 flex items-center justify-center touch-manipulation"
                             onClick={(e) => {
                                 e.stopPropagation();
-                                toggleVerArchivo();
+                                toggleVerAcercaDe();
                             }}
-                            onTouchStart={handleTouchStart(toggleVerArchivo)}
+                            onTouchStart={handleTouchStart(toggleVerAcercaDe)}
                             style={{ WebkitTapHighlightColor: 'transparent' }}
                         >
                             <HiX />

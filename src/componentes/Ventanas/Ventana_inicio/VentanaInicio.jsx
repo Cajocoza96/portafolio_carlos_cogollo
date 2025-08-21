@@ -1,10 +1,11 @@
 import React from "react";
 import ContVentanaInicio from "./ContVentanaInicio";
 
-export default function VentanaInicio({ toggleVerVentanaInicio, toggleVerArchivo, 
+export default function VentanaInicio({ toggleVerVentanaInicio, toggleVerAcercaDe, 
                                         toggleVerVentanaBloqueo, toggleVerVentanaSuspendido,
                                         toggleVerVentanaApagado, toggleVerVentanaReinicio,
-                                        verArchivo, setUserInteracted }) {
+                                        verAcercaDe, setVerAcercaDe,
+                                        setUserInteracted }) {
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center" 
                 onClick={toggleVerVentanaInicio}>
@@ -14,12 +15,15 @@ export default function VentanaInicio({ toggleVerVentanaInicio, toggleVerArchivo
                 
                 <ContVentanaInicio 
                     toggleVerVentanaInicio={toggleVerVentanaInicio}
-                    toggleVerArchivo={toggleVerArchivo}
+                    toggleVerAcercaDe={toggleVerAcercaDe}
                     toggleVerVentanaBloqueo={toggleVerVentanaBloqueo}
                     toggleVerVentanaSuspendido={toggleVerVentanaSuspendido}
                     toggleVerVentanaApagado={toggleVerVentanaApagado}
                     toggleVerVentanaReinicio={toggleVerVentanaReinicio}
-                    verArchivo={verArchivo}
+
+                    verAcercaDe={verAcercaDe}
+                    setVerAcercaDe={setVerAcercaDe}
+
                     setUserInteracted={setUserInteracted}
                 />
                 </div>

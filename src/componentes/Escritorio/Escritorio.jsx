@@ -33,11 +33,13 @@ export default function Escritorio() {
     }
 
 
-    const [verArchivo, setVerArchivo] = useState(false);
+    //Estado para ver Acerca de.txt
+    const [verAcercaDe, setVerAcercaDe] = useState(false);
 
-    const toggleVerArchivo = () => {
-        setVerArchivo(!verArchivo);
+    const toggleVerAcercaDe = () => {
+        setVerAcercaDe(!verAcercaDe);
     }
+    //
 
 
     const [verVentanaBusqueda, setVerVentanaBusqueda] = useState(false);
@@ -161,19 +163,22 @@ export default function Escritorio() {
             </div>
 
             <ContIconArcEscritorio
-                toggleVerArchivo={toggleVerArchivo}
-                verArchivo={verArchivo}
+                toggleVerAcercaDe={toggleVerAcercaDe}
+                verAcercaDe={verAcercaDe}
+                setVerAcercaDe={setVerAcercaDe}
             />
 
             {verVentanaInicio && (
                 <VentanaInicio
                     toggleVerVentanaInicio={toggleVerVentanaInicio}
-                    toggleVerArchivo={toggleVerArchivo}
+                    toggleVerAcercaDe={toggleVerAcercaDe}
                     toggleVerVentanaBloqueo={toggleVerVentanaBloqueo}
                     toggleVerVentanaSuspendido={toggleVerVentanaSuspendido}
                     toggleVerVentanaApagado={toggleVerVentanaApagado}
                     toggleVerVentanaReinicio={toggleVerVentanaReinicio}
-                    verArchivo={verArchivo}
+
+                    verAcercaDe={verAcercaDe}
+                    setVerAcercaDe={setVerAcercaDe}
 
                     setUserInteracted={setUserInteracted}
                 />
@@ -234,7 +239,7 @@ export default function Escritorio() {
                 setVerVentanaBusqueda={setVerVentanaBusqueda}
                 
 
-                verArchivo={verArchivo}
+                verAcercaDe={verAcercaDe}
             />
         </>
     );
