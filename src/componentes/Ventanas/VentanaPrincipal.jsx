@@ -60,6 +60,20 @@ export default function VentanaPrincipal({ toggleVerArchivo }) {
     }, [isMobile, windowDimensions.width, windowDimensions.height]);
 
     const toggleMaximize = () => {
+        if (!isMaximized) {
+            // Antes de maximizar, guardar la posición y tamaño actual
+            if (rndRef.current) {
+                const rndElement = rndRef.current;
+                const currentRect = rndElement.resizableElement.current.getBoundingClientRect();
+                
+                setPreviousState({
+                    x: currentRect.left,
+                    y: currentRect.top,
+                    width: currentRect.width,
+                    height: currentRect.height
+                });
+            }
+        }
         setIsMaximized(!isMaximized);
     };
 
@@ -84,11 +98,11 @@ export default function VentanaPrincipal({ toggleVerArchivo }) {
             dragHandleClassName="drag-handle"
             disableDragging={isMaximized}
             enableResizing={!isMaximized}
-            position={isMaximized ? { x: 0, y: 0 } : undefined}
+            position={isMaximized ? { x: 0, y: 0 } : previousState}
             size={isMaximized ? {
                 width: windowDimensions.width,
                 height: windowDimensions.height - 40
-            } : undefined}
+            } : previousState}
             style={{
                 border: '1px solid #d1d5db',
                 backgroundColor: 'white',
@@ -98,14 +112,27 @@ export default function VentanaPrincipal({ toggleVerArchivo }) {
             onDragStart={(e) => {
                 document.body.style.userSelect = 'none';
             }}
-            onDragStop={(e) => {
+            onDragStop={(e, data) => {
                 document.body.style.userSelect = 'auto';
+                // Actualizar previousState con la nueva posición
+                if (!isMaximized) {
+                    setPreviousState(prev => ({ ...prev, x: data.x, y: data.y }));
+                }
             }}
             onResizeStart={(e) => {
                 document.body.style.userSelect = 'none';
             }}
-            onResizeStop={(e) => {
+            onResizeStop={(e, direction, ref, delta, position) => {
                 document.body.style.userSelect = 'auto';
+                // Actualizar previousState con la nueva posición y tamaño
+                if (!isMaximized) {
+                    setPreviousState({
+                        x: position.x,
+                        y: position.y,
+                        width: ref.offsetWidth,
+                        height: ref.offsetHeight
+                    });
+                }
             }}
         >
             <div className="w-full h-full flex flex-col">
