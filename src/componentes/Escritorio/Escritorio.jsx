@@ -179,12 +179,13 @@ export default function Escritorio() {
                 />
             )}
 
+            {/*
             {verVentanaBusqueda && (
                 <VentanaBusqueda 
-                    toggleVerVentanaInicio={toggleVerVentanaInicio}
                     toggleVerVentanaBusqueda={toggleVerVentanaBusqueda}
                 />
             )}
+            */}
 
             {/*Esto es para ver la ventana de bloqueo*/}
             {verVentanaBloqueo && (
