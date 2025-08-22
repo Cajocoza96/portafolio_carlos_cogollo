@@ -32,15 +32,23 @@ export default function Escritorio() {
         setVerVentanaInicio(!verVentanaInicio);
     }
 
-
     //Estado para ver Acerca de.txt
     const [verAcercaDe, setVerAcercaDe] = useState(false);
+    // Nuevo estado para controlar si la ventana está minimizada
+    const [ventanaMinimizada, setVentanaMinimizada] = useState(false);
 
     const toggleVerAcercaDe = () => {
         setVerAcercaDe(!verAcercaDe);
+        // Resetear el estado de minimización cuando se cierra/abre la ventana
+        if (verAcercaDe) {
+            setVentanaMinimizada(false);
+        }
     }
-    //
 
+    // Nueva función para alternar el estado de minimización
+    const toggleMinimizarVentana = () => {
+        setVentanaMinimizada(!ventanaMinimizada);
+    }
 
     const [verVentanaBusqueda, setVerVentanaBusqueda] = useState(false);
 
@@ -75,7 +83,6 @@ export default function Escritorio() {
             }
         }
     }, [verVentanaBloqueo]);
-
 
     /*Estado para ver ventana de suspendido*/
     const [verVentanaSuspendido, setVerVentanaSuspendido] = useState(false);
@@ -166,6 +173,8 @@ export default function Escritorio() {
                 toggleVerAcercaDe={toggleVerAcercaDe}
                 verAcercaDe={verAcercaDe}
                 setVerAcercaDe={setVerAcercaDe}
+                toggleMinimizarVentana={toggleMinimizarVentana}
+                ventanaMinimizada={ventanaMinimizada}
             />
 
             {verVentanaInicio && (
@@ -238,8 +247,8 @@ export default function Escritorio() {
                 verVentanaBusqueda={verVentanaBusqueda}
                 setVerVentanaBusqueda={setVerVentanaBusqueda}
                 
-
                 verAcercaDe={verAcercaDe}
+                toggleMinimizarVentana={toggleMinimizarVentana}
             />
         </>
     );

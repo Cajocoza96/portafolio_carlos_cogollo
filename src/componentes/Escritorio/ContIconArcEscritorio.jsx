@@ -3,7 +3,8 @@ import Archivos from "./Archivos_accesos_directos/Archivos";
 import VentanaPrincipal from "../Ventanas/VentanaPrincipal";
 
 export default function ContIconArcEscritorio({ toggleVerAcercaDe, 
-                                                verAcercaDe, setVerAcercaDe }) {
+                                                verAcercaDe, setVerAcercaDe,
+                                                toggleMinimizarVentana, ventanaMinimizada }) {
 
     // Estado para conservar el tamaño, posición y estado de maximización de la ventana
     const [ventanaState, setVentanaState] = useState(null);
@@ -17,11 +18,12 @@ export default function ContIconArcEscritorio({ toggleVerAcercaDe,
         <div className="fixed inset-0 z-50 bg-black/20
                         flex items-center justify-center gap-2">
 
-            {verAcercaDe && (
+            {verAcercaDe && !ventanaMinimizada && (
                 <VentanaPrincipal 
                     toggleVerAcercaDe={toggleVerAcercaDe}
                     savedState={ventanaState}
                     onStateChange={handleVentanaStateChange}
+                    toggleMinimizarVentana={toggleMinimizarVentana}
                 />
             )}
 

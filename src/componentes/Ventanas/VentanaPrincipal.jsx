@@ -7,12 +7,12 @@ import infoBlocNotas from "../../data/infoBlocNotas.json";
 
 import useIsMobile from "../../hooks/useIsMobile";
 
-export default function VentanaPrincipal({ toggleVerAcercaDe, savedState, onStateChange }) {
+export default function VentanaPrincipal({ toggleVerAcercaDe, savedState, onStateChange, toggleMinimizarVentana }) {
     const mensajeBlocNotas = infoBlocNotas.textoBlocDeNotas;
 
     const isMobile = useIsMobile();
     const rndRef = useRef(null);
-    
+
     // Estado para las dimensiones en tiempo real durante el redimensionamiento
     const [currentDimensions, setCurrentDimensions] = useState({
         width: savedState?.width || (isMobile ? 300 : 600),
@@ -32,7 +32,7 @@ export default function VentanaPrincipal({ toggleVerAcercaDe, savedState, onStat
 
         const ventanaWidth = isMobile ? 300 : 600;
         const ventanaHeight = isMobile ? 200 : 400;
-        
+
         return {
             x: Math.max(0, (windowWidth - ventanaWidth) / 2),
             y: Math.max(0, (windowHeight - ventanaHeight) / 2),
@@ -102,20 +102,20 @@ export default function VentanaPrincipal({ toggleVerAcercaDe, savedState, onStat
                     width: Math.min(previousState.width, windowDimensions.width - 20), // Margen de seguridad
                     height: Math.min(previousState.height, windowDimensions.height - 60) // Margen para barra de tareas
                 };
-                
+
                 const adjustedState = keepWindowInBounds(currentState);
-                
+
                 // Actualizar posición y tamaño de forma suave
                 rndRef.current.updatePosition({ x: adjustedState.x, y: adjustedState.y });
                 rndRef.current.updateSize({ width: adjustedState.width, height: adjustedState.height });
-                
+
                 // Actualizar estado interno y comunicar al padre
                 setPreviousState(adjustedState);
                 onStateChange && onStateChange({ ...adjustedState, isMaximized: false });
             } else {
                 // En desktop, recentrar si la ventana está fuera de los límites
                 const adjustedState = keepWindowInBounds(previousState);
-                
+
                 // Solo recentrar si la ventana está completamente fuera de vista
                 if (adjustedState.x !== previousState.x || adjustedState.y !== previousState.y) {
                     rndRef.current.updatePosition({ x: adjustedState.x, y: adjustedState.y });
@@ -133,7 +133,7 @@ export default function VentanaPrincipal({ toggleVerAcercaDe, savedState, onStat
             if (rndRef.current) {
                 const rndElement = rndRef.current;
                 const currentRect = rndElement.resizableElement.current.getBoundingClientRect();
-                
+
                 const newState = {
                     x: currentRect.left,
                     y: currentRect.top,
@@ -141,16 +141,16 @@ export default function VentanaPrincipal({ toggleVerAcercaDe, savedState, onStat
                     height: currentRect.height,
                     isMaximized: false
                 };
-                
+
                 setPreviousState(newState);
                 onStateChange && onStateChange({ ...newState, isMaximized: true });
             }
         }
         setIsMaximized(!isMaximized);
-        
+
         // Comunicar el nuevo estado de maximización
-        const currentState = !isMaximized ? 
-            { ...previousState, isMaximized: true } : 
+        const currentState = !isMaximized ?
+            { ...previousState, isMaximized: true } :
             { ...previousState, isMaximized: false };
         onStateChange && onStateChange(currentState);
     };
@@ -159,12 +159,19 @@ export default function VentanaPrincipal({ toggleVerAcercaDe, savedState, onStat
         toggleMaximize();
     };
 
+    // Función para minimizar la ventana
+    const handleMinimize = () => {
+        if (toggleMinimizarVentana) {
+            toggleMinimizarVentana();
+        }
+    };
+
     // Función para cerrar y guardar estado
     const handleClose = () => {
         // Guardar el estado actual antes de cerrar
         if (rndRef.current) {
             let finalState;
-            
+
             if (isMaximized) {
                 // Si está maximizada, guardar el estado de maximización y el previousState
                 finalState = { ...previousState, isMaximized: true };
@@ -172,7 +179,7 @@ export default function VentanaPrincipal({ toggleVerAcercaDe, savedState, onStat
                 // Si no está maximizada, guardar la posición y tamaño actual
                 const rndElement = rndRef.current;
                 const currentRect = rndElement.resizableElement.current.getBoundingClientRect();
-                
+
                 finalState = {
                     x: currentRect.left,
                     y: currentRect.top,
@@ -181,10 +188,10 @@ export default function VentanaPrincipal({ toggleVerAcercaDe, savedState, onStat
                     isMaximized: false
                 };
             }
-            
+
             onStateChange && onStateChange(finalState);
         }
-        
+
         // Cerrar la ventana
         toggleVerAcercaDe();
     };
@@ -224,10 +231,10 @@ export default function VentanaPrincipal({ toggleVerAcercaDe, savedState, onStat
                 document.body.style.userSelect = 'auto';
                 // Actualizar previousState con la nueva posición asegurandose de que esté en límites
                 if (!isMaximized) {
-                    const newState = keepWindowInBounds({ 
-                        ...previousState, 
-                        x: data.x, 
-                        y: data.y 
+                    const newState = keepWindowInBounds({
+                        ...previousState,
+                        x: data.x,
+                        y: data.y
                     });
                     setPreviousState(newState);
                     onStateChange && onStateChange({ ...newState, isMaximized: false });
@@ -259,24 +266,28 @@ export default function VentanaPrincipal({ toggleVerAcercaDe, savedState, onStat
                 }
             }}
         >
-            <div className="w-full h-full flex flex-col">
+            <div className="w-full h-full flex flex-col bg-white dark:bg-black">
                 {/* Barra de título */}
                 <div
-                    className="overflow-hidden drag-handle w-full flex flex-row items-center justify-between bg-gray-100 border-b border-gray-300 h-8 select-none"
+                    className="overflow-hidden drag-handle w-full flex flex-row items-center justify-between h-8 select-none"
                     onDoubleClick={handleDoubleClick}>
-                        
-                    <div className="text-black ml-3 text-sm flex flex-row items-center gap-1 overflow-hidden min-w-0 flex-1 pr-2">
+
+                    <div className="text-black dark:text-white ml-3 text-sm flex flex-row items-center gap-1 overflow-hidden min-w-0 flex-1 pr-2" title="Acerca de.txt">
                         <FaRegFileAlt className="flex-shrink-0" />
                         <span className="truncate">Acerca de.txt</span>
                     </div>
 
-                    <div className="text-black text-sm flex flex-row items-center flex-shrink-0">
+                    <div className="text-black dark:text-white text-sm flex flex-row items-center flex-shrink-0">
                         {/* Botón minimizar */}
                         <div
                             className="bg-white hover:bg-gray-300
+                                        dark:bg-black dark:hover:bg-gray-800
                                         h-8 w-11 flex items-center justify-center touch-manipulation"
-                            onClick={(e) => e.stopPropagation()}
-                            onTouchStart={handleTouchStart(() => {})}
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                handleMinimize();
+                            }}
+                            onTouchStart={handleTouchStart(handleMinimize)}
                             style={{ WebkitTapHighlightColor: 'transparent' }}
                         >
                             <HiMinus />
@@ -285,6 +296,7 @@ export default function VentanaPrincipal({ toggleVerAcercaDe, savedState, onStat
                         {/* Botón maximizar/restaurar */}
                         <div
                             className="bg-white hover:bg-gray-300 
+                                        dark:bg-black dark:hover:bg-gray-800
                                         h-8 w-11 flex items-center justify-center touch-manipulation"
                             onClick={(e) => {
                                 e.stopPropagation();
@@ -296,13 +308,14 @@ export default function VentanaPrincipal({ toggleVerAcercaDe, savedState, onStat
                             {isMaximized ? (
                                 <HiOutlineSquare2Stack className="h-3 w-3" />
                             ) : (
-                                <div className="h-3 w-3 border border-black"></div>
+                                <div className="h-3 w-3 border border-black dark:border-white"></div>
                             )}
                         </div>
 
                         {/* Botón cerrar */}
                         <div
                             className="bg-white text-black
+                                        dark:bg-black dark:text-white
                                         hover:bg-red-600 hover:text-white 
                                         h-8 w-11 flex items-center justify-center touch-manipulation"
                             onClick={(e) => {
@@ -319,28 +332,30 @@ export default function VentanaPrincipal({ toggleVerAcercaDe, savedState, onStat
 
                 {/* Barra de menú - Solo visible si hay suficiente altura */}
                 {(isMaximized ? windowDimensions.height : currentDimensions.height) > 60 && (
-                    <div className="overflow-hidden ml-1 flex flex-row items-center select-none bg-white flex-shrink-0">
+                    <div className="overflow-hidden ml-1 flex flex-row items-center select-none bg-white dark:bg-black flex-shrink-0">
                         {['Archivo', 'Edición', 'Formato', 'Ver', 'Ayuda'].map((menu) => (
                             <div
                                 key={menu}
-                                className="hover:bg-gray-300 active:bg-gray-300 h-auto w-auto p-1 flex items-center justify-center touch-manipulation"
+                                className="hover:bg-gray-300 active:bg-gray-300 
+                                            dark:hover:bg-gray-800 dark:active:bg-gray-800 
+                                            h-auto w-auto p-1 flex items-center justify-center touch-manipulation"
                                 style={{ WebkitTapHighlightColor: 'transparent' }}
                             >
-                                <p className="text-black text-sm">{menu}</p>
+                                <p className="text-black dark:text-white text-sm">{menu}</p>
                             </div>
                         ))}
                     </div>
                 )}
 
                 {/* Área de texto - Solo visible si hay suficiente altura */}
-                {(isMaximized ? windowDimensions.height : currentDimensions.height) > 
+                {(isMaximized ? windowDimensions.height : currentDimensions.height) >
                     ((isMaximized ? windowDimensions.height : currentDimensions.height) > 60 ? 90 : 60) && (
-                    <div className="flex-1 p-2 cursor-text overflow-auto">
-                        <span className="text-black text-sm whitespace-pre-wrap">
-                            {mensajeBlocNotas.acercaDe}
-                        </span>
-                    </div>
-                )}
+                        <div className="flex-1 p-2 cursor-text overflow-auto">
+                            <span className="text-black dark:text-white text-sm whitespace-pre-wrap">
+                                {mensajeBlocNotas.acercaDe}
+                            </span>
+                        </div>
+                    )}
             </div>
         </Rnd>
     );
