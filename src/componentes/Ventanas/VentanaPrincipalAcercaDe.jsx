@@ -3,23 +3,25 @@ import { Rnd } from "react-rnd";
 import { HiMinus, HiX } from "react-icons/hi";
 import { HiOutlineSquare2Stack } from "react-icons/hi2";
 import { FaRegFileAlt } from "react-icons/fa";
-import infoBlocNotas from "../../data/infoBlocNotas.json";
+
 
 import useIsMobile from "../../hooks/useIsMobile";
 
-export default function VentanaPrincipal({ toggleVerAcercaDe, savedState, onStateChange, toggleMinimizarVentana }) {
-    const mensajeBlocNotas = infoBlocNotas.textoBlocDeNotas;
+export default function VentanaPrincipalAcercaDe({ toggleVerAcercaDe,
+    ventanaStateAcercaDe,
+    handleVentanaStateChangeAcercaDe, toggleMinimizarVentanaAcercaDe,
+    titulo, texto1, texto2, texto3, texto4, texto5, texto6 }) {
 
     const isMobile = useIsMobile();
     const rndRef = useRef(null);
 
     // Estado para las dimensiones en tiempo real durante el redimensionamiento
     const [currentDimensions, setCurrentDimensions] = useState({
-        width: savedState?.width || (isMobile ? 300 : 600),
-        height: savedState?.height || (isMobile ? 200 : 400)
+        width: ventanaStateAcercaDe?.width || (isMobile ? 300 : 600),
+        height: ventanaStateAcercaDe?.height || (isMobile ? 200 : 400)
     });
 
-    const [isMaximized, setIsMaximized] = useState(savedState?.isMaximized || false);
+    const [isMaximized, setIsMaximized] = useState(ventanaStateAcercaDe?.isMaximized || false);
     const [windowDimensions, setWindowDimensions] = useState({
         width: typeof window !== 'undefined' ? window.innerWidth : 1200,
         height: typeof window !== 'undefined' ? window.innerHeight : 800
@@ -66,9 +68,9 @@ export default function VentanaPrincipal({ toggleVerAcercaDe, savedState, onStat
 
     // Inicializar con el estado guardado o posición inicial
     const [previousState, setPreviousState] = useState(() => {
-        if (savedState && !savedState.isMaximized) {
+        if (ventanaStateAcercaDe && !ventanaStateAcercaDe.isMaximized) {
             // Validar que el estado guardado esté dentro de los límites actuales
-            const adjustedState = keepWindowInBounds(savedState);
+            const adjustedState = keepWindowInBounds(ventanaStateAcercaDe);
             // Sincronizar currentDimensions con el estado inicial
             setCurrentDimensions({ width: adjustedState.width, height: adjustedState.height });
             return adjustedState;
@@ -111,7 +113,7 @@ export default function VentanaPrincipal({ toggleVerAcercaDe, savedState, onStat
 
                 // Actualizar estado interno y comunicar al padre
                 setPreviousState(adjustedState);
-                onStateChange && onStateChange({ ...adjustedState, isMaximized: false });
+                handleVentanaStateChangeAcercaDe && handleVentanaStateChangeAcercaDe({ ...adjustedState, isMaximized: false });
             } else {
                 // En desktop, recentrar si la ventana está fuera de los límites
                 const adjustedState = keepWindowInBounds(previousState);
@@ -121,7 +123,7 @@ export default function VentanaPrincipal({ toggleVerAcercaDe, savedState, onStat
                     rndRef.current.updatePosition({ x: adjustedState.x, y: adjustedState.y });
                     rndRef.current.updateSize({ width: adjustedState.width, height: adjustedState.height });
                     setPreviousState(adjustedState);
-                    onStateChange && onStateChange({ ...adjustedState, isMaximized: false });
+                    handleVentanaStateChangeAcercaDe && handleVentanaStateChangeAcercaDe({ ...adjustedState, isMaximized: false });
                 }
             }
         }
@@ -143,7 +145,7 @@ export default function VentanaPrincipal({ toggleVerAcercaDe, savedState, onStat
                 };
 
                 setPreviousState(newState);
-                onStateChange && onStateChange({ ...newState, isMaximized: true });
+                handleVentanaStateChangeAcercaDe && handleVentanaStateChangeAcercaDe({ ...newState, isMaximized: true });
             }
         }
         setIsMaximized(!isMaximized);
@@ -152,7 +154,7 @@ export default function VentanaPrincipal({ toggleVerAcercaDe, savedState, onStat
         const currentState = !isMaximized ?
             { ...previousState, isMaximized: true } :
             { ...previousState, isMaximized: false };
-        onStateChange && onStateChange(currentState);
+            handleVentanaStateChangeAcercaDe && handleVentanaStateChangeAcercaDe(currentState);
     };
 
     const handleDoubleClick = () => {
@@ -161,8 +163,8 @@ export default function VentanaPrincipal({ toggleVerAcercaDe, savedState, onStat
 
     // Función para minimizar la ventana
     const handleMinimize = () => {
-        if (toggleMinimizarVentana) {
-            toggleMinimizarVentana();
+        if (toggleMinimizarVentanaAcercaDe) {
+            toggleMinimizarVentanaAcercaDe();
         }
     };
 
@@ -189,7 +191,7 @@ export default function VentanaPrincipal({ toggleVerAcercaDe, savedState, onStat
                 };
             }
 
-            onStateChange && onStateChange(finalState);
+            handleVentanaStateChangeAcercaDe && handleVentanaStateChangeAcercaDe(finalState);
         }
 
         // Cerrar la ventana
@@ -237,7 +239,7 @@ export default function VentanaPrincipal({ toggleVerAcercaDe, savedState, onStat
                         y: data.y
                     });
                     setPreviousState(newState);
-                    onStateChange && onStateChange({ ...newState, isMaximized: false });
+                    handleVentanaStateChangeAcercaDe && handleVentanaStateChangeAcercaDe({ ...newState, isMaximized: false });
                 }
             }}
             onResizeStart={(e) => {
@@ -262,7 +264,7 @@ export default function VentanaPrincipal({ toggleVerAcercaDe, savedState, onStat
                     });
                     setPreviousState(newState);
                     setCurrentDimensions({ width: newState.width, height: newState.height });
-                    onStateChange && onStateChange({ ...newState, isMaximized: false });
+                    handleVentanaStateChangeAcercaDe && handleVentanaStateChangeAcercaDe({ ...newState, isMaximized: false });
                 }
             }}
         >
@@ -272,9 +274,9 @@ export default function VentanaPrincipal({ toggleVerAcercaDe, savedState, onStat
                     className="overflow-hidden drag-handle w-full flex flex-row items-center justify-between h-8 select-none"
                     onDoubleClick={handleDoubleClick}>
 
-                    <div className="text-black dark:text-white ml-3 text-sm flex flex-row items-center gap-1 overflow-hidden min-w-0 flex-1 pr-2" title="Acerca de.txt">
+                    <div className="text-black dark:text-white ml-3 text-sm flex flex-row items-center gap-1 overflow-hidden min-w-0 flex-1 pr-2" title={titulo}>
                         <FaRegFileAlt className="flex-shrink-0" />
-                        <span className="truncate">Acerca de.txt</span>
+                        <span className="truncate">{titulo}</span>
                     </div>
 
                     <div className="text-black dark:text-white text-sm flex flex-row items-center flex-shrink-0">
@@ -350,10 +352,42 @@ export default function VentanaPrincipal({ toggleVerAcercaDe, savedState, onStat
                 {/* Área de texto - Solo visible si hay suficiente altura */}
                 {(isMaximized ? windowDimensions.height : currentDimensions.height) >
                     ((isMaximized ? windowDimensions.height : currentDimensions.height) > 60 ? 90 : 60) && (
-                        <div className="flex-1 p-2 cursor-text overflow-auto">
-                            <span className="text-black dark:text-white text-sm whitespace-pre-wrap">
-                                {mensajeBlocNotas.acercaDe}
-                            </span>
+                        <div className="flex-1 flex-col p-2 cursor-text overflow-auto">
+                            <div className="mb-2">
+                                <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
+                                    {texto1}
+                                </p>
+                            </div>
+
+                            <div className="mb-2">
+                                <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
+                                    {texto2}
+                                </p>
+                            </div>
+
+                            <div className="mb-2">
+                                <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
+                                    {texto3}
+                                </p>
+                            </div>
+
+                            <div className="mb-2">
+                                <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
+                                    {texto4}
+                                </p>
+                            </div>
+
+                            <div className="mb-2">
+                                <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
+                                    {texto5}
+                                </p>
+                            </div>
+
+                            <>
+                                <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
+                                    {texto6}
+                                </p>
+                            </>
                         </div>
                     )}
             </div>

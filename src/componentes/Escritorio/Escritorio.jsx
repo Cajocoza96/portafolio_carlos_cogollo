@@ -32,23 +32,47 @@ export default function Escritorio() {
         setVerVentanaInicio(!verVentanaInicio);
     }
 
+
+    // Estado para controlar si la ventana está minimizada de Acerca de
+    const [ventanaMinimizadaAcercaDe, setVentanaMinimizadaAcercaDe] = useState(false);
+
+    // Nueva función para alternar el estado de minimización
+    const toggleMinimizarVentanaAcercaDe = () => {
+        setVentanaMinimizadaAcercaDe(!ventanaMinimizadaAcercaDe);
+    }
+
+
+    // Estado para controlar si la ventana está minimizada de Contacto
+    const [ventanaMinimizadaContacto, setVentanaMinimizadaContacto] = useState(false);
+
+    // Nueva función para alternar el estado de minimización
+    const toggleMinimizarVentanaContacto = () => {
+        setVentanaMinimizadaContacto(!ventanaMinimizadaContacto);
+    }
+
     //Estado para ver Acerca de.txt
     const [verAcercaDe, setVerAcercaDe] = useState(false);
-    // Nuevo estado para controlar si la ventana está minimizada
-    const [ventanaMinimizada, setVentanaMinimizada] = useState(false);
 
     const toggleVerAcercaDe = () => {
         setVerAcercaDe(!verAcercaDe);
         // Resetear el estado de minimización cuando se cierra/abre la ventana
         if (verAcercaDe) {
-            setVentanaMinimizada(false);
+            setVentanaMinimizadaAcercaDe(false);
         }
     }
 
-    // Nueva función para alternar el estado de minimización
-    const toggleMinimizarVentana = () => {
-        setVentanaMinimizada(!ventanaMinimizada);
+    //Estado para ver Contacto.txt
+    const [verContacto, setVerContacto] = useState(false);
+
+    const toggleVerContacto = () => {
+        setVerContacto(!verContacto);
+        if (verContacto) {
+            setVentanaMinimizadaContacto(false);
+        }
     }
+
+
+    
 
     const [verVentanaBusqueda, setVerVentanaBusqueda] = useState(false);
 
@@ -63,6 +87,7 @@ export default function Escritorio() {
 
     /*Estado para ver ventana de bloqueo*/
     const [verVentanaBloqueo, setVerVentanaBloqueo] = useState(false);
+
 
     const toggleVerVentanaBloqueo = () => {
         setVerVentanaBloqueo(!verVentanaBloqueo);
@@ -173,21 +198,39 @@ export default function Escritorio() {
                 toggleVerAcercaDe={toggleVerAcercaDe}
                 verAcercaDe={verAcercaDe}
                 setVerAcercaDe={setVerAcercaDe}
-                toggleMinimizarVentana={toggleMinimizarVentana}
-                ventanaMinimizada={ventanaMinimizada}
+
+                toggleMinimizarVentanaAcercaDe={toggleMinimizarVentanaAcercaDe}
+                ventanaMinimizadaAcercaDe={ventanaMinimizadaAcercaDe}
+
+                toggleVerContacto={toggleVerContacto}
+                verContacto={verContacto}
+                setVerContacto={setVerContacto}
+
+                toggleMinimizarVentanaContacto={toggleMinimizarVentanaContacto}
+                ventanaMinimizadaContacto={ventanaMinimizadaContacto} 
             />
 
             {verVentanaInicio && (
                 <VentanaInicio
                     toggleVerVentanaInicio={toggleVerVentanaInicio}
-                    toggleVerAcercaDe={toggleVerAcercaDe}
                     toggleVerVentanaBloqueo={toggleVerVentanaBloqueo}
                     toggleVerVentanaSuspendido={toggleVerVentanaSuspendido}
                     toggleVerVentanaApagado={toggleVerVentanaApagado}
                     toggleVerVentanaReinicio={toggleVerVentanaReinicio}
-
+                    
+                    toggleVerAcercaDe={toggleVerAcercaDe}
                     verAcercaDe={verAcercaDe}
                     setVerAcercaDe={setVerAcercaDe}
+
+                    toggleMinimizarVentanaAcercaDe={toggleMinimizarVentanaAcercaDe}
+                    ventanaMinimizadaAcercaDe={ventanaMinimizadaAcercaDe}
+
+                    toggleVerContacto={toggleVerContacto}
+                    verContacto={verContacto}
+                    setVerContacto={setVerContacto}
+
+                    toggleMinimizarVentanaContacto={toggleMinimizarVentanaContacto}
+                    ventanaMinimizadaContacto={ventanaMinimizadaContacto}
 
                     setUserInteracted={setUserInteracted}
                 />
@@ -243,12 +286,15 @@ export default function Escritorio() {
 
                 verVentanaInicio={verVentanaInicio}
                 setVerVentanaInicio={setVerVentanaInicio}
-                
+
                 verVentanaBusqueda={verVentanaBusqueda}
                 setVerVentanaBusqueda={setVerVentanaBusqueda}
-                
+
                 verAcercaDe={verAcercaDe}
-                toggleMinimizarVentana={toggleMinimizarVentana}
+                toggleMinimizarVentanaAcercaDe={toggleMinimizarVentanaAcercaDe}
+
+                verContacto={verContacto}
+                toggleMinimizarVentanaContacto={toggleMinimizarVentanaContacto}
             />
         </>
     );

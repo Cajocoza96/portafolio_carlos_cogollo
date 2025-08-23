@@ -1,10 +1,17 @@
 import React from "react";
 import ContVentanaInicio from "./ContVentanaInicio";
 
-export default function VentanaInicio({ toggleVerVentanaInicio, toggleVerAcercaDe, 
-                                        toggleVerVentanaBloqueo, toggleVerVentanaSuspendido,
-                                        toggleVerVentanaApagado, toggleVerVentanaReinicio,
-                                        verAcercaDe, setVerAcercaDe,
+export default function VentanaInicio({ toggleVerVentanaInicio, toggleVerVentanaBloqueo, 
+                                        toggleVerVentanaSuspendido, toggleVerVentanaApagado, 
+                                        toggleVerVentanaReinicio,
+
+                                        
+                                        verAcercaDe, setVerAcercaDe, toggleVerAcercaDe,
+                                        ventanaMinimizadaAcercaDe, toggleMinimizarVentanaAcercaDe,
+
+                                        verContacto, setVerContacto, toggleVerContacto,
+                                        ventanaMinimizadaContacto, toggleMinimizarVentanaContacto,
+                                        
                                         setUserInteracted }) {
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center" 
@@ -15,14 +22,22 @@ export default function VentanaInicio({ toggleVerVentanaInicio, toggleVerAcercaD
                 
                 <ContVentanaInicio 
                     toggleVerVentanaInicio={toggleVerVentanaInicio}
-                    toggleVerAcercaDe={toggleVerAcercaDe}
                     toggleVerVentanaBloqueo={toggleVerVentanaBloqueo}
                     toggleVerVentanaSuspendido={toggleVerVentanaSuspendido}
                     toggleVerVentanaApagado={toggleVerVentanaApagado}
                     toggleVerVentanaReinicio={toggleVerVentanaReinicio}
 
+                    toggleVerAcercaDe={toggleVerAcercaDe}
                     verAcercaDe={verAcercaDe}
                     setVerAcercaDe={setVerAcercaDe}
+                    ventanaMinimizadaAcercaDe={ventanaMinimizadaAcercaDe}
+                    toggleMinimizarVentanaAcercaDe={toggleMinimizarVentanaAcercaDe}
+
+                    toggleVerContacto={toggleVerContacto}
+                    verContacto={verContacto}
+                    setVerContacto={setVerContacto}
+                    ventanaMinimizadaContacto={ventanaMinimizadaContacto}
+                    toggleMinimizarVentanaContacto={toggleMinimizarVentanaContacto}
 
                     setUserInteracted={setUserInteracted}
                 />

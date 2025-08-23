@@ -7,10 +7,17 @@ import OpcionesApagado from "./Opcion_usua_config_apagado/OpcionesApagado";
 import InfoUsuario from "./Opcion_usua_config_apagado/InfoUsuario";
 import ConfiguracionTema from "./Opcion_usua_config_apagado/ConfiguracionTema";
 
-export default function ContVentanaInicio({ toggleVerVentanaInicio, toggleVerAcercaDe,
+export default function ContVentanaInicio({ toggleVerVentanaInicio,
     toggleVerVentanaBloqueo, toggleVerVentanaSuspendido,
     toggleVerVentanaApagado, toggleVerVentanaReinicio,
-    verAcercaDe, setUserInteracted }) {
+
+    toggleVerAcercaDe, verAcercaDe,
+    ventanaMinimizadaAcercaDe, toggleMinimizarVentanaAcercaDe,
+
+    toggleVerContacto, verContacto,
+    ventanaMinimizadaContacto, toggleMinimizarVentanaContacto,
+
+    setUserInteracted }) {
 
     const [verOpcionesApagado, setVerOpcionesApagado] = useState(false);
 
@@ -32,13 +39,26 @@ export default function ContVentanaInicio({ toggleVerVentanaInicio, toggleVerAce
         setVerConfigTema(!verConfigTema);
     }
 
-
     const handleClickVerAcercaDe = () => {
-        if (verAcercaDe) {
+        if (verAcercaDe && ventanaMinimizadaAcercaDe) {
+            toggleMinimizarVentanaAcercaDe();
+        } if (verAcercaDe) {
             toggleVerVentanaInicio()
             return
         } else {
             toggleVerAcercaDe();
+            toggleVerVentanaInicio()
+        }
+    }
+
+    const handleClickVerContacto = () => {
+        if (verContacto && ventanaMinimizadaContacto) {
+            toggleMinimizarVentanaContacto();
+        } if (verContacto) {
+            toggleVerVentanaInicio()
+            return
+        } else {
+            toggleVerContacto();
             toggleVerVentanaInicio()
         }
     }
@@ -148,7 +168,8 @@ export default function ContVentanaInicio({ toggleVerVentanaInicio, toggleVerAce
                         <div className="hover:bg-blue-600 hover:dark:bg-gray-700
                                         active:bg-blue-500 dark:active:bg-gray-600
                                         h-10 w-full p-1
-                                        flex items-center ">
+                                        flex items-center "
+                            onClick={handleClickVerContacto}>
                             <div className="flex flex-row items-center
                                                     h-auto w-auto py-1 gap-2">
                                 <FaRegFileAlt className="text-xl lg:text-2xl 2xl:text-3xl 
@@ -248,7 +269,8 @@ export default function ContVentanaInicio({ toggleVerVentanaInicio, toggleVerAce
                     <div className="bg-red-600 hover:bg-red-700 active:bg-red-500
                                     h-20 w-full overflow-hidden
                                     hover:border-2 hover:border-white active:border-white
-                                    flex flex-col items-center justify-center">
+                                    flex flex-col items-center justify-center"
+                        onClick={handleClickVerContacto}>
                         <FaRegFileAlt className="text-xl lg:text-2xl 2xl:text-3xl text-white" />
                         <p className="text-xs lg:text-sm 2xl:text-base 
                                             text-white text-center"

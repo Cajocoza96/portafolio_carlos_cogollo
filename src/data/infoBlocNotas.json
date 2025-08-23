@@ -1,5 +1,27 @@
 {
-    "textoBlocDeNotas":{
-        "acercaDe": "Hola mi nombre es Carlos Jose Cogollo Zapateiro soy isque un Ingeniero de software, me gradue en el año que tome el grado, no aprendi nada, absolutamente nada, todo lo estoy aprendiendo ahora."
+    "acercaDe":{
+        "titulo": "Acerca de.txt",
+        "texto1": "Hola, soy Carlos José Cogollo Zapateiro, graduado en Ingeniería de Software en la Universidad de Cartagena.",
+        "texto2": "Soy un apasionado por el desarrollo web, actualmente enfocado en el Front-End.",
+        "texto3": "Tengo conocimientos básicos en HTML, CSS y JavaScript, y me encuentro en continuo aprendizaje de React para perfeccionar mis habilidades.",
+        "texto4": "Me inspira la evolución constante de la tecnología y el reto de diseñar interfaces intuitivas, dinámicas y atractivas. Siempre busco nuevas oportunidades para crecer profesionalmente y aportar valor con mi trabajo."
+    },
+
+    "contacto": {
+        "titulo": "Contacto.txt",
+        "texto1": "Correo electrónico: carloscogoza@gmail.com",
+        "texto2": "Celular: +57 324 570 0924",
+        "texto3LinkTexto": "LinkedIn:",
+        "texto3LinkEnlace": "https://www.linkedin.com/in/carlos-jose-cogollo-zapateiro-261a26357?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
+    },
+
+    "habilidades": {
+        "titulo": "Habilidades.txt",
+        "texto1": "Lenguajes de Programación: JavaScript (nivel básico)",
+        "texto2": "Desarrollo Front-End: HTML, CSS, React (aprendiendo lo básico)",
+        "texto3": "Control de Versiones: Git, GitHub",
+        "texto4": "Idiomas:",
+        "texto5": "Español (nativo)",
+        "texto6": "Inglés (intermedio - Nivel 4 English Does Work - SENA)"
     }
 }

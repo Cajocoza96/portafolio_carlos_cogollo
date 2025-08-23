@@ -8,7 +8,11 @@ import EspacioDerechoMobile from "./EspacioDerechoMobile";
 export default function BarraDeTareas({ toggleVerVentanaInicio, toggleVerVentanaBusqueda,
                                         setVerVentanaBusqueda,  verVentanaBusqueda,
                                         setVerVentanaInicio, verVentanaInicio, 
-                                        verAcercaDe, toggleMinimizarVentana }) {
+
+                                        verAcercaDe, verContacto,
+
+                                        toggleMinimizarVentanaAcercaDe, 
+                                        toggleMinimizarVentanaContacto }) {
     return (
         <div className="bg-blue-800 dark:bg-gray-900 gap-1
                         grid grid-cols-[7fr_1fr_1fr] md:grid-cols-[3fr_1fr_1fr]
@@ -25,7 +29,10 @@ export default function BarraDeTareas({ toggleVerVentanaInicio, toggleVerVentana
             />
             <EspacioCentro 
                 verAcercaDe={verAcercaDe}
-                toggleMinimizarVentana={toggleMinimizarVentana}
+                toggleMinimizarVentanaAcercaDe={toggleMinimizarVentanaAcercaDe}
+
+                verContacto={verContacto}
+                toggleMinimizarVentanaContacto={toggleMinimizarVentanaContacto}
             />
             <EspacioDerecho/>
             <EspacioDerechoMobile />

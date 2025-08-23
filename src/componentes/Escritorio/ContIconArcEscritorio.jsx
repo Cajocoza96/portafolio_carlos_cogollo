@@ -1,38 +1,112 @@
 import React, { useState } from "react";
-import Archivos from "./Archivos_accesos_directos/Archivos";
-import VentanaPrincipal from "../Ventanas/VentanaPrincipal";
+import Archivo from "./Archivos_accesos_directos/Archivo";
 
-export default function ContIconArcEscritorio({ toggleVerAcercaDe, 
-                                                verAcercaDe, setVerAcercaDe,
-                                                toggleMinimizarVentana, ventanaMinimizada }) {
+import VentanaPrincipalAcercaDe from "../Ventanas/VentanaPrincipalAcercaDe";
+import VentanaPrincipalContacto from "../Ventanas/VentanaPrincipalContacto";
 
-    // Estado para conservar el tamaño, posición y estado de maximización de la ventana
-    const [ventanaState, setVentanaState] = useState(null);
 
-    // Función para actualizar el estado de la ventana
-    const handleVentanaStateChange = (newState) => {
-        setVentanaState(newState);
+import infoBlocNotas from "../../data/infoBlocNotas.json";
+
+export default function ContIconArcEscritorio({
+    toggleVerAcercaDe,
+    verAcercaDe, setVerAcercaDe,
+    toggleMinimizarVentanaAcercaDe, ventanaMinimizadaAcercaDe,
+
+    toggleVerContacto,
+    verContacto, setVerContacto,
+    toggleMinimizarVentanaContacto, ventanaMinimizadaContacto
+
+    }) {
+
+    // Estado para conservar el tamaño, posición y estado de maximización de la ventana Acerca de
+    const [ventanaStateAcercaDe, setVentanaStateAcercaDe] = useState(null);
+
+    // Función para actualizar el estado de la ventana Acerca de
+    const handleVentanaStateChangeAcercaDe = (newState) => {
+        setVentanaStateAcercaDe(newState);
     };
+
+
+    // Estado para conservar el tamaño, posición y estado de maximización de la ventana Contacto
+    const [ventanaStateContacto, setVentanaStateContacto] = useState(null);
+
+    // Función para actualizar el estado de la ventana Contacto
+    const handleVentanaStateChangeContacto = (newState) => {
+        setVentanaStateContacto(newState);
+    };
+
+
+    const infoAcercaDe = infoBlocNotas.acercaDe;
+    const infoContacto = infoBlocNotas.contacto;
+
+
+    const handleClickArchivoAcercaDe = () => {
+        if (verAcercaDe && ventanaMinimizadaAcercaDe) {
+            toggleMinimizarVentanaAcercaDe();
+        } if (verAcercaDe) {
+            return
+        }
+        else {
+            toggleVerAcercaDe();
+        }
+    }
+
+
+    const handleClickArchivoContacto = () => {
+        if (verContacto && ventanaMinimizadaContacto) {
+            toggleMinimizarVentanaContacto();
+        } if (verContacto) {
+            return
+        }
+        else {
+            toggleVerContacto();
+        }
+    }
 
     return (
         <div className="fixed inset-0 z-50 bg-black/20
                         flex items-center justify-center gap-2">
 
-            {verAcercaDe && !ventanaMinimizada && (
-                <VentanaPrincipal 
+            {verAcercaDe && !ventanaMinimizadaAcercaDe && (
+                <VentanaPrincipalAcercaDe
+                    titulo={infoAcercaDe.titulo}
+                    texto1={infoAcercaDe.texto1}
+                    texto2={infoAcercaDe.texto2}
+                    texto3={infoAcercaDe.texto3}
+                    texto4={infoAcercaDe.texto4}
+
                     toggleVerAcercaDe={toggleVerAcercaDe}
-                    savedState={ventanaState}
-                    onStateChange={handleVentanaStateChange}
-                    toggleMinimizarVentana={toggleMinimizarVentana}
+                    ventanaStateAcercaDe={ventanaStateAcercaDe}
+                    handleVentanaStateChangeAcercaDe={handleVentanaStateChangeAcercaDe}
+                    toggleMinimizarVentanaAcercaDe={toggleMinimizarVentanaAcercaDe}
                 />
             )}
 
-            <Archivos nombre="Acerca de.txt"
-                toggleVerAcercaDe={toggleVerAcercaDe}
-                verAcercaDe={verAcercaDe}
-                setVerAcercaDe={setVerAcercaDe}
+            {verContacto && !ventanaMinimizadaContacto && (
+                <VentanaPrincipalContacto
+                    titulo={infoContacto.titulo}
+                    texto1={infoContacto.texto1}
+                    texto2={infoContacto.texto2}
+                    texto3LinkTexto={infoContacto.texto3LinkTexto}
+                    texto3LinkEnlace={infoContacto.texto3LinkEnlace}
+
+                    toggleVerContacto={toggleVerContacto}
+                    ventanaStateContacto={ventanaStateContacto}
+                    handleVentanaStateChangeContacto={handleVentanaStateChangeContacto}
+                    toggleMinimizarVentanaContacto={toggleMinimizarVentanaContacto}
+                />
+            )}
+
+            <Archivo
+                onDoubleClick={handleClickArchivoAcercaDe}
+                nombre={infoAcercaDe.titulo}
             />
-            
+
+            <Archivo
+                onDoubleClick={handleClickArchivoContacto}
+                nombre={infoContacto.titulo}
+            />
+
 
         </div>
     );
