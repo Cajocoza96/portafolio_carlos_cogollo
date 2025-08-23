@@ -10,7 +10,10 @@ import useIsMobile from "../../hooks/useIsMobile";
 export default function VentanaPrincipalAcercaDe({ toggleVerAcercaDe,
     ventanaStateAcercaDe,
     handleVentanaStateChangeAcercaDe, toggleMinimizarVentanaAcercaDe,
-    titulo, texto1, texto2, texto3, texto4, texto5, texto6 }) {
+    titulo, texto1, texto2, texto3, texto4, texto5, texto6, 
+    zIndex,        // Nueva prop para el z-index
+    onFocus        // Nueva prop para manejar el enfoque
+    }) {
 
     const isMobile = useIsMobile();
     const rndRef = useRef(null);
@@ -205,6 +208,14 @@ export default function VentanaPrincipalAcercaDe({ toggleVerAcercaDe,
         callback();
     };
 
+    // Función para manejar el clic en cualquier parte de la ventana
+    const handleWindowClick = (e) => {
+        // Llamar a la función onFocus para traer la ventana al frente
+        if (onFocus) {
+            onFocus();
+        }
+    };
+
     return (
         <Rnd
             ref={rndRef}
@@ -221,13 +232,13 @@ export default function VentanaPrincipalAcercaDe({ toggleVerAcercaDe,
                 height: windowDimensions.height - 40
             } : previousState}
             style={{
-                border: '1px solid #d1d5db',
-                backgroundColor: 'white',
                 boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
-                zIndex: 1000
+                zIndex: zIndex || 1000
             }}
             onDragStart={(e) => {
                 document.body.style.userSelect = 'none';
+                // Traer al frente cuando comience el arrastre
+                if (onFocus) onFocus();
             }}
             onDragStop={(e, data) => {
                 document.body.style.userSelect = 'auto';
@@ -244,6 +255,8 @@ export default function VentanaPrincipalAcercaDe({ toggleVerAcercaDe,
             }}
             onResizeStart={(e) => {
                 document.body.style.userSelect = 'none';
+                // Traer al frente cuando comience el redimensionado
+                if (onFocus) onFocus();
             }}
             onResize={(e, direction, ref, delta, position) => {
                 // Actualizar dimensiones en tiempo real durante el redimensionamiento
@@ -268,7 +281,16 @@ export default function VentanaPrincipalAcercaDe({ toggleVerAcercaDe,
                 }
             }}
         >
-            <div className="w-full h-full flex flex-col bg-white dark:bg-black">
+            <div 
+                className="w-full h-full flex flex-col 
+                            bg-white dark:bg-black border
+                            border-black dark:border-white"
+                onClick={handleWindowClick}  // Capturar clics en cualquier parte de la ventana
+                onTouchStart={(e) => {
+                    // Para dispositivos táctiles, también manejar el touch
+                    handleWindowClick(e);
+                }}
+            >
                 {/* Barra de título */}
                 <div
                     className="overflow-hidden drag-handle w-full flex flex-row items-center justify-between h-8 select-none"

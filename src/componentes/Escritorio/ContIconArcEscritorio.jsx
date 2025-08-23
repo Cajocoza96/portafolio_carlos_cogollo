@@ -36,6 +36,23 @@ export default function ContIconArcEscritorio({
     };
 
 
+    // Sistema de z-index dinámico para las ventanas
+    const [zIndexCounter, setZIndexCounter] = useState(1000);
+    const [ventanaZIndexes, setVentanaZIndexes] = useState({
+        acercaDe: 1000,
+        contacto: 1001
+    });
+
+    // Función para traer una ventana al frente
+    const bringToFront = (ventanaId) => {
+        const newZIndex = zIndexCounter + 1;
+        setZIndexCounter(newZIndex);
+        setVentanaZIndexes(prev => ({
+            ...prev,
+            [ventanaId]: newZIndex
+        }));
+    };
+
     const infoAcercaDe = infoBlocNotas.acercaDe;
     const infoContacto = infoBlocNotas.contacto;
 
@@ -79,6 +96,10 @@ export default function ContIconArcEscritorio({
                     ventanaStateAcercaDe={ventanaStateAcercaDe}
                     handleVentanaStateChangeAcercaDe={handleVentanaStateChangeAcercaDe}
                     toggleMinimizarVentanaAcercaDe={toggleMinimizarVentanaAcercaDe}
+
+                    // Props para el sistema de z-index
+                    zIndex={ventanaZIndexes.acercaDe}
+                    onFocus={() => bringToFront('acercaDe')}
                 />
             )}
 
@@ -94,6 +115,10 @@ export default function ContIconArcEscritorio({
                     ventanaStateContacto={ventanaStateContacto}
                     handleVentanaStateChangeContacto={handleVentanaStateChangeContacto}
                     toggleMinimizarVentanaContacto={toggleMinimizarVentanaContacto}
+
+                    // Props para el sistema de z-index
+                    zIndex={ventanaZIndexes.contacto}
+                    onFocus={() => bringToFront('contacto')}
                 />
             )}
 
