@@ -123,12 +123,12 @@ export default function ContIconArcEscritorio({
             )}
 
             <Archivo
-                onDoubleClick={handleClickArchivoAcercaDe}
+                onClick={handleClickArchivoAcercaDe}
                 nombre={infoAcercaDe.titulo}
             />
 
             <Archivo
-                onDoubleClick={handleClickArchivoContacto}
+                onClick={handleClickArchivoContacto}
                 nombre={infoContacto.titulo}
             />
 

@@ -4,6 +4,8 @@ import useIsMobile from "../../hooks/useIsMobile";
 import windowsEscritorioHorizontal from "/assets/img/escritorio/normal/windowsEscritorioHorizontal.webp";
 import windowsEscritorioVertical from "/assets/img/escritorio/normal/windowsEscritorioVertical.webp";
 
+import infoBlocNotas from "../../data/infoBlocNotas.json";
+
 import OptimizedImage, { IMAGE_CONFIGS } from "../common/OptimizedImage";
 import BarraDeTareas from "../Barra_de_tareas/BarraDeTareas";
 
@@ -16,6 +18,9 @@ import VistaApagadoInicio from "../Ventanas/Ventana_inicio/Opcion_usua_config_ap
 import VentanaBusqueda from "../Ventanas/Ventana_busqueda/VentanaBusqueda";
 
 export default function Escritorio() {
+    const infoAcercaDe = infoBlocNotas.acercaDe;
+    const infoContacto = infoBlocNotas.contacto;
+
     const isMobile = useIsMobile();
 
     // Memoizar la configuración de la imagen para evitar recálculos innecesarios
@@ -72,7 +77,7 @@ export default function Escritorio() {
     }
 
 
-    
+
 
     const [verVentanaBusqueda, setVerVentanaBusqueda] = useState(false);
 
@@ -207,7 +212,7 @@ export default function Escritorio() {
                 setVerContacto={setVerContacto}
 
                 toggleMinimizarVentanaContacto={toggleMinimizarVentanaContacto}
-                ventanaMinimizadaContacto={ventanaMinimizadaContacto} 
+                ventanaMinimizadaContacto={ventanaMinimizadaContacto}
             />
 
             {verVentanaInicio && (
@@ -217,7 +222,7 @@ export default function Escritorio() {
                     toggleVerVentanaSuspendido={toggleVerVentanaSuspendido}
                     toggleVerVentanaApagado={toggleVerVentanaApagado}
                     toggleVerVentanaReinicio={toggleVerVentanaReinicio}
-                    
+
                     toggleVerAcercaDe={toggleVerAcercaDe}
                     verAcercaDe={verAcercaDe}
                     setVerAcercaDe={setVerAcercaDe}
@@ -295,6 +300,12 @@ export default function Escritorio() {
 
                 verContacto={verContacto}
                 toggleMinimizarVentanaContacto={toggleMinimizarVentanaContacto}
+
+                // Nuevas props necesarias
+                toggleVerAcercaDe={toggleVerAcercaDe}
+                toggleVerContacto={toggleVerContacto}
+                infoAcercaDe={infoAcercaDe}
+                infoContacto={infoContacto}
             />
         </>
     );

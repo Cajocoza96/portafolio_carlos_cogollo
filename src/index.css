@@ -2,6 +2,12 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+@layer utilities{
+  .custom-border-r {
+    border-right: 4px double;
+  }
+}
+
 @layer base {
   * {
     padding: 0;
