@@ -31,6 +31,32 @@ export default function Escritorio() {
         };
     }, [isMobile]);
 
+
+    // Sistema de z-index dinámico para las ventanas - MOVIDO AQUÍ
+    const [zIndexCounter, setZIndexCounter] = useState(1000);
+    const [ventanaZIndexes, setVentanaZIndexes] = useState({
+        acercaDe: 1000,
+        contacto: 1001
+    });
+
+    // Función para traer una ventana al frente - MOVIDO AQUÍ
+    const bringToFront = (ventanaId) => {
+        const newZIndex = zIndexCounter + 1;
+        setZIndexCounter(newZIndex);
+        setVentanaZIndexes(prev => ({
+            ...prev,
+            [ventanaId]: newZIndex
+        }));
+    };
+
+    // Estado para manejar el hover en las miniaturas
+    const [hoveredVentana, setHoveredVentana] = useState(null);
+
+    // Función para manejar el hover desde EspacioCentro
+    const handleHoverVentana = (ventanaType) => {
+        setHoveredVentana(ventanaType);
+    };
+
     const [verVentanaInicio, setVerVentanaInicio] = useState(false);
 
     const toggleVerVentanaInicio = () => {
@@ -75,9 +101,7 @@ export default function Escritorio() {
             setVentanaMinimizadaContacto(false);
         }
     }
-
-
-
+    
 
     const [verVentanaBusqueda, setVerVentanaBusqueda] = useState(false);
 
@@ -213,6 +237,12 @@ export default function Escritorio() {
 
                 toggleMinimizarVentanaContacto={toggleMinimizarVentanaContacto}
                 ventanaMinimizadaContacto={ventanaMinimizadaContacto}
+
+                // Pasar las funciones y estados de z-index
+                ventanaZIndexes={ventanaZIndexes}
+                bringToFront={bringToFront}
+
+                hoveredVentana={hoveredVentana}
             />
 
             {verVentanaInicio && (
@@ -238,6 +268,9 @@ export default function Escritorio() {
                     ventanaMinimizadaContacto={ventanaMinimizadaContacto}
 
                     setUserInteracted={setUserInteracted}
+
+                    // Pasar la función bringToFront para usar desde VentanaInicio
+                    bringToFront={bringToFront}
                 />
             )}
 
@@ -306,6 +339,13 @@ export default function Escritorio() {
                 toggleVerContacto={toggleVerContacto}
                 infoAcercaDe={infoAcercaDe}
                 infoContacto={infoContacto}
+
+                ventanaMinimizadaAcercaDe={ventanaMinimizadaAcercaDe}
+                ventanaMinimizadaContacto={ventanaMinimizadaContacto}
+
+                bringToFront={bringToFront}
+
+                onHoverVentana={handleHoverVentana}
             />
         </>
     );

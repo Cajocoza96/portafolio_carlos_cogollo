@@ -12,8 +12,9 @@ export default function VentanaPrincipalContacto({ toggleVerContacto,
     handleVentanaStateChangeContacto, toggleMinimizarVentanaContacto,
     titulo, texto1, texto2, texto3LinkTexto, texto3LinkEnlace,
     zIndex,        // Nueva prop para el z-index
-    onFocus        // Nueva prop para manejar el enfoque
-    }) {
+    onFocus,       // Nueva prop para manejar el enfoque
+    isTransparent  // Nueva prop para el efecto semitransparente
+}) {
 
     const isMobile = useIsMobile();
     const rndRef = useRef(null);
@@ -157,7 +158,7 @@ export default function VentanaPrincipalContacto({ toggleVerContacto,
         const currentState = !isMaximized ?
             { ...previousState, isMaximized: true } :
             { ...previousState, isMaximized: false };
-            handleVentanaStateChangeContacto && handleVentanaStateChangeContacto(currentState);
+        handleVentanaStateChangeContacto && handleVentanaStateChangeContacto(currentState);
     };
 
     const handleDoubleClick = () => {
@@ -281,16 +282,17 @@ export default function VentanaPrincipalContacto({ toggleVerContacto,
                 }
             }}
         >
-            <div 
-                className="w-full h-full flex flex-col 
+            <div
+                className={`${isTransparent ? "opacity-30" : "opacity-100"} w-full h-full flex flex-col 
                             bg-white dark:bg-black border
-                            border-black dark:border-white"
+                            border-black dark:border-white overflow-hidden`}
                 onClick={handleWindowClick}  // Capturar clics en cualquier parte de la ventana
                 onTouchStart={(e) => {
                     // Para dispositivos táctiles, también manejar el touch
                     handleWindowClick(e);
                 }}
             >
+            <div className={`${isTransparent ? "invisible" : "visible"}`}>
                 {/* Barra de título */}
                 <div
                     className="overflow-hidden drag-handle w-full flex flex-row items-center justify-between h-8 select-none"
@@ -374,7 +376,7 @@ export default function VentanaPrincipalContacto({ toggleVerContacto,
                 {/* Área de texto - Solo visible si hay suficiente altura */}
                 {(isMaximized ? windowDimensions.height : currentDimensions.height) >
                     ((isMaximized ? windowDimensions.height : currentDimensions.height) > 60 ? 90 : 60) && (
-                        <div className="flex-1 flex-col p-2 cursor-text overflow-auto">
+                        <div className="flex-1 flex-col p-2 cursor-text overflow-y-auto overflow-x-hidden">
                             <div className="mb-2">
                                 <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
                                     {texto1}
@@ -395,15 +397,17 @@ export default function VentanaPrincipalContacto({ toggleVerContacto,
 
                             <div className="mb-2">
                                 <a href={texto3LinkEnlace}
-                                    className="text-black dark:text-white text-sm whitespace-pre-wrap"
+                                    className="block break-words text-sm 
+                                            text-black dark:text-white whitespace-pre-wrap"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    >
+                                >
                                     {texto3LinkEnlace}
                                 </a>
                             </div>
                         </div>
                     )}
+                </div>
             </div>
         </Rnd>
     );

@@ -10,9 +10,15 @@ export default function EspacioCentro({
     toggleVerAcercaDe,
     toggleVerContacto,
     infoAcercaDe,
-    infoContacto
+    infoContacto,
+
+    ventanaMinimizadaAcercaDe, ventanaMinimizadaContacto, bringToFront,
+    
+    // Nueva prop para manejar el hover
+    onHoverVentana
 }) {
     const [showPreview, setShowPreview] = useState(false);
+    const [hoveredVentana, setHoveredVentana] = useState(null);
     const previewRef = useRef(null);
     const iconRef = useRef(null);
 
@@ -28,14 +34,14 @@ export default function EspacioCentro({
             } else if (verContacto && toggleMinimizarVentanaContacto) {
                 toggleMinimizarVentanaContacto();
             }
-        } else if (numeroVentanas > 1) {
+        } else if (numeroVentanas > 0) {
             // Si hay múltiples ventanas, mostrar/ocultar preview
             setShowPreview(!showPreview);
         }
     };
 
     const handleMouseEnter = () => {
-        if (numeroVentanas > 1) {
+        if (numeroVentanas > 0) {
             setShowPreview(true);
         }
     };
@@ -46,25 +52,46 @@ export default function EspacioCentro({
             if (previewRef.current && !previewRef.current.matches(':hover') &&
                 iconRef.current && !iconRef.current.matches(':hover')) {
                 setShowPreview(false);
+                setHoveredVentana(null);
+                // Limpiar el hover cuando se sale de la preview
+                if (onHoverVentana) {
+                    onHoverVentana(null);
+                }
             }
         }, 100);
     };
 
     const handlePreviewMouseLeave = () => {
         setShowPreview(false);
+        setHoveredVentana(null);
+        // Limpiar el hover cuando se sale de la preview
+        if (onHoverVentana) {
+            onHoverVentana(null);
+        }
     };
 
     const handleSelectWindow = (tipo) => {
         if (tipo === 'acercaDe') {
-            if (toggleMinimizarVentanaAcercaDe) {
+            if (bringToFront) {
+                bringToFront('acercaDe');
+            }
+            if (verAcercaDe && ventanaMinimizadaAcercaDe) {
                 toggleMinimizarVentanaAcercaDe();
             }
         } else if (tipo === 'contacto') {
-            if (toggleMinimizarVentanaContacto) {
+            if (bringToFront) {
+                bringToFront('contacto');
+            }
+            if (verContacto && ventanaMinimizadaContacto) {
                 toggleMinimizarVentanaContacto();
             }
         }
         setShowPreview(false);
+        setHoveredVentana(null);
+        // Limpiar el hover al seleccionar una ventana
+        if (onHoverVentana) {
+            onHoverVentana(null);
+        }
     };
 
     const handleCloseWindow = (e, tipo) => {
@@ -76,12 +103,31 @@ export default function EspacioCentro({
         }
     };
 
+    // Manejar hover sobre las miniaturas individuales
+    const handleMiniatureHover = (ventanaType) => {
+        setHoveredVentana(ventanaType);
+        if (onHoverVentana) {
+            onHoverVentana(ventanaType);
+        }
+    };
+
+    const handleMiniatureLeave = () => {
+        setHoveredVentana(null);
+        if (onHoverVentana) {
+            onHoverVentana(null);
+        }
+    };
+
     // Cerrar preview al hacer clic fuera
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (previewRef.current && !previewRef.current.contains(event.target) &&
                 iconRef.current && !iconRef.current.contains(event.target)) {
                 setShowPreview(false);
+                setHoveredVentana(null);
+                if (onHoverVentana) {
+                    onHoverVentana(null);
+                }
             }
         };
 
@@ -111,7 +157,7 @@ export default function EspacioCentro({
                             ${numeroVentanas === 1 ? 'border-b-2 border-blue-300 dark:border-gray-300' : ''}
                             ${numeroVentanas > 1 ? 'border-b-2 custom-border-r border-blue-300 dark:border-gray-300' : ''}
                             h-10 w-12 p-1 flex items-center justify-center
-                            text-sm lg:text-xl 2xl:text-2xl cursor-pointer`}
+                            text-sm lg:text-xl 2xl:text-2xl`}
                 onClick={handleClickIconoBlocNotas}
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
@@ -120,7 +166,7 @@ export default function EspacioCentro({
             </div>
 
             {/* Vista previa de miniaturas */}
-            {showPreview && numeroVentanas > 1 && (
+            {showPreview && numeroVentanas > 0 && (
                 <div
                     ref={previewRef}
                     className="absolute 
@@ -129,11 +175,17 @@ export default function EspacioCentro({
                                 border-blue-700 dark:border-gray-800 shadow-lg p-1 min-w-64 z-50"
                     onMouseLeave={handlePreviewMouseLeave}
                 >
-                    <div className="grid grid-cols-2 gap-2">
+                    <div className={`grid 
+                                    ${numeroVentanas === 1 ? 'lg:grid-cols-1' : 'lg:grid-cols-2'}  gap-2`}>
                         {verAcercaDe && (
                             <div
-                                className="w-full rounded relative group"
-                                onClick={() => handleSelectWindow('acercaDe')}>
+                                className={`w-full rounded relative group transition-opacity duration-200 ${
+                                    hoveredVentana && hoveredVentana !== 'acercaDe' ? 'opacity-50' : 'opacity-100'
+                                }`}
+                                onClick={() => handleSelectWindow('acercaDe')}
+                                onMouseEnter={() => handleMiniatureHover('acercaDe')}
+                                onMouseLeave={handleMiniatureLeave}
+                            >
                                 <div className="flex flex-col items-center">
                                     <div className="w-full p-2 flex flex-row items-center justify-between">
                                         <div className="text-white flex flex-row items-center justify-center gap-2">
@@ -154,16 +206,19 @@ export default function EspacioCentro({
                                             {infoAcercaDe?.texto1 || 'Contenido de acerca de...'}
                                         </div>
                                     </div>
-
                                 </div>
-
                             </div>
                         )}
 
                         {verContacto && (
                             <div
-                                className="w-full rounded relative group"
-                                onClick={() => handleSelectWindow('contacto')}>
+                                className={`w-full rounded relative group transition-opacity duration-200 ${
+                                    hoveredVentana && hoveredVentana !== 'contacto' ? 'opacity-50' : 'opacity-100'
+                                }`}
+                                onClick={() => handleSelectWindow('contacto')}
+                                onMouseEnter={() => handleMiniatureHover('contacto')}
+                                onMouseLeave={handleMiniatureLeave}
+                            >
                                 <div className="flex flex-col items-center">
                                     <div className="w-full p-2 flex flex-row items-center justify-between">
                                         <div className="text-white flex flex-row items-center justify-center gap-2">
@@ -184,9 +239,7 @@ export default function EspacioCentro({
                                             {infoContacto?.texto1 || 'Información de contacto...'}
                                         </div>
                                     </div>
-
                                 </div>
-
                             </div>
                         )}
                     </div>

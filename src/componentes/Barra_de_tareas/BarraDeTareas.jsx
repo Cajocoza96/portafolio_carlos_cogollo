@@ -23,7 +23,11 @@ export default function BarraDeTareas({
     toggleVerAcercaDe,
     toggleVerContacto,
     infoAcercaDe,
-    infoContacto
+    infoContacto,
+
+    ventanaMinimizadaAcercaDe, ventanaMinimizadaContacto,
+
+    bringToFront, onHoverVentana
 }) {
     return (
         <div className="bg-blue-800 dark:bg-gray-900 gap-1
@@ -51,6 +55,13 @@ export default function BarraDeTareas({
                 toggleVerContacto={toggleVerContacto}
                 infoAcercaDe={infoAcercaDe}
                 infoContacto={infoContacto}
+
+                ventanaMinimizadaAcercaDe={ventanaMinimizadaAcercaDe}
+                ventanaMinimizadaContacto={ventanaMinimizadaContacto}
+
+                bringToFront={bringToFront}
+
+                onHoverVentana={onHoverVentana}
             />
             <EspacioDerecho/>
             <EspacioDerechoMobile />

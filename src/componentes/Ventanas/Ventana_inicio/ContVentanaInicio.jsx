@@ -17,7 +17,7 @@ export default function ContVentanaInicio({ toggleVerVentanaInicio,
     toggleVerContacto, verContacto,
     ventanaMinimizadaContacto, toggleMinimizarVentanaContacto,
 
-    setUserInteracted }) {
+    setUserInteracted, bringToFront  }) {
 
     const [verOpcionesApagado, setVerOpcionesApagado] = useState(false);
 
@@ -43,11 +43,15 @@ export default function ContVentanaInicio({ toggleVerVentanaInicio,
         if (verAcercaDe && ventanaMinimizadaAcercaDe) {
             toggleMinimizarVentanaAcercaDe();
         } if (verAcercaDe) {
+            bringToFront('acercaDe');
             toggleVerVentanaInicio()
             return
         } else {
             toggleVerAcercaDe();
-            toggleVerVentanaInicio()
+            setTimeout(() => {
+                bringToFront('acercaDe');
+            }, 0);
+            toggleVerVentanaInicio();
         }
     }
 
@@ -55,10 +59,14 @@ export default function ContVentanaInicio({ toggleVerVentanaInicio,
         if (verContacto && ventanaMinimizadaContacto) {
             toggleMinimizarVentanaContacto();
         } if (verContacto) {
+            bringToFront('contacto');
             toggleVerVentanaInicio()
             return
         } else {
             toggleVerContacto();
+            setTimeout(() => {
+                bringToFront('contacto');
+            }, 0);
             toggleVerVentanaInicio()
         }
     }

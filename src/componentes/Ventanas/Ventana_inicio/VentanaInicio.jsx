@@ -12,7 +12,7 @@ export default function VentanaInicio({ toggleVerVentanaInicio, toggleVerVentana
                                         verContacto, setVerContacto, toggleVerContacto,
                                         ventanaMinimizadaContacto, toggleMinimizarVentanaContacto,
                                         
-                                        setUserInteracted }) {
+                                        setUserInteracted, bringToFront }) {
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center" 
                 onClick={toggleVerVentanaInicio}>
@@ -40,6 +40,8 @@ export default function VentanaInicio({ toggleVerVentanaInicio, toggleVerVentana
                     toggleMinimizarVentanaContacto={toggleMinimizarVentanaContacto}
 
                     setUserInteracted={setUserInteracted}
+
+                    bringToFront={bringToFront}
                 />
                 </div>
             </div>

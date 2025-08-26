@@ -14,8 +14,13 @@ export default function ContIconArcEscritorio({
 
     toggleVerContacto,
     verContacto, setVerContacto,
-    toggleMinimizarVentanaContacto, ventanaMinimizadaContacto
+    toggleMinimizarVentanaContacto, ventanaMinimizadaContacto,
 
+    ventanaZIndexes,
+    bringToFront,
+
+    // Nueva prop para el hover
+    hoveredVentana
     }) {
 
     // Estado para conservar el tamaño, posición y estado de maximización de la ventana Acerca de
@@ -33,24 +38,6 @@ export default function ContIconArcEscritorio({
     // Función para actualizar el estado de la ventana Contacto
     const handleVentanaStateChangeContacto = (newState) => {
         setVentanaStateContacto(newState);
-    };
-
-
-    // Sistema de z-index dinámico para las ventanas
-    const [zIndexCounter, setZIndexCounter] = useState(1000);
-    const [ventanaZIndexes, setVentanaZIndexes] = useState({
-        acercaDe: 1000,
-        contacto: 1001
-    });
-
-    // Función para traer una ventana al frente
-    const bringToFront = (ventanaId) => {
-        const newZIndex = zIndexCounter + 1;
-        setZIndexCounter(newZIndex);
-        setVentanaZIndexes(prev => ({
-            ...prev,
-            [ventanaId]: newZIndex
-        }));
     };
 
     const infoAcercaDe = infoBlocNotas.acercaDe;
@@ -80,6 +67,12 @@ export default function ContIconArcEscritorio({
         }
     }
 
+    // Determinar si una ventana debe estar semitransparente
+    const shouldBeTransparent = (ventanaType) => {
+        // Si hay hover y esta ventana no es la que está siendo hovereada, debe estar semitransparente
+        return hoveredVentana && hoveredVentana !== ventanaType;
+    };
+
     return (
         <div className="fixed inset-0 z-50 bg-black/20
                         flex items-center justify-center gap-2">
@@ -100,6 +93,9 @@ export default function ContIconArcEscritorio({
                     // Props para el sistema de z-index
                     zIndex={ventanaZIndexes.acercaDe}
                     onFocus={() => bringToFront('acercaDe')}
+
+                    // Prop para el efecto semitransparente
+                    isTransparent={shouldBeTransparent('acercaDe')}
                 />
             )}
 
@@ -119,6 +115,9 @@ export default function ContIconArcEscritorio({
                     // Props para el sistema de z-index
                     zIndex={ventanaZIndexes.contacto}
                     onFocus={() => bringToFront('contacto')}
+
+                    // Prop para el efecto semitransparente
+                    isTransparent={shouldBeTransparent('contacto')}
                 />
             )}
 
