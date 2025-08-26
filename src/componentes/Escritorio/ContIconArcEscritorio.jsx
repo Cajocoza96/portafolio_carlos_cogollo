@@ -1,11 +1,81 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
+import { Rnd } from "react-rnd";
 import Archivo from "./Archivos_accesos_directos/Archivo";
-
-import VentanaPrincipalAcercaDe from "../Ventanas/VentanaPrincipalAcercaDe";
-import VentanaPrincipalContacto from "../Ventanas/VentanaPrincipalContacto";
-
-
+import VentanaPrincipal from "../Ventanas/VentanaPrincipal";
 import infoBlocNotas from "../../data/infoBlocNotas.json";
+import useIsMobile from "../../hooks/useIsMobile";
+
+// Componentes de contenido específico para cada ventana
+const ContenidoAcercaDe = ({ data }) => (
+    <>
+        <div className="mb-2">
+            <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
+                {data.texto1}
+            </p>
+        </div>
+
+        <div className="mb-2">
+            <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
+                {data.texto2}
+            </p>
+        </div>
+
+        <div className="mb-2">
+            <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
+                {data.texto3}
+            </p>
+        </div>
+
+        <div className="mb-2">
+            <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
+                {data.texto4}
+            </p>
+        </div>
+
+        <div className="mb-2">
+            <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
+                {data.texto5}
+            </p>
+        </div>
+
+        <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
+            {data.texto6}
+        </p>
+    </>
+);
+
+const ContenidoContacto = ({ data }) => (
+    <>
+        <div className="mb-2">
+            <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
+                {data.texto1}
+            </p>
+        </div>
+
+        <div className="mb-2">
+            <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
+                {data.texto2}
+            </p>
+        </div>
+
+        <div className="mb-2">
+            <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
+                {data.texto3LinkTexto}
+            </p>
+        </div>
+
+        <div className="mb-2">
+            <a href={data.texto3LinkEnlace}
+                className="block break-words text-sm 
+                        text-black dark:text-white whitespace-pre-wrap"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                {data.texto3LinkEnlace}
+            </a>
+        </div>
+    </>
+);
 
 export default function ContIconArcEscritorio({
     toggleVerAcercaDe,
@@ -21,7 +91,7 @@ export default function ContIconArcEscritorio({
 
     // Nueva prop para el hover
     hoveredVentana
-    }) {
+}) {
 
     // Estado para conservar el tamaño, posición y estado de maximización de la ventana Acerca de
     const [ventanaStateAcercaDe, setVentanaStateAcercaDe] = useState(null);
@@ -31,7 +101,6 @@ export default function ContIconArcEscritorio({
         setVentanaStateAcercaDe(newState);
     };
 
-
     // Estado para conservar el tamaño, posición y estado de maximización de la ventana Contacto
     const [ventanaStateContacto, setVentanaStateContacto] = useState(null);
 
@@ -40,9 +109,62 @@ export default function ContIconArcEscritorio({
         setVentanaStateContacto(newState);
     };
 
+    // Hook para detectar si es móvil
+    const isMobile = useIsMobile();
+
+    // Referencias para el contenedor
+    const containerRef = useRef(null);
+
+    // Estados para las posiciones de los archivos
+    const [archivoAcercaDePosition, setArchivoAcercaDePosition] = useState({ x: 0, y: 0 });
+    const [archivoContactoPosition, setArchivoContactoPosition] = useState({ x: 80, y: 0 });
+
+    // Dimensiones del archivo (basado en las clases de Tailwind)
+    const archivoWidth = 72; // w-18 = 72px
+    const archivoHeight = 80; // h-20 = 80px
+
+    // Función para obtener los límites del contenedor
+    const getBounds = () => {
+        if (!containerRef.current) return { left: 0, top: 0, right: 0, bottom: 0 };
+
+        const rect = containerRef.current.getBoundingClientRect();
+        return {
+            left: 0,
+            top: 0,
+            right: rect.width - archivoWidth,
+            bottom: rect.height - archivoHeight
+        };
+    };
+
+    // Efecto para ajustar posiciones cuando cambia la orientación
+    useEffect(() => {
+        const adjustPositionsOnResize = () => {
+            const bounds = getBounds();
+
+            // Ajustar posición del archivo Acerca de si está fuera de límites
+            setArchivoAcercaDePosition(prev => ({
+                x: Math.min(Math.max(prev.x, bounds.left), bounds.right),
+                y: Math.min(Math.max(prev.y, bounds.top), bounds.bottom)
+            }));
+
+            // Ajustar posición del archivo Contacto si está fuera de límites
+            setArchivoContactoPosition(prev => ({
+                x: Math.min(Math.max(prev.x, bounds.left), bounds.right),
+                y: Math.min(Math.max(prev.y, bounds.top), bounds.bottom)
+            }));
+        };
+
+        // Ajustar cuando cambie el tamaño de ventana
+        window.addEventListener('resize', adjustPositionsOnResize);
+
+        // Cleanup
+        return () => {
+            window.removeEventListener('resize', adjustPositionsOnResize);
+        };
+    }, [isMobile]);
+
     const infoAcercaDe = infoBlocNotas.acercaDe;
     const infoContacto = infoBlocNotas.contacto;
-
 
     const handleClickArchivoAcercaDe = () => {
         if (verAcercaDe && ventanaMinimizadaAcercaDe) {
@@ -54,7 +176,6 @@ export default function ContIconArcEscritorio({
             toggleVerAcercaDe();
         }
     }
-
 
     const handleClickArchivoContacto = () => {
         if (verContacto && ventanaMinimizadaContacto) {
@@ -74,21 +195,17 @@ export default function ContIconArcEscritorio({
     };
 
     return (
-        <div className="fixed inset-0 z-50 bg-black/20
-                        flex items-center justify-center gap-2">
+        <div
+            ref={containerRef}
+            className="fixed inset-0 z-50 bg-black/20">
 
             {verAcercaDe && !ventanaMinimizadaAcercaDe && (
-                <VentanaPrincipalAcercaDe
+                <VentanaPrincipal
                     titulo={infoAcercaDe.titulo}
-                    texto1={infoAcercaDe.texto1}
-                    texto2={infoAcercaDe.texto2}
-                    texto3={infoAcercaDe.texto3}
-                    texto4={infoAcercaDe.texto4}
-
-                    toggleVerAcercaDe={toggleVerAcercaDe}
-                    ventanaStateAcercaDe={ventanaStateAcercaDe}
-                    handleVentanaStateChangeAcercaDe={handleVentanaStateChangeAcercaDe}
-                    toggleMinimizarVentanaAcercaDe={toggleMinimizarVentanaAcercaDe}
+                    toggleVerVentana={toggleVerAcercaDe}
+                    ventanaState={ventanaStateAcercaDe}
+                    handleVentanaStateChange={handleVentanaStateChangeAcercaDe}
+                    toggleMinimizarVentana={toggleMinimizarVentanaAcercaDe}
 
                     // Props para el sistema de z-index
                     zIndex={ventanaZIndexes.acercaDe}
@@ -96,21 +213,19 @@ export default function ContIconArcEscritorio({
 
                     // Prop para el efecto semitransparente
                     isTransparent={shouldBeTransparent('acercaDe')}
+
+                    // Contenido específico
+                    contenido={<ContenidoAcercaDe data={infoAcercaDe} />}
                 />
             )}
 
             {verContacto && !ventanaMinimizadaContacto && (
-                <VentanaPrincipalContacto
+                <VentanaPrincipal
                     titulo={infoContacto.titulo}
-                    texto1={infoContacto.texto1}
-                    texto2={infoContacto.texto2}
-                    texto3LinkTexto={infoContacto.texto3LinkTexto}
-                    texto3LinkEnlace={infoContacto.texto3LinkEnlace}
-
-                    toggleVerContacto={toggleVerContacto}
-                    ventanaStateContacto={ventanaStateContacto}
-                    handleVentanaStateChangeContacto={handleVentanaStateChangeContacto}
-                    toggleMinimizarVentanaContacto={toggleMinimizarVentanaContacto}
+                    toggleVerVentana={toggleVerContacto}
+                    ventanaState={ventanaStateContacto}
+                    handleVentanaStateChange={handleVentanaStateChangeContacto}
+                    toggleMinimizarVentana={toggleMinimizarVentanaContacto}
 
                     // Props para el sistema de z-index
                     zIndex={ventanaZIndexes.contacto}
@@ -118,19 +233,47 @@ export default function ContIconArcEscritorio({
 
                     // Prop para el efecto semitransparente
                     isTransparent={shouldBeTransparent('contacto')}
+
+                    // Contenido específico
+                    contenido={<ContenidoContacto data={infoContacto} />}
                 />
             )}
 
-            <Archivo
-                onClick={handleClickArchivoAcercaDe}
-                nombre={infoAcercaDe.titulo}
-            />
+            <Rnd
+                size={{ width: archivoWidth, height: archivoHeight }}
+                position={archivoAcercaDePosition}
+                onDragStop={(e, d) => {
+                    setArchivoAcercaDePosition({ x: d.x, y: d.y });
+                }}
+                bounds="parent"
+                enableResizing={false}
+                dragHandleClassName="archivo-drag-handle"
+            >
+                <div className="archivo-drag-handle w-full h-full">
+                    <Archivo
+                        onDoubleClick={handleClickArchivoAcercaDe}
+                        nombre={infoAcercaDe.titulo}
+                    />
+                </div>
+            </Rnd>
 
-            <Archivo
-                onClick={handleClickArchivoContacto}
-                nombre={infoContacto.titulo}
-            />
-
+            <Rnd
+                size={{ width: archivoWidth, height: archivoHeight }}
+                position={archivoContactoPosition}
+                onDragStop={(e, d) => {
+                    setArchivoContactoPosition({ x: d.x, y: d.y });
+                }}
+                bounds="parent"
+                enableResizing={false}
+                dragHandleClassName="archivo-drag-handle"
+            >
+                <div className="archivo-drag-handle w-full h-full">
+                    <Archivo
+                        onDoubleClick={handleClickArchivoContacto}
+                        nombre={infoContacto.titulo}
+                    />
+                </div>
+            </Rnd>
 
         </div>
     );
