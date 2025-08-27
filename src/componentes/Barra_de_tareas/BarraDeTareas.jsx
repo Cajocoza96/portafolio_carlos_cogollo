@@ -14,18 +14,23 @@ export default function BarraDeTareas({
     verVentanaInicio, 
 
     verAcercaDe, 
-    verContacto,
-
-    toggleMinimizarVentanaAcercaDe, 
-    toggleMinimizarVentanaContacto,
-    
-    // Nuevas props necesarias para el EspacioCentro
     toggleVerAcercaDe,
-    toggleVerContacto,
     infoAcercaDe,
-    infoContacto,
+    toggleMinimizarVentanaAcercaDe,
+    ventanaMinimizadaAcercaDe,
 
-    ventanaMinimizadaAcercaDe, ventanaMinimizadaContacto,
+    verContacto,
+    toggleVerContacto,
+    infoContacto,
+    toggleMinimizarVentanaContacto,
+    ventanaMinimizadaContacto,
+
+    verHabilidades,
+    toggleVerHabilidades,
+    infoHabilidades,
+    toggleMinimizarVentanaHabilidades,
+    ventanaMinimizadaHabilidades,
+    
 
     bringToFront, onHoverVentana
 }) {
@@ -46,18 +51,21 @@ export default function BarraDeTareas({
             <EspacioCentro 
                 verAcercaDe={verAcercaDe}
                 toggleMinimizarVentanaAcercaDe={toggleMinimizarVentanaAcercaDe}
+                toggleVerAcercaDe={toggleVerAcercaDe}
+                infoAcercaDe={infoAcercaDe}
+                ventanaMinimizadaAcercaDe={ventanaMinimizadaAcercaDe}
 
                 verContacto={verContacto}
                 toggleMinimizarVentanaContacto={toggleMinimizarVentanaContacto}
-                
-                // Nuevas props
-                toggleVerAcercaDe={toggleVerAcercaDe}
                 toggleVerContacto={toggleVerContacto}
-                infoAcercaDe={infoAcercaDe}
                 infoContacto={infoContacto}
-
-                ventanaMinimizadaAcercaDe={ventanaMinimizadaAcercaDe}
                 ventanaMinimizadaContacto={ventanaMinimizadaContacto}
+
+                verHabilidades={verHabilidades}
+                toggleMinimizarVentanaHabilidades={toggleMinimizarVentanaHabilidades}
+                toggleVerHabilidades={toggleVerHabilidades}
+                infoHabilidades={infoHabilidades}
+                ventanaMinimizadaHabilidades={ventanaMinimizadaHabilidades}
 
                 bringToFront={bringToFront}
 

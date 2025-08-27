@@ -23,5 +23,32 @@
         "texto4": "Idiomas:",
         "texto5": "Español (nativo)",
         "texto6": "Inglés (intermedio - Nivel 4 English Does Work - SENA)"
+    }, 
+
+    "proyectos": {
+        "titulo": "proyectos.txt",
+        "texto1": "TuClima360 – Aplicación Web del Clima",
+        "texto2": "Descripción: Aplicación web para consultar el clima en tiempo real.",
+        "texto3": "Funcionalidades: búsqueda de ciudades, datos climáticos en tiempo real, gráficas dinámicas, opciones de personalización y diseño responsivo.",
+        "texto4": "Frontend: React 19 + Vite, TailwindCSS, Chart.js, Framer Motion",
+        "texto5": "Backend: Node.js, Express, Axios",
+        "texto6": "APIs: GeoNames, Open-Meteo, TimeZoneDB",
+        "texto7": "Repositorios:",
+        "texto8LinkTexto": "Frontend en GitHub",
+        "texto8LinkEnlace": "",
+        "texto9LinkTexto": "Backend en GitHub",
+        "texto9LinkEnlace": "",
+        "texto10LinkTexto": "Vista en Vercel:",
+        "texto10LinkEnlace": "tuclima360-frontend.vercel.app",
+        "texto11": "uno-eccomerce-react – Aplicación Web eCommerce (En desarrollo)",
+        "texto12": "Descripción: Aplicación web de eCommerce con diseño responsivo.",
+        "texto13": "Funcionalidades: cabecera fija con mensaje promocional, menú hamburguesa, barra de búsqueda (en desarrollo), íconos interactivos (notificaciones, usuario, carrito), listado de productos con precios y descuentos, sección de entrega y contacto.",
+        "texto14": "Próximas mejoras: compras en línea, modo claro/oscuro y funciones dinámicas.",
+        "texto15": "Frontend: React, JavaScript, CSS",
+        "texto16": "Datos: JSON locales",
+        "texto17LinkTexto": "Repositorio en GitHub:",
+        "texto17LinkEnlace": "",
+        "texto18LinkTexto": "Vista en GitHub Pages:",
+        "texto18LinkEnlace": "Cajocoza96.github.io/uno-eccomerce-react"
     }
 }

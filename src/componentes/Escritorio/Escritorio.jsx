@@ -20,6 +20,7 @@ import VentanaBusqueda from "../Ventanas/Ventana_busqueda/VentanaBusqueda";
 export default function Escritorio() {
     const infoAcercaDe = infoBlocNotas.acercaDe;
     const infoContacto = infoBlocNotas.contacto;
+    const infoHabilidades = infoBlocNotas.habilidades;
 
     const isMobile = useIsMobile();
 
@@ -36,7 +37,8 @@ export default function Escritorio() {
     const [zIndexCounter, setZIndexCounter] = useState(1000);
     const [ventanaZIndexes, setVentanaZIndexes] = useState({
         acercaDe: 1000,
-        contacto: 1001
+        contacto: 1001,
+        habilidades: 1002
     });
 
     // Función para traer una ventana al frente - MOVIDO AQUÍ
@@ -81,6 +83,16 @@ export default function Escritorio() {
         setVentanaMinimizadaContacto(!ventanaMinimizadaContacto);
     }
 
+
+    // Estado para controlar si la ventana está minimizada de Habilidades
+    const [ventanaMinimizadaHabilidades, setVentanaMinimizadaHabilidades] = useState(false);
+
+    // Nueva función para alternar el estado de minimización
+    const toggleMinimizarVentanaHabilidades = () => {
+        setVentanaMinimizadaHabilidades(!ventanaMinimizadaHabilidades);
+    }
+
+
     //Estado para ver Acerca de.txt
     const [verAcercaDe, setVerAcercaDe] = useState(false);
 
@@ -101,7 +113,17 @@ export default function Escritorio() {
             setVentanaMinimizadaContacto(false);
         }
     }
-    
+
+
+    //Estado para ver Habilidades.txt
+    const [verHabilidades, setVerHabilidades] = useState(false);
+
+    const toggleVerHabilidades = () => {
+        setVerHabilidades(!verHabilidades);
+        if (verHabilidades) {
+            setVentanaMinimizadaHabilidades(false);
+        }
+    }
 
     const [verVentanaBusqueda, setVerVentanaBusqueda] = useState(false);
 
@@ -227,16 +249,20 @@ export default function Escritorio() {
                 toggleVerAcercaDe={toggleVerAcercaDe}
                 verAcercaDe={verAcercaDe}
                 setVerAcercaDe={setVerAcercaDe}
-
                 toggleMinimizarVentanaAcercaDe={toggleMinimizarVentanaAcercaDe}
                 ventanaMinimizadaAcercaDe={ventanaMinimizadaAcercaDe}
 
                 toggleVerContacto={toggleVerContacto}
                 verContacto={verContacto}
                 setVerContacto={setVerContacto}
-
                 toggleMinimizarVentanaContacto={toggleMinimizarVentanaContacto}
                 ventanaMinimizadaContacto={ventanaMinimizadaContacto}
+
+                toggleVerHabilidades={toggleVerHabilidades}
+                verHabilidades={verHabilidades}
+                setVerHabilidades={setVerHabilidades}
+                toggleMinimizarVentanaHabilidades={toggleMinimizarVentanaHabilidades}
+                ventanaMinimizadaHabilidades={ventanaMinimizadaHabilidades}
 
                 // Pasar las funciones y estados de z-index
                 ventanaZIndexes={ventanaZIndexes}
@@ -256,16 +282,20 @@ export default function Escritorio() {
                     toggleVerAcercaDe={toggleVerAcercaDe}
                     verAcercaDe={verAcercaDe}
                     setVerAcercaDe={setVerAcercaDe}
-
                     toggleMinimizarVentanaAcercaDe={toggleMinimizarVentanaAcercaDe}
                     ventanaMinimizadaAcercaDe={ventanaMinimizadaAcercaDe}
 
                     toggleVerContacto={toggleVerContacto}
                     verContacto={verContacto}
                     setVerContacto={setVerContacto}
-
                     toggleMinimizarVentanaContacto={toggleMinimizarVentanaContacto}
                     ventanaMinimizadaContacto={ventanaMinimizadaContacto}
+
+                    toggleVerHabilidades={toggleVerHabilidades}
+                    verHabilidades={verHabilidades}
+                    setVerHabilidades={setVerHabilidades}
+                    toggleMinimizarVentanaHabilidades={toggleMinimizarVentanaHabilidades}
+                    ventanaMinimizadaHabilidades={ventanaMinimizadaHabilidades}
 
                     setUserInteracted={setUserInteracted}
 
@@ -329,19 +359,22 @@ export default function Escritorio() {
                 setVerVentanaBusqueda={setVerVentanaBusqueda}
 
                 verAcercaDe={verAcercaDe}
+                toggleVerAcercaDe={toggleVerAcercaDe}
                 toggleMinimizarVentanaAcercaDe={toggleMinimizarVentanaAcercaDe}
+                ventanaMinimizadaAcercaDe={ventanaMinimizadaAcercaDe}
+                infoAcercaDe={infoAcercaDe}
 
                 verContacto={verContacto}
-                toggleMinimizarVentanaContacto={toggleMinimizarVentanaContacto}
-
-                // Nuevas props necesarias
-                toggleVerAcercaDe={toggleVerAcercaDe}
                 toggleVerContacto={toggleVerContacto}
-                infoAcercaDe={infoAcercaDe}
+                toggleMinimizarVentanaContacto={toggleMinimizarVentanaContacto}
+                ventanaMinimizadaContacto={ventanaMinimizadaContacto}
                 infoContacto={infoContacto}
 
-                ventanaMinimizadaAcercaDe={ventanaMinimizadaAcercaDe}
-                ventanaMinimizadaContacto={ventanaMinimizadaContacto}
+                verHabilidades={verHabilidades}
+                toggleVerHabilidades={toggleVerHabilidades}
+                toggleMinimizarVentanaHabilidades={toggleMinimizarVentanaHabilidades}
+                ventanaMinimizadaHabilidades={ventanaMinimizadaHabilidades}
+                infoHabilidades={infoHabilidades}
 
                 bringToFront={bringToFront}
 

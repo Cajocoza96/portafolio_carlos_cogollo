@@ -3,18 +3,17 @@ import { FaRegFileAlt } from "react-icons/fa";
 import { HiX } from "react-icons/hi";
 
 export default function EspacioCentro({
-    verAcercaDe, verContacto,
-    toggleMinimizarVentanaAcercaDe,
-    toggleMinimizarVentanaContacto,
-    // Nuevas props necesarias para las miniaturas
-    toggleVerAcercaDe,
-    toggleVerContacto,
-    infoAcercaDe,
-    infoContacto,
+    verAcercaDe, toggleMinimizarVentanaAcercaDe,
+    toggleVerAcercaDe, infoAcercaDe, ventanaMinimizadaAcercaDe,
 
-    ventanaMinimizadaAcercaDe, ventanaMinimizadaContacto, bringToFront,
-    
-    // Nueva prop para manejar el hover
+    verContacto, toggleMinimizarVentanaContacto,
+    toggleVerContacto, infoContacto, ventanaMinimizadaContacto,
+
+    verHabilidades, toggleMinimizarVentanaHabilidades,
+    toggleVerHabilidades, infoHabilidades, ventanaMinimizadaHabilidades,
+
+    bringToFront,
+
     onHoverVentana
 }) {
     const [showPreview, setShowPreview] = useState(false);
@@ -23,8 +22,13 @@ export default function EspacioCentro({
     const iconRef = useRef(null);
 
     // Determinar si hay ventanas del bloc de notas abiertas
-    const hayVentanasBlocNotas = verAcercaDe || verContacto;
-    const numeroVentanas = (verAcercaDe ? 1 : 0) + (verContacto ? 1 : 0);
+    const hayVentanasBlocNotas = verAcercaDe || verContacto || verHabilidades;
+    const numeroVentanas = (verAcercaDe ? 1 : 0) + (verContacto ? 1 : 0) + (verHabilidades ? 1 : 0);
+
+    // Función para obtener las clases de ancho automático
+    const getPreviewClasses = () => {
+        return 'w-max max-w-50 max-w-screen-md '; // Se expande según contenido con límite máximo
+    };
 
     const handleClickIconoBlocNotas = () => {
         if (numeroVentanas === 1) {
@@ -33,6 +37,8 @@ export default function EspacioCentro({
                 toggleMinimizarVentanaAcercaDe();
             } else if (verContacto && toggleMinimizarVentanaContacto) {
                 toggleMinimizarVentanaContacto();
+            } else if (verHabilidades && toggleMinimizarVentanaHabilidades) {
+                toggleMinimizarVentanaHabilidades();
             }
         } else if (numeroVentanas > 0) {
             // Si hay múltiples ventanas, mostrar/ocultar preview
@@ -85,6 +91,13 @@ export default function EspacioCentro({
             if (verContacto && ventanaMinimizadaContacto) {
                 toggleMinimizarVentanaContacto();
             }
+        } else if (tipo === 'habilidades') {
+            if (bringToFront) {
+                bringToFront('habilidades');
+            }
+            if (verHabilidades && ventanaMinimizadaHabilidades) {
+                toggleMinimizarVentanaHabilidades();
+            }
         }
         setShowPreview(false);
         setHoveredVentana(null);
@@ -100,6 +113,8 @@ export default function EspacioCentro({
             toggleVerAcercaDe();
         } else if (tipo === 'contacto') {
             toggleVerContacto();
+        } else if (tipo === 'habilidades') {
+            toggleVerHabilidades();
         }
     };
 
@@ -149,10 +164,10 @@ export default function EspacioCentro({
     }
 
     return (
-        <div className="w-full h-10 text-white flex flex-row items-center lg:justify-start relative">
+        <div className="w-full h-10 text-white flex flex-row items-center lg:justify-start">
             <div
                 ref={iconRef}
-                className={`hover:bg-blue-700 hover:dark:bg-gray-800
+                className={`hover:bg-blue-700 hover:dark:bg-gray-800 relative
                             active:bg-blue-600 dark:active:bg-gray-700
                             ${numeroVentanas === 1 ? 'border-b-2 border-blue-300 dark:border-gray-300' : ''}
                             ${numeroVentanas > 1 ? 'border-b-2 custom-border-r border-blue-300 dark:border-gray-300' : ''}
@@ -163,46 +178,46 @@ export default function EspacioCentro({
                 onMouseLeave={handleMouseLeave}
             >
                 <FaRegFileAlt />
-            </div>
+            
 
             {/* Vista previa de miniaturas */}
             {showPreview && numeroVentanas > 0 && (
                 <div
                     ref={previewRef}
-                    className="absolute 
-                                bottom-10 right-0
-                                bg-blue-700 dark:bg-gray-800 border select-none
-                                border-blue-700 dark:border-gray-800 shadow-lg p-1 min-w-64 z-50"
+                    className={`absolute 
+                                bottom-10 right-0 lg:right-auto
+                                bg-blue-700 dark:bg-gray-800 border select-none overflow-hidden
+                                border-blue-700 dark:border-gray-800 shadow-lg p-2 z-50
+                                ${getPreviewClasses()}`}
                     onMouseLeave={handlePreviewMouseLeave}
                 >
-                    <div className={`grid 
-                                    ${numeroVentanas === 1 ? 'lg:grid-cols-1' : 'lg:grid-cols-2'}  gap-2`}>
+                    <div className={`grid ${numeroVentanas === 1 ? 'grid-cols-1 lg:grid-cols-1' : numeroVentanas === 2 ? 'grid-cols-1 lg:grid-cols-2' : 'grid-cols-2 lg:grid-cols-3'} 
+                                    gap-3 h-full`}>
                         {verAcercaDe && (
                             <div
-                                className={`w-full rounded relative group transition-opacity duration-200 ${
-                                    hoveredVentana && hoveredVentana !== 'acercaDe' ? 'opacity-50' : 'opacity-100'
-                                }`}
+                                className={`w-30 lg:w-50 rounded relative group transition-opacity duration-200 ${hoveredVentana && hoveredVentana !== 'acercaDe' ? 'opacity-50' : 'opacity-100'
+                                    }`}
                                 onClick={() => handleSelectWindow('acercaDe')}
                                 onMouseEnter={() => handleMiniatureHover('acercaDe')}
                                 onMouseLeave={handleMiniatureLeave}
                             >
-                                <div className="flex flex-col items-center">
+                                <div className="w-full flex flex-col items-center h-full">
                                     <div className="w-full p-2 flex flex-row items-center justify-between">
-                                        <div className="text-white flex flex-row items-center justify-center gap-2">
-                                            <FaRegFileAlt className="text-sm" />
+                                        <div className="text-white flex flex-row items-center justify-center gap-2 flex-1 min-w-0">
+                                            <FaRegFileAlt className="text-sm flex-shrink-0" />
                                             <p className="text-sm font-medium truncate">
                                                 {infoAcercaDe?.titulo || 'Acerca de.txt'}
                                             </p>
                                         </div>
                                         <button
                                             className="ml-2 p-1 text-white hover:bg-red-600
-                                                    rounded transition-colors"
+                                                    rounded transition-colors flex-shrink-0"
                                             onClick={(e) => handleCloseWindow(e, 'acercaDe')}>
                                             <HiX className="w-3 h-3 text-white" />
                                         </button>
                                     </div>
-                                    <div className="w-full p-2 flex-1 min-w-0 bg-white dark:bg-black">
-                                        <div className="text-sm text-black dark:text-white line-clamp-2">
+                                    <div className="w-full p-2 flex-1 bg-white dark:bg-black">
+                                        <div className="text-sm text-black dark:text-white line-clamp-3">
                                             {infoAcercaDe?.texto1 || 'Contenido de acerca de...'}
                                         </div>
                                     </div>
@@ -212,39 +227,74 @@ export default function EspacioCentro({
 
                         {verContacto && (
                             <div
-                                className={`w-full rounded relative group transition-opacity duration-200 ${
-                                    hoveredVentana && hoveredVentana !== 'contacto' ? 'opacity-50' : 'opacity-100'
-                                }`}
+                                className={`w-30 lg:w-50 rounded relative group transition-opacity duration-200 ${hoveredVentana && hoveredVentana !== 'contacto' ? 'opacity-50' : 'opacity-100'
+                                    }`}
                                 onClick={() => handleSelectWindow('contacto')}
                                 onMouseEnter={() => handleMiniatureHover('contacto')}
                                 onMouseLeave={handleMiniatureLeave}
                             >
-                                <div className="flex flex-col items-center">
+                                <div className="w-full flex flex-col items-center h-full">
                                     <div className="w-full p-2 flex flex-row items-center justify-between">
-                                        <div className="text-white flex flex-row items-center justify-center gap-2">
-                                            <FaRegFileAlt className="text-sm" />
+                                        <div className="text-white flex flex-row items-center justify-center gap-2 flex-1 min-w-0">
+                                            <FaRegFileAlt className="text-sm flex-shrink-0" />
                                             <p className="text-sm font-medium truncate">
                                                 {infoContacto?.titulo || 'Contacto.txt'}
                                             </p>
                                         </div>
                                         <button
                                             className="ml-2 p-1 text-white hover:bg-red-600
-                                                rounded transition-colors"
+                                                rounded transition-colors flex-shrink-0"
                                             onClick={(e) => handleCloseWindow(e, 'contacto')}>
                                             <HiX className="w-3 h-3 text-white" />
                                         </button>
                                     </div>
-                                    <div className="w-full p-2 flex-1 min-w-0 bg-white dark:bg-black">
-                                        <div className="text-sm text-black dark:text-white line-clamp-2">
+                                    <div className="w-full p-2 flex-1 bg-white dark:bg-black">
+                                        <div className="text-sm text-black dark:text-white line-clamp-3">
                                             {infoContacto?.texto1 || 'Información de contacto...'}
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         )}
+
+                        {verHabilidades && (
+                            <div
+                                className={`w-30 lg:w-50 rounded relative group transition-opacity duration-200 ${hoveredVentana && hoveredVentana !== 'habilidades' ? 'opacity-50' : 'opacity-100'
+                                    }`}
+                                onClick={() => handleSelectWindow('habilidades')}
+                                onMouseEnter={() => handleMiniatureHover('habilidades')}
+                                onMouseLeave={handleMiniatureLeave}
+                            >
+                                <div className="w-full flex flex-col items-center h-full">
+                                    <div className="w-full p-2 flex flex-row items-center justify-between">
+                                        <div className="text-white flex flex-row items-center justify-center gap-2 flex-1 min-w-0">
+                                            <FaRegFileAlt className="text-sm flex-shrink-0" />
+                                            <p className="text-sm font-medium truncate">
+                                                {infoHabilidades?.titulo || 'Habilidades.txt'}
+                                            </p>
+                                        </div>
+                                        <button
+                                            className="ml-2 p-1 text-white hover:bg-red-600
+                                                rounded transition-colors flex-shrink-0"
+                                            onClick={(e) => handleCloseWindow(e, 'habilidades')}>
+                                            <HiX className="w-3 h-3 text-white" />
+                                        </button>
+                                    </div>
+                                    <div className="w-full p-2 flex-1 bg-white dark:bg-black">
+                                        <div className="text-sm text-black dark:text-white line-clamp-3">
+                                            {infoHabilidades?.texto1 || 'Mis habilidades...'}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
+
+                        
                     </div>
                 </div>
             )}
+            </div>
         </div>
     );
 }

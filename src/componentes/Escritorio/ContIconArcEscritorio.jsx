@@ -30,15 +30,6 @@ const ContenidoAcercaDe = ({ data }) => (
             </p>
         </div>
 
-        <div className="mb-2">
-            <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
-                {data.texto5}
-            </p>
-        </div>
-
-        <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
-            {data.texto6}
-        </p>
     </>
 );
 
@@ -75,6 +66,46 @@ const ContenidoContacto = ({ data }) => (
     </>
 );
 
+const ContenidoHabilidades = ({ data }) => (
+    <>
+        <div className="mb-2">
+            <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
+                {data.texto1}
+            </p>
+        </div>
+
+        <div className="mb-2">
+            <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
+                {data.texto2}
+            </p>
+        </div>
+
+        <div className="mb-2">
+            <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
+                {data.texto3}
+            </p>
+        </div>
+
+        <div className="mb-2">
+            <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
+                {data.texto4}
+            </p>
+        </div>
+
+        <div className="mb-2">
+            <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
+                {data.texto5}
+            </p>
+        </div>
+
+        <div>
+            <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
+                {data.texto6}
+            </p>
+        </div>
+    </>
+)
+
 export default function ContIconArcEscritorio({
     toggleVerAcercaDe,
     verAcercaDe, setVerAcercaDe,
@@ -83,6 +114,10 @@ export default function ContIconArcEscritorio({
     toggleVerContacto,
     verContacto, setVerContacto,
     toggleMinimizarVentanaContacto, ventanaMinimizadaContacto,
+
+    toggleVerHabilidades,
+    verHabilidades, setVerHabilidades,
+    toggleMinimizarVentanaHabilidades, ventanaMinimizadaHabilidades,
 
     ventanaZIndexes,
     bringToFront,
@@ -107,8 +142,17 @@ export default function ContIconArcEscritorio({
         setVentanaStateContacto(newState);
     };
 
+    // Estado para conservar el tamaño, posición y estado de maximización de la ventana Habilidades
+    const [ventanaStateHabilidades, setVentanaStateHabilidades] = useState(null);
+
+    // Función para actualizar el estado de la ventana Habilidades
+    const handleVentanaStateChangeHabilidades = (newState) => {
+        setVentanaStateHabilidades(newState);
+    };
+
     const infoAcercaDe = infoBlocNotas.acercaDe;
     const infoContacto = infoBlocNotas.contacto;
+    const infoHabilidades = infoBlocNotas.habilidades;
 
     const handleClickArchivoAcercaDe = () => {
         if (verAcercaDe && ventanaMinimizadaAcercaDe) {
@@ -129,6 +173,17 @@ export default function ContIconArcEscritorio({
         }
         else {
             toggleVerContacto();
+        }
+    }
+
+    const handleClickArchivoHabilidades = () => {
+        if (verHabilidades && ventanaMinimizadaHabilidades) {
+            toggleMinimizarVentanaHabilidades();
+        } if (verHabilidades) {
+            return
+        }
+        else {
+            toggleVerHabilidades();
         }
     }
 
@@ -182,14 +237,39 @@ export default function ContIconArcEscritorio({
                 />
             )}
 
+            {verHabilidades && !ventanaMinimizadaHabilidades && (
+                <VentanaPrincipal
+                    titulo={infoHabilidades.titulo}
+                    toggleVerVentana={toggleVerHabilidades}
+                    ventanaState={ventanaStateHabilidades}
+                    handleVentanaStateChange={handleVentanaStateChangeHabilidades}
+                    toggleMinimizarVentana={toggleMinimizarVentanaHabilidades}
+
+                    // Props para el sistema de z-index
+                    zIndex={ventanaZIndexes.habilidades}
+                    onFocus={() => bringToFront('habilidades')}
+
+                    // Prop para el efecto semitransparente
+                    isTransparent={shouldBeTransparent('habilidades')}
+
+                    // Contenido específico
+                    contenido={<ContenidoHabilidades data={infoHabilidades} />}
+                />
+            )}
+
             <Archivo
-                onDoubleClick={handleClickArchivoAcercaDe}
+                onClick={handleClickArchivoAcercaDe}
                 nombre={infoAcercaDe.titulo}
             />
 
             <Archivo
-                onDoubleClick={handleClickArchivoContacto}
+                onClick={handleClickArchivoContacto}
                 nombre={infoContacto.titulo}
+            />
+
+            <Archivo
+                onClick={handleClickArchivoHabilidades}
+                nombre={infoHabilidades.titulo}
             />
 
         </div>

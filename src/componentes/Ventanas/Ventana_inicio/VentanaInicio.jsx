@@ -11,6 +11,9 @@ export default function VentanaInicio({ toggleVerVentanaInicio, toggleVerVentana
 
                                         verContacto, setVerContacto, toggleVerContacto,
                                         ventanaMinimizadaContacto, toggleMinimizarVentanaContacto,
+
+                                        verHabilidades, setVerHabilidades, toggleVerHabilidades,
+                                        ventanaMinimizadaHabilidades, toggleMinimizarVentanaHabilidades,
                                         
                                         setUserInteracted, bringToFront }) {
     return (
@@ -38,6 +41,12 @@ export default function VentanaInicio({ toggleVerVentanaInicio, toggleVerVentana
                     setVerContacto={setVerContacto}
                     ventanaMinimizadaContacto={ventanaMinimizadaContacto}
                     toggleMinimizarVentanaContacto={toggleMinimizarVentanaContacto}
+
+                    toggleVerHabilidades={toggleVerHabilidades}
+                    verHabilidades={verHabilidades}
+                    setVerHabilidades={setVerHabilidades}
+                    ventanaMinimizadaHabilidades={ventanaMinimizadaHabilidades}
+                    toggleMinimizarVentanaHabilidades={toggleMinimizarVentanaHabilidades}
 
                     setUserInteracted={setUserInteracted}
 
