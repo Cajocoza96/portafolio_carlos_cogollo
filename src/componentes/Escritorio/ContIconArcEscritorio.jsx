@@ -1,9 +1,7 @@
-import React, { useState, useRef, useEffect } from "react";
-import { Rnd } from "react-rnd";
+import React, { useState } from "react";
 import Archivo from "./Archivos_accesos_directos/Archivo";
 import VentanaPrincipal from "../Ventanas/VentanaPrincipal";
 import infoBlocNotas from "../../data/infoBlocNotas.json";
-import useIsMobile from "../../hooks/useIsMobile";
 
 // Componentes de contenido específico para cada ventana
 const ContenidoAcercaDe = ({ data }) => (
@@ -109,89 +107,27 @@ export default function ContIconArcEscritorio({
         setVentanaStateContacto(newState);
     };
 
-    // Hook para detectar si es móvil
-    const isMobile = useIsMobile();
-
-    // Referencias para el contenedor
-    const containerRef = useRef(null);
-
-    // Estados para las posiciones de los archivos
-    const [archivoAcercaDePosition, setArchivoAcercaDePosition] = useState({ x: 0, y: 0 });
-    const [archivoContactoPosition, setArchivoContactoPosition] = useState({ x: 80, y: 0 });
-
-    // Estados para detectar si se está arrastrando
-    const [isDraggingAcercaDe, setIsDraggingAcercaDe] = useState(false);
-    const [isDraggingContacto, setIsDraggingContacto] = useState(false);
-
-    // Dimensiones del archivo (basado en las clases de Tailwind)
-    const archivoWidth = 72; // w-18 = 72px
-    const archivoHeight = 80; // h-20 = 80px
-
-    // Función para obtener los límites del contenedor
-    const getBounds = () => {
-        if (!containerRef.current) return { left: 0, top: 0, right: 0, bottom: 0 };
-
-        const rect = containerRef.current.getBoundingClientRect();
-        return {
-            left: 0,
-            top: 0,
-            right: rect.width - archivoWidth,
-            bottom: rect.height - archivoHeight
-        };
-    };
-
-    // Efecto para ajustar posiciones cuando cambia la orientación
-    useEffect(() => {
-        const adjustPositionsOnResize = () => {
-            const bounds = getBounds();
-
-            // Ajustar posición del archivo Acerca de si está fuera de límites
-            setArchivoAcercaDePosition(prev => ({
-                x: Math.min(Math.max(prev.x, bounds.left), bounds.right),
-                y: Math.min(Math.max(prev.y, bounds.top), bounds.bottom)
-            }));
-
-            // Ajustar posición del archivo Contacto si está fuera de límites
-            setArchivoContactoPosition(prev => ({
-                x: Math.min(Math.max(prev.x, bounds.left), bounds.right),
-                y: Math.min(Math.max(prev.y, bounds.top), bounds.bottom)
-            }));
-        };
-
-        // Ajustar cuando cambie el tamaño de ventana
-        window.addEventListener('resize', adjustPositionsOnResize);
-
-        // Cleanup
-        return () => {
-            window.removeEventListener('resize', adjustPositionsOnResize);
-        };
-    }, [isMobile]);
-
     const infoAcercaDe = infoBlocNotas.acercaDe;
     const infoContacto = infoBlocNotas.contacto;
 
     const handleClickArchivoAcercaDe = () => {
-        // Solo ejecutar si no se está arrastrando
-        if (isDraggingAcercaDe) return;
-
         if (verAcercaDe && ventanaMinimizadaAcercaDe) {
             toggleMinimizarVentanaAcercaDe();
-        } else if (verAcercaDe) {
-            return;
-        } else {
+        } if (verAcercaDe) {
+            return
+        }
+        else {
             toggleVerAcercaDe();
         }
     }
 
     const handleClickArchivoContacto = () => {
-        // Solo ejecutar si no se está arrastrando
-        if (isDraggingContacto) return;
-
         if (verContacto && ventanaMinimizadaContacto) {
             toggleMinimizarVentanaContacto();
-        } else if (verContacto) {
-            return;
-        } else {
+        } if (verContacto) {
+            return
+        }
+        else {
             toggleVerContacto();
         }
     }
@@ -203,9 +139,8 @@ export default function ContIconArcEscritorio({
     };
 
     return (
-        <div
-            ref={containerRef}
-            className="fixed inset-0 z-50 bg-black/20">
+        <div className="fixed inset-0 z-50 bg-black/20
+                        flex items-center justify-center gap-2">
 
             {verAcercaDe && !ventanaMinimizadaAcercaDe && (
                 <VentanaPrincipal
@@ -247,47 +182,15 @@ export default function ContIconArcEscritorio({
                 />
             )}
 
-            <Rnd
-                size={{ width: archivoWidth, height: archivoHeight }}
-                position={archivoAcercaDePosition}
-                onDragStart={() => setIsDraggingAcercaDe(true)}
-                onDragStop={(e, d) => {
-                    setArchivoAcercaDePosition({ x: d.x, y: d.y });
-                    // Pequeño delay para evitar que el click se ejecute inmediatamente después del drag
-                    setTimeout(() => setIsDraggingAcercaDe(false), 100);
-                }}
-                bounds="parent"
-                enableResizing={false}
-                dragHandleClassName="archivo-drag-handle"
-            >
-                <div className="archivo-drag-handle w-full h-full">
-                    <Archivo
-                        onDoubleClick={handleClickArchivoAcercaDe}
-                        nombre={infoAcercaDe.titulo}
-                    />
-                </div>
-            </Rnd>
+            <Archivo
+                onDoubleClick={handleClickArchivoAcercaDe}
+                nombre={infoAcercaDe.titulo}
+            />
 
-            <Rnd
-                size={{ width: archivoWidth, height: archivoHeight }}
-                position={archivoContactoPosition}
-                onDragStart={() => setIsDraggingContacto(true)}
-                onDragStop={(e, d) => {
-                    setArchivoContactoPosition({ x: d.x, y: d.y });
-                    // Pequeño delay para evitar que el click se ejecute inmediatamente después del drag
-                    setTimeout(() => setIsDraggingContacto(false), 100);
-                }}
-                bounds="parent"
-                enableResizing={false}
-                dragHandleClassName="archivo-drag-handle"
-            >
-                <div className="archivo-drag-handle w-full h-full">
-                    <Archivo
-                        onDoubleClick={handleClickArchivoContacto}
-                        nombre={infoContacto.titulo}
-                    />
-                </div>
-            </Rnd>
+            <Archivo
+                onDoubleClick={handleClickArchivoContacto}
+                nombre={infoContacto.titulo}
+            />
 
         </div>
     );
