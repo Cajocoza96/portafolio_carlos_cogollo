@@ -5,25 +5,25 @@ import VentanaPrincipal from "../Ventanas/VentanaPrincipal";
 // Componentes de contenido específico para cada ventana
 const ContenidoAcercaDe = ({ data }) => (
     <>
-        <div className="w-fit mb-2">
+        <div className="mb-2">
             <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
                 {data.texto1}
             </p>
         </div>
 
-        <div className="w-fit mb-2">
+        <div className="mb-2">
             <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
                 {data.texto2}
             </p>
         </div>
 
-        <div className="w-fit mb-2">
+        <div className="mb-2">
             <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
                 {data.texto3}
             </p>
         </div>
 
-        <div className="w-fit mb-2">
+        <div className="mb-2">
             <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
                 {data.texto4}
             </p>
@@ -34,27 +34,27 @@ const ContenidoAcercaDe = ({ data }) => (
 
 const ContenidoContacto = ({ data }) => (
     <>
-        <div className="w-fit mb-2">
+        <div className="mb-2">
             <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
                 {data.texto1}
             </p>
         </div>
 
-        <div className="w-fit mb-2">
+        <div className="mb-2">
             <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
                 {data.texto2}
             </p>
         </div>
 
-        <div className="w-fit mb-2">
+        <div className="mb-2">
             <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
                 {data.texto3LinkTexto}
             </p>
         </div>
 
-        <div className="w-fit mb-2">
+        <div className="mb-2">
             <a href={data.texto3LinkEnlace}
-                className="block break-words text-sm 
+                className="inline break-words text-sm
                         text-black dark:text-white whitespace-pre-wrap"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -67,31 +67,31 @@ const ContenidoContacto = ({ data }) => (
 
 const ContenidoHabilidades = ({ data }) => (
     <>
-        <div className="w-fit mb-2">
+        <div className="mb-2">
             <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
                 {data.texto1}
             </p>
         </div>
 
-        <div className="w-fit mb-2">
+        <div className="mb-2">
             <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
                 {data.texto2}
             </p>
         </div>
 
-        <div className="w-fit mb-2">
+        <div className="mb-2">
             <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
                 {data.texto3}
             </p>
         </div>
 
-        <div className="w-fit mb-2">
+        <div className="mb-2">
             <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
                 {data.texto4}
             </p>
         </div>
 
-        <div className="w-fit mb-2">
+        <div className="mb-2">
             <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
                 {data.texto5}
             </p>
@@ -107,63 +107,63 @@ const ContenidoHabilidades = ({ data }) => (
 
 const ContenidoProyectos = ({ data }) => (
     <>
-        <div className="w-fit mb-2">
+        <div className="mb-2">
             <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
                 {data.texto1}
             </p>
         </div>
 
-        <div className="w-fit mb-2">
+        <div className="mb-2">
             <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
                 {data.texto2}
             </p>
         </div>
 
-        <div className="w-fit mb-2">
+        <div className="mb-2">
             <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
                 {data.texto3}
             </p>
         </div>
 
-        <div className="w-fit mb-2">
+        <div className="mb-2">
             <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
                 {data.texto4}
             </p>
         </div>
 
-        <div className="w-fit mb-2">
+        <div className="mb-2">
             <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
                 {data.texto5}
             </p>
         </div>
 
-        <div className="w-fit mb-2">
+        <div className="mb-2">
             <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
                 {data.texto6}
             </p>
         </div>
 
-        <div className="w-fit mb-4">
+        <div className="mb-4">
             <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
                 {data.texto7}
             </p>
         </div>
 
-        <div className="w-fit mb-2">
+        <div className="mb-2">
             <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
                 {data.texto8}
             </p>
         </div>
 
-        <div className="w-fit mb-2">
+        <div className="mb-2">
             <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
                 {data.texto9LinkTexto}
             </p>
         </div>
 
-        <div className="w-fit mb-4">
+        <div className="mb-4">
             <a href={data.texto9LinkEnlace}
-                className="block break-words text-sm 
+                className="inline break-words text-sm 
                         text-black dark:text-white whitespace-pre-wrap"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -172,15 +172,15 @@ const ContenidoProyectos = ({ data }) => (
             </a>
         </div>
 
-        <div className="w-fit mb-2">
+        <div className="mb-2">
             <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
                 {data.texto10LinkTexto}
             </p>
         </div>
 
-        <div className="w-fit mb-4">
+        <div className="mb-4">
             <a href={data.texto10LinkEnlace}
-                className="block break-words text-sm 
+                className="inline break-words text-sm 
                         text-black dark:text-white whitespace-pre-wrap"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -189,15 +189,15 @@ const ContenidoProyectos = ({ data }) => (
             </a>
         </div>
 
-        <div className="w-fit mb-2">
+        <div className="mb-2">
             <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
                 {data.texto11LinkTexto}
             </p>
         </div>
 
-        <div className="w-fit mb-7">
+        <div className="mb-7">
             <a href={data.texto11LinkEnlace}
-                className="block break-words text-sm 
+                className="inline break-words text-sm 
                         text-black dark:text-white whitespace-pre-wrap"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -206,57 +206,57 @@ const ContenidoProyectos = ({ data }) => (
             </a>
         </div>
 
-        <div className="w-fit mb-2">
+        <div className="mb-2">
             <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
                 {data.texto12}
             </p>
         </div>
 
-        <div className="w-fit mb-2">
+        <div className="mb-2">
             <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
                 {data.texto13}
             </p>
         </div>
 
-        <div className="w-fit mb-2">
+        <div className="mb-2">
             <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
                 {data.texto14}
             </p>
         </div>
 
-        <div className="w-fit mb-2">
+        <div className="mb-2">
             <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
                 {data.texto15}
             </p>
         </div>
 
-        <div className="w-fit mb-2">
+        <div className="mb-2">
             <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
                 {data.texto16}
             </p>
         </div>
 
-        <div className="w-fit mb-2">
+        <div className="mb-2">
             <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
                 {data.texto17}
             </p>
         </div>
 
-        <div className="w-fit mb-4">
+        <div className="mb-4">
             <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
                 {data.texto18}
             </p>
         </div>
 
-        <div className="w-fit mb-2">
+        <div className="mb-2">
             <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
                 {data.texto19LinkTexto}
             </p>
         </div>
 
-        <div className="w-fit mb-4">
+        <div className="mb-4">
             <a href={data.texto19LinkEnlace}
-                className="block break-words text-sm 
+                className="inline break-words text-sm 
                         text-black dark:text-white whitespace-pre-wrap"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -265,15 +265,15 @@ const ContenidoProyectos = ({ data }) => (
             </a>
         </div>
 
-        <div className="w-fit mb-2">
+        <div className="mb-2">
             <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
                 {data.texto20LinkTexto}
             </p>
         </div>
 
-        <div className="w-fit mb-2">
+        <div className="mb-2">
             <a href={data.texto20LinkEnlace}
-                className="block break-words text-sm 
+                className="inline break-words text-sm 
                         text-black dark:text-white whitespace-pre-wrap"
                 target="_blank"
                 rel="noopener noreferrer"
