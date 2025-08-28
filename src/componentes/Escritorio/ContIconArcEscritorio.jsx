@@ -1,30 +1,29 @@
 import React, { useState } from "react";
 import Archivo from "./Archivos_accesos_directos/Archivo";
 import VentanaPrincipal from "../Ventanas/VentanaPrincipal";
-import infoBlocNotas from "../../data/infoBlocNotas.json";
 
 // Componentes de contenido específico para cada ventana
 const ContenidoAcercaDe = ({ data }) => (
     <>
-        <div className="mb-2">
+        <div className="w-fit mb-2">
             <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
                 {data.texto1}
             </p>
         </div>
 
-        <div className="mb-2">
+        <div className="w-fit mb-2">
             <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
                 {data.texto2}
             </p>
         </div>
 
-        <div className="mb-2">
+        <div className="w-fit mb-2">
             <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
                 {data.texto3}
             </p>
         </div>
 
-        <div className="mb-2">
+        <div className="w-fit mb-2">
             <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
                 {data.texto4}
             </p>
@@ -35,25 +34,25 @@ const ContenidoAcercaDe = ({ data }) => (
 
 const ContenidoContacto = ({ data }) => (
     <>
-        <div className="mb-2">
+        <div className="w-fit mb-2">
             <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
                 {data.texto1}
             </p>
         </div>
 
-        <div className="mb-2">
+        <div className="w-fit mb-2">
             <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
                 {data.texto2}
             </p>
         </div>
 
-        <div className="mb-2">
+        <div className="w-fit mb-2">
             <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
                 {data.texto3LinkTexto}
             </p>
         </div>
 
-        <div className="mb-2">
+        <div className="w-fit mb-2">
             <a href={data.texto3LinkEnlace}
                 className="block break-words text-sm 
                         text-black dark:text-white whitespace-pre-wrap"
@@ -68,31 +67,31 @@ const ContenidoContacto = ({ data }) => (
 
 const ContenidoHabilidades = ({ data }) => (
     <>
-        <div className="mb-2">
+        <div className="w-fit mb-2">
             <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
                 {data.texto1}
             </p>
         </div>
 
-        <div className="mb-2">
+        <div className="w-fit mb-2">
             <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
                 {data.texto2}
             </p>
         </div>
 
-        <div className="mb-2">
+        <div className="w-fit mb-2">
             <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
                 {data.texto3}
             </p>
         </div>
 
-        <div className="mb-2">
+        <div className="w-fit mb-2">
             <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
                 {data.texto4}
             </p>
         </div>
 
-        <div className="mb-2">
+        <div className="w-fit mb-2">
             <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
                 {data.texto5}
             </p>
@@ -104,20 +103,207 @@ const ContenidoHabilidades = ({ data }) => (
             </p>
         </div>
     </>
-)
+);
+
+const ContenidoProyectos = ({ data }) => (
+    <>
+        <div className="w-fit mb-2">
+            <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
+                {data.texto1}
+            </p>
+        </div>
+
+        <div className="w-fit mb-2">
+            <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
+                {data.texto2}
+            </p>
+        </div>
+
+        <div className="w-fit mb-2">
+            <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
+                {data.texto3}
+            </p>
+        </div>
+
+        <div className="w-fit mb-2">
+            <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
+                {data.texto4}
+            </p>
+        </div>
+
+        <div className="w-fit mb-2">
+            <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
+                {data.texto5}
+            </p>
+        </div>
+
+        <div className="w-fit mb-2">
+            <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
+                {data.texto6}
+            </p>
+        </div>
+
+        <div className="w-fit mb-4">
+            <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
+                {data.texto7}
+            </p>
+        </div>
+
+        <div className="w-fit mb-2">
+            <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
+                {data.texto8}
+            </p>
+        </div>
+
+        <div className="w-fit mb-2">
+            <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
+                {data.texto9LinkTexto}
+            </p>
+        </div>
+
+        <div className="w-fit mb-4">
+            <a href={data.texto9LinkEnlace}
+                className="block break-words text-sm 
+                        text-black dark:text-white whitespace-pre-wrap"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                {data.texto9LinkEnlace}
+            </a>
+        </div>
+
+        <div className="w-fit mb-2">
+            <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
+                {data.texto10LinkTexto}
+            </p>
+        </div>
+
+        <div className="w-fit mb-4">
+            <a href={data.texto10LinkEnlace}
+                className="block break-words text-sm 
+                        text-black dark:text-white whitespace-pre-wrap"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                {data.texto10LinkEnlace}
+            </a>
+        </div>
+
+        <div className="w-fit mb-2">
+            <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
+                {data.texto11LinkTexto}
+            </p>
+        </div>
+
+        <div className="w-fit mb-7">
+            <a href={data.texto11LinkEnlace}
+                className="block break-words text-sm 
+                        text-black dark:text-white whitespace-pre-wrap"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                {data.texto11LinkEnlace}
+            </a>
+        </div>
+
+        <div className="w-fit mb-2">
+            <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
+                {data.texto12}
+            </p>
+        </div>
+
+        <div className="w-fit mb-2">
+            <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
+                {data.texto13}
+            </p>
+        </div>
+
+        <div className="w-fit mb-2">
+            <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
+                {data.texto14}
+            </p>
+        </div>
+
+        <div className="w-fit mb-2">
+            <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
+                {data.texto15}
+            </p>
+        </div>
+
+        <div className="w-fit mb-2">
+            <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
+                {data.texto16}
+            </p>
+        </div>
+
+        <div className="w-fit mb-2">
+            <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
+                {data.texto17}
+            </p>
+        </div>
+
+        <div className="w-fit mb-4">
+            <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
+                {data.texto18}
+            </p>
+        </div>
+
+        <div className="w-fit mb-2">
+            <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
+                {data.texto19LinkTexto}
+            </p>
+        </div>
+
+        <div className="w-fit mb-4">
+            <a href={data.texto19LinkEnlace}
+                className="block break-words text-sm 
+                        text-black dark:text-white whitespace-pre-wrap"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                {data.texto19LinkEnlace}
+            </a>
+        </div>
+
+        <div className="w-fit mb-2">
+            <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
+                {data.texto20LinkTexto}
+            </p>
+        </div>
+
+        <div className="w-fit mb-2">
+            <a href={data.texto20LinkEnlace}
+                className="block break-words text-sm 
+                        text-black dark:text-white whitespace-pre-wrap"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                {data.texto20LinkEnlace}
+            </a>
+        </div>
+    </>
+);
 
 export default function ContIconArcEscritorio({
     toggleVerAcercaDe,
     verAcercaDe, setVerAcercaDe,
     toggleMinimizarVentanaAcercaDe, ventanaMinimizadaAcercaDe,
+    infoAcercaDe,
 
     toggleVerContacto,
     verContacto, setVerContacto,
     toggleMinimizarVentanaContacto, ventanaMinimizadaContacto,
+    infoContacto,
 
     toggleVerHabilidades,
     verHabilidades, setVerHabilidades,
     toggleMinimizarVentanaHabilidades, ventanaMinimizadaHabilidades,
+    infoHabilidades,
+
+    toggleVerProyectos,
+    verProyectos, setVerProyectos,
+    toggleMinimizarVentanaProyectos, ventanaMinimizadaProyectos,
+    infoProyectos,
 
     ventanaZIndexes,
     bringToFront,
@@ -150,9 +336,14 @@ export default function ContIconArcEscritorio({
         setVentanaStateHabilidades(newState);
     };
 
-    const infoAcercaDe = infoBlocNotas.acercaDe;
-    const infoContacto = infoBlocNotas.contacto;
-    const infoHabilidades = infoBlocNotas.habilidades;
+    // Estado para conservar el tamaño, posición y estado de maximización de la ventana Proyectos
+    const [ventanaStateProyectos, setVentanaStateProyectos] = useState(null);
+
+    // Función para actualizar el estado de la ventana Proyectos
+    const handleVentanaStateChangeProyectos = (newState) => {
+        setVentanaStateProyectos(newState);
+    };
+
 
     const handleClickArchivoAcercaDe = () => {
         if (verAcercaDe && ventanaMinimizadaAcercaDe) {
@@ -184,6 +375,17 @@ export default function ContIconArcEscritorio({
         }
         else {
             toggleVerHabilidades();
+        }
+    }
+
+    const handleClickArchivoProyectos = () => {
+        if (verProyectos && ventanaMinimizadaProyectos) {
+            toggleMinimizarVentanaProyectos();
+        } if (verProyectos) {
+            return
+        }
+        else {
+            toggleVerProyectos();
         }
     }
 
@@ -257,6 +459,26 @@ export default function ContIconArcEscritorio({
                 />
             )}
 
+            {verProyectos && !ventanaMinimizadaProyectos && (
+                <VentanaPrincipal
+                    titulo={infoProyectos.titulo}
+                    toggleVerVentana={toggleVerProyectos}
+                    ventanaState={ventanaStateProyectos}
+                    handleVentanaStateChange={handleVentanaStateChangeProyectos}
+                    toggleMinimizarVentana={toggleMinimizarVentanaProyectos}
+
+                    // Props para el sistema de z-index
+                    zIndex={ventanaZIndexes.proyectos}
+                    onFocus={() => bringToFront('proyectos')}
+
+                    // Prop para el efecto semitransparente
+                    isTransparent={shouldBeTransparent('proyectos')}
+
+                    // Contenido específico
+                    contenido={<ContenidoProyectos data={infoProyectos} />}
+                />
+            )}
+
             <Archivo
                 onClick={handleClickArchivoAcercaDe}
                 nombre={infoAcercaDe.titulo}
@@ -270,6 +492,11 @@ export default function ContIconArcEscritorio({
             <Archivo
                 onClick={handleClickArchivoHabilidades}
                 nombre={infoHabilidades.titulo}
+            />
+
+            <Archivo
+                onClick={handleClickArchivoProyectos}
+                nombre={infoProyectos.titulo}
             />
 
         </div>

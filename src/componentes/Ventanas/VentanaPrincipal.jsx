@@ -52,7 +52,7 @@ export default function VentanaPrincipal({ toggleVerVentana, ventanaState, handl
                     handleWindowClick(e, onFocus);
                 }}
             >
-                <div className={`${isTransparent ? "invisible" : "visible"}`}>
+                <div className={`${isTransparent ? "invisible" : "visible"} flex flex-col h-full`}>
                     {/* Barra de título */}
                     <div
                         className="overflow-hidden drag-handle w-full flex flex-row items-center justify-between h-8 select-none"
@@ -137,7 +137,7 @@ export default function VentanaPrincipal({ toggleVerVentana, ventanaState, handl
                     {/* Área de contenido - Solo visible si hay suficiente altura */}
                     {(isMaximized ? windowDimensions.height : currentDimensions.height) >
                         ((isMaximized ? windowDimensions.height : currentDimensions.height) > 60 ? 90 : 60) && (
-                            <div className="flex-1 flex-col p-2 cursor-text overflow-y-auto overflow-x-hidden">
+                            <div className="flex flex-1 flex-col p-2 cursor-text overflow-y-auto overflow-x-hidden">
                                 {contenido}
                             </div>
                         )}

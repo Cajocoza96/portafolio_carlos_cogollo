@@ -30,8 +30,13 @@ export default function BarraDeTareas({
     infoHabilidades,
     toggleMinimizarVentanaHabilidades,
     ventanaMinimizadaHabilidades,
-    
 
+    verProyectos,
+    toggleVerProyectos,
+    infoProyectos,
+    toggleMinimizarVentanaProyectos,
+    ventanaMinimizadaProyectos,
+                
     bringToFront, onHoverVentana
 }) {
     return (
@@ -67,6 +72,12 @@ export default function BarraDeTareas({
                 infoHabilidades={infoHabilidades}
                 ventanaMinimizadaHabilidades={ventanaMinimizadaHabilidades}
 
+                verProyectos={verProyectos}
+                toggleMinimizarVentanaProyectos={toggleMinimizarVentanaProyectos}
+                toggleVerProyectos={toggleVerProyectos}
+                infoProyectos={infoProyectos}
+                ventanaMinimizadaProyectos={ventanaMinimizadaProyectos}
+                
                 bringToFront={bringToFront}
 
                 onHoverVentana={onHoverVentana}

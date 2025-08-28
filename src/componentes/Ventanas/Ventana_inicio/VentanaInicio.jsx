@@ -8,12 +8,19 @@ export default function VentanaInicio({ toggleVerVentanaInicio, toggleVerVentana
                                         
                                         verAcercaDe, setVerAcercaDe, toggleVerAcercaDe,
                                         ventanaMinimizadaAcercaDe, toggleMinimizarVentanaAcercaDe,
+                                        infoAcercaDe,
 
                                         verContacto, setVerContacto, toggleVerContacto,
                                         ventanaMinimizadaContacto, toggleMinimizarVentanaContacto,
+                                        infoContacto,
 
                                         verHabilidades, setVerHabilidades, toggleVerHabilidades,
                                         ventanaMinimizadaHabilidades, toggleMinimizarVentanaHabilidades,
+                                        infoHabilidades,
+
+                                        verProyectos, setVerProyectos, toggleVerProyectos,
+                                        ventanaMinimizadaProyectos, toggleMinimizarVentanaProyectos,
+                                        infoProyectos,
                                         
                                         setUserInteracted, bringToFront }) {
     return (
@@ -35,18 +42,28 @@ export default function VentanaInicio({ toggleVerVentanaInicio, toggleVerVentana
                     setVerAcercaDe={setVerAcercaDe}
                     ventanaMinimizadaAcercaDe={ventanaMinimizadaAcercaDe}
                     toggleMinimizarVentanaAcercaDe={toggleMinimizarVentanaAcercaDe}
+                    infoAcercaDe={infoAcercaDe}
 
                     toggleVerContacto={toggleVerContacto}
                     verContacto={verContacto}
                     setVerContacto={setVerContacto}
                     ventanaMinimizadaContacto={ventanaMinimizadaContacto}
                     toggleMinimizarVentanaContacto={toggleMinimizarVentanaContacto}
+                    infoContacto={infoContacto}
 
                     toggleVerHabilidades={toggleVerHabilidades}
                     verHabilidades={verHabilidades}
                     setVerHabilidades={setVerHabilidades}
                     ventanaMinimizadaHabilidades={ventanaMinimizadaHabilidades}
                     toggleMinimizarVentanaHabilidades={toggleMinimizarVentanaHabilidades}
+                    infoHabilidades={infoHabilidades}
+
+                    toggleVerProyectos={toggleVerProyectos}
+                    verProyectos={verProyectos}
+                    setVerProyectos={setVerProyectos}
+                    ventanaMinimizadaProyectos={ventanaMinimizadaProyectos}
+                    toggleMinimizarVentanaProyectos={toggleMinimizarVentanaProyectos}
+                    infoProyectos={infoProyectos}
 
                     setUserInteracted={setUserInteracted}
 

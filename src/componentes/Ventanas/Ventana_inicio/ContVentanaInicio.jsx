@@ -13,12 +13,19 @@ export default function ContVentanaInicio({ toggleVerVentanaInicio,
 
     toggleVerAcercaDe, verAcercaDe,
     ventanaMinimizadaAcercaDe, toggleMinimizarVentanaAcercaDe,
+    infoAcercaDe,
 
     toggleVerContacto, verContacto,
     ventanaMinimizadaContacto, toggleMinimizarVentanaContacto,
+    infoContacto,
 
     toggleVerHabilidades, verHabilidades, 
-    ventanaMinimizadaHabilidades, toggleMinimizarVentanaHabilidades, 
+    ventanaMinimizadaHabilidades, toggleMinimizarVentanaHabilidades,
+    infoHabilidades,
+
+    toggleVerProyectos, verProyectos,
+    ventanaMinimizadaProyectos, toggleMinimizarVentanaProyectos,
+    infoProyectos,
 
     setUserInteracted, bringToFront  }) {
 
@@ -85,6 +92,22 @@ export default function ContVentanaInicio({ toggleVerVentanaInicio,
             toggleVerHabilidades();
             setTimeout(() => {
                 bringToFront('habilidades');
+            }, 0);
+            toggleVerVentanaInicio()
+        }
+    }
+
+    const handleClickVerProyectos = () => {
+        if (verProyectos && ventanaMinimizadaProyectos) {
+            toggleMinimizarVentanaProyectos();
+        } if (verProyectos) {
+            bringToFront('proyectos');
+            toggleVerVentanaInicio()
+            return
+        } else {
+            toggleVerProyectos();
+            setTimeout(() => {
+                bringToFront('proyectos');
             }, 0);
             toggleVerVentanaInicio()
         }
@@ -174,7 +197,7 @@ export default function ContVentanaInicio({ toggleVerVentanaInicio,
                                 <p className="text-xs lg:text-sm 2xl:text-base 
                                             text-white text-center"
                                     style={{ textShadow: "0 2px 6px rgba(0,0,0,0.75)" }}>
-                                    Acerca de.txt
+                                    {infoAcercaDe.titulo}
                                 </p>
                             </div>
                         </div>
@@ -204,7 +227,7 @@ export default function ContVentanaInicio({ toggleVerVentanaInicio,
                                 <p className="text-xs lg:text-sm 2xl:text-base 
                                             text-white text-center"
                                     style={{ textShadow: "0 2px 6px rgba(0,0,0,0.75)" }}>
-                                    Contacto.txt
+                                    {infoContacto.titulo}
                                 </p>
                             </div>
                         </div>
@@ -234,7 +257,7 @@ export default function ContVentanaInicio({ toggleVerVentanaInicio,
                                 <p className="text-xs lg:text-sm 2xl:text-base 
                                             text-white text-center"
                                     style={{ textShadow: "0 2px 6px rgba(0,0,0,0.75)" }}>
-                                    Habilidades.txt
+                                    {infoHabilidades.titulo}
                                 </p>
                             </div>
                         </div>
@@ -255,7 +278,8 @@ export default function ContVentanaInicio({ toggleVerVentanaInicio,
                         <div className="hover:bg-blue-600 hover:dark:bg-gray-700
                                         active:bg-blue-500 dark:active:bg-gray-600
                                         h-10 w-full p-1
-                                        flex items-center ">
+                                        flex items-center"
+                            onClick={handleClickVerProyectos}>
                             <div className="flex flex-row items-center
                                                     h-auto w-auto py-1 gap-2">
                                 <FaRegFileAlt className="text-xl lg:text-2xl 2xl:text-3xl 
@@ -263,7 +287,7 @@ export default function ContVentanaInicio({ toggleVerVentanaInicio,
                                 <p className="text-xs lg:text-sm 2xl:text-base 
                                             text-white text-center"
                                     style={{ textShadow: "0 2px 6px rgba(0,0,0,0.75)" }}>
-                                    Proyectos.txt
+                                    {infoProyectos.titulo}
                                 </p>
                             </div>
                         </div>
@@ -290,7 +314,7 @@ export default function ContVentanaInicio({ toggleVerVentanaInicio,
                         <p className="text-xs lg:text-sm 2xl:text-base 
                                             text-white text-center"
                             style={{ textShadow: "0 2px 6px rgba(0,0,0,0.75)" }}>
-                            Acerca de.txt
+                            {infoAcercaDe.titulo}
                         </p>
                     </div>
 
@@ -303,7 +327,7 @@ export default function ContVentanaInicio({ toggleVerVentanaInicio,
                         <p className="text-xs lg:text-sm 2xl:text-base 
                                             text-white text-center"
                             style={{ textShadow: "0 2px 6px rgba(0,0,0,0.75)" }}>
-                            Contacto.txt
+                            {infoContacto.titulo}
                         </p>
                     </div>
 
@@ -316,19 +340,20 @@ export default function ContVentanaInicio({ toggleVerVentanaInicio,
                         <p className="text-xs lg:text-sm 2xl:text-base 
                                             text-white text-center"
                             style={{ textShadow: "0 2px 6px rgba(0,0,0,0.75)" }}>
-                            Habilidades.txt
+                            {infoHabilidades.titulo}
                         </p>
                     </div>
 
                     <div className="bg-green-600 hover:bg-green-700 active:bg-green-500
                                     h-20 w-full overflow-hidden
                                     hover:border-2 hover:border-white active:border-white
-                                    flex flex-col items-center justify-center">
+                                    flex flex-col items-center justify-center"
+                        onClick={handleClickVerProyectos}>
                         <FaRegFileAlt className="text-xl lg:text-2xl 2xl:text-3xl text-white" />
                         <p className="text-xs lg:text-sm 2xl:text-base 
                                             text-white text-center"
                             style={{ textShadow: "0 2px 6px rgba(0,0,0,0.75)" }}>
-                            Proyectos.txt
+                            {infoProyectos.titulo}
                         </p>
                     </div>
 

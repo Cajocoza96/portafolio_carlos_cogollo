@@ -21,6 +21,7 @@ export default function Escritorio() {
     const infoAcercaDe = infoBlocNotas.acercaDe;
     const infoContacto = infoBlocNotas.contacto;
     const infoHabilidades = infoBlocNotas.habilidades;
+    const infoProyectos = infoBlocNotas.proyectos;
 
     const isMobile = useIsMobile();
 
@@ -38,7 +39,8 @@ export default function Escritorio() {
     const [ventanaZIndexes, setVentanaZIndexes] = useState({
         acercaDe: 1000,
         contacto: 1001,
-        habilidades: 1002
+        habilidades: 1002,
+        proyectos: 1003
     });
 
     // Función para traer una ventana al frente - MOVIDO AQUÍ
@@ -93,6 +95,15 @@ export default function Escritorio() {
     }
 
 
+    // Estado para controlar si la ventana está minimizada de Proyectos
+    const [ventanaMinimizadaProyectos, setVentanaMinimizadaProyectos] = useState(false);
+
+    // Nueva función para alternar el estado de minimización
+    const toggleMinimizarVentanaProyectos = () => {
+        setVentanaMinimizadaProyectos(!ventanaMinimizadaProyectos);
+    }
+
+
     //Estado para ver Acerca de.txt
     const [verAcercaDe, setVerAcercaDe] = useState(false);
 
@@ -122,6 +133,17 @@ export default function Escritorio() {
         setVerHabilidades(!verHabilidades);
         if (verHabilidades) {
             setVentanaMinimizadaHabilidades(false);
+        }
+    }
+
+
+    //Estado para ver Proyectos.txt
+    const [verProyectos, setVerProyectos] = useState(false);
+
+    const toggleVerProyectos = () => {
+        setVerProyectos(!verProyectos);
+        if (verProyectos) {
+            setVentanaMinimizadaProyectos(false);
         }
     }
 
@@ -251,18 +273,28 @@ export default function Escritorio() {
                 setVerAcercaDe={setVerAcercaDe}
                 toggleMinimizarVentanaAcercaDe={toggleMinimizarVentanaAcercaDe}
                 ventanaMinimizadaAcercaDe={ventanaMinimizadaAcercaDe}
+                infoAcercaDe={infoAcercaDe}
 
                 toggleVerContacto={toggleVerContacto}
                 verContacto={verContacto}
                 setVerContacto={setVerContacto}
                 toggleMinimizarVentanaContacto={toggleMinimizarVentanaContacto}
                 ventanaMinimizadaContacto={ventanaMinimizadaContacto}
+                infoContacto={infoContacto}
 
                 toggleVerHabilidades={toggleVerHabilidades}
                 verHabilidades={verHabilidades}
                 setVerHabilidades={setVerHabilidades}
                 toggleMinimizarVentanaHabilidades={toggleMinimizarVentanaHabilidades}
                 ventanaMinimizadaHabilidades={ventanaMinimizadaHabilidades}
+                infoHabilidades={infoHabilidades}
+
+                toggleVerProyectos={toggleVerProyectos}
+                verProyectos={verProyectos}
+                setVerProyectos={setVerProyectos}
+                toggleMinimizarVentanaProyectos={toggleMinimizarVentanaProyectos}
+                ventanaMinimizadaProyectos={ventanaMinimizadaProyectos}
+                infoProyectos={infoProyectos}
 
                 // Pasar las funciones y estados de z-index
                 ventanaZIndexes={ventanaZIndexes}
@@ -284,18 +316,28 @@ export default function Escritorio() {
                     setVerAcercaDe={setVerAcercaDe}
                     toggleMinimizarVentanaAcercaDe={toggleMinimizarVentanaAcercaDe}
                     ventanaMinimizadaAcercaDe={ventanaMinimizadaAcercaDe}
+                    infoAcercaDe={infoAcercaDe}
 
                     toggleVerContacto={toggleVerContacto}
                     verContacto={verContacto}
                     setVerContacto={setVerContacto}
                     toggleMinimizarVentanaContacto={toggleMinimizarVentanaContacto}
                     ventanaMinimizadaContacto={ventanaMinimizadaContacto}
+                    infoContacto={infoContacto}
 
                     toggleVerHabilidades={toggleVerHabilidades}
                     verHabilidades={verHabilidades}
                     setVerHabilidades={setVerHabilidades}
                     toggleMinimizarVentanaHabilidades={toggleMinimizarVentanaHabilidades}
                     ventanaMinimizadaHabilidades={ventanaMinimizadaHabilidades}
+                    infoHabilidades={infoHabilidades}
+
+                    toggleVerProyectos={toggleVerProyectos}
+                    verProyectos={verProyectos}
+                    setVerProyectos={setVerProyectos}
+                    toggleMinimizarVentanaProyectos={toggleMinimizarVentanaProyectos}
+                    ventanaMinimizadaProyectos={ventanaMinimizadaProyectos}
+                    infoProyectos={infoProyectos}
 
                     setUserInteracted={setUserInteracted}
 
@@ -375,6 +417,12 @@ export default function Escritorio() {
                 toggleMinimizarVentanaHabilidades={toggleMinimizarVentanaHabilidades}
                 ventanaMinimizadaHabilidades={ventanaMinimizadaHabilidades}
                 infoHabilidades={infoHabilidades}
+
+                verProyectos={verProyectos}
+                toggleVerProyectos={toggleVerProyectos}
+                toggleMinimizarVentanaProyectos={toggleMinimizarVentanaProyectos}
+                ventanaMinimizadaProyectos={ventanaMinimizadaProyectos}
+                infoProyectos={infoProyectos}
 
                 bringToFront={bringToFront}
 
