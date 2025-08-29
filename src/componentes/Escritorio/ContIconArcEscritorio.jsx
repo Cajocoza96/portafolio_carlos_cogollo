@@ -109,89 +109,89 @@ const ContenidoProyectos = ({ data }) => (
     <>
         <div className="mb-2">
             <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
-                {data.texto1}
+                {data.item1.texto1}
             </p>
         </div>
 
         <div className="mb-2">
             <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
-                {data.texto2}
+                {data.item1.texto2}
             </p>
         </div>
 
         <div className="mb-2">
             <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
-                {data.texto3}
+                {data.item1.texto3}
             </p>
         </div>
 
         <div className="mb-2">
             <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
-                {data.texto4}
+                {data.item1.texto4}
             </p>
         </div>
 
         <div className="mb-2">
             <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
-                {data.texto5}
+                {data.item1.texto5}
             </p>
         </div>
 
         <div className="mb-2">
             <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
-                {data.texto6}
+                {data.item1.texto6}
             </p>
         </div>
 
         <div className="mb-4">
             <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
-                {data.texto7}
+                {data.item1.texto7}
             </p>
         </div>
 
         <div className="mb-2">
             <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
-                {data.texto8}
+                {data.item1.texto8}
             </p>
         </div>
 
         <div className="mb-2">
             <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
-                {data.texto9LinkTexto}
+                {data.item1.texto9LinkTexto}
             </p>
         </div>
 
         <div className="mb-4">
-            <a href={data.texto9LinkEnlace}
+            <a href={data.item1.texto9LinkEnlace}
                 className="inline break-words text-sm 
                         text-black dark:text-white whitespace-pre-wrap"
                 target="_blank"
                 rel="noopener noreferrer"
             >
-                {data.texto9LinkEnlace}
+                {data.item1.texto9LinkEnlace}
             </a>
         </div>
 
         <div className="mb-2">
             <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
-                {data.texto10LinkTexto}
+                {data.item1.texto10LinkTexto}
             </p>
         </div>
 
         <div className="mb-4">
-            <a href={data.texto10LinkEnlace}
+            <a href={data.item1.texto10LinkEnlace}
                 className="inline break-words text-sm 
                         text-black dark:text-white whitespace-pre-wrap"
                 target="_blank"
                 rel="noopener noreferrer"
             >
-                {data.texto10LinkEnlace}
+                {data.item1.texto10LinkEnlace}
             </a>
         </div>
 
         <div className="mb-2">
             <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
-                {data.texto11LinkTexto}
+                {data.item1.texto11LinkTexto}
             </p>
         </div>
 
@@ -202,211 +202,211 @@ const ContenidoProyectos = ({ data }) => (
                 target="_blank"
                 rel="noopener noreferrer"
             >
-                {data.texto11LinkEnlace}
+                {data.item1.texto11LinkEnlace}
             </a>
         </div>
 
         <div className="mb-2">
             <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
-                {data.texto12}
+                {data.item2.texto1}
             </p>
         </div>
 
         <div className="mb-2">
             <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
-                {data.texto13}
+                {data.item2.texto2}
             </p>
         </div>
 
         <div className="mb-2">
             <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
-                {data.texto14}
+                {data.item2.texto3}
             </p>
         </div>
 
         <div className="mb-2">
             <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
-                {data.texto15}
+                {data.item2.texto4}
             </p>
         </div>
 
         <div className="mb-2">
             <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
-                {data.texto16}
+                {data.item2.texto5}
             </p>
         </div>
 
         <div className="mb-2">
             <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
-                {data.texto17}
+                {data.item2.texto6}
             </p>
         </div>
 
         <div className="mb-4">
             <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
-                {data.texto18}
+                {data.item2.texto7}
             </p>
         </div>
 
         <div className="mb-2">
             <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
-                {data.texto19LinkTexto}
+                {data.item2.texto8LinkTexto}
             </p>
         </div>
 
         <div className="mb-4">
-            <a href={data.texto19LinkEnlace}
+            <a href={data.item2.texto8LinkEnlace}
                 className="inline break-words text-sm 
                         text-black dark:text-white whitespace-pre-wrap"
                 target="_blank"
                 rel="noopener noreferrer"
             >
-                {data.texto19LinkEnlace}
+                {data.item2.texto8LinkEnlace}
             </a>
         </div>
 
         <div className="mb-2">
             <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
-                {data.texto20LinkTexto}
+                {data.item2.texto9LinkTexto}
             </p>
         </div>
 
         <div className="mb-7">
-            <a href={data.texto20LinkEnlace}
+            <a href={data.item2.texto9LinkEnlace}
                 className="inline break-words text-sm 
                         text-black dark:text-white whitespace-pre-wrap"
                 target="_blank"
                 rel="noopener noreferrer"
             >
-                {data.texto20LinkEnlace}
+                {data.item2.texto9LinkEnlace}
             </a>
         </div>
 
         <div className="mb-2">
             <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
-                {data.texto21}
+                {data.item3.texto1}
             </p>
         </div>
 
         <div className="mb-2">
             <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
-                {data.texto22}
+                {data.item3.texto2}
             </p>
         </div>
 
         <div className="mb-2">
             <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
-                {data.texto23}
+                {data.item3.texto3}
             </p>
         </div>
 
         <div className="mb-2">
             <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
-                {data.texto24}
+                {data.item3.texto4}
             </p>
         </div>
 
         <div className="mb-4">
             <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
-                {data.texto25}
+                {data.item3.texto5}
             </p>
         </div>
 
         <div className="mb-2">
             <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
-                {data.texto26LinkTexto}
+                {data.item3.texto6LinkTexto}
             </p>
         </div>
 
         <div className="mb-4">
-            <a href={data.texto26LinkEnlace}
+            <a href={data.item3.texto6LinkEnlace}
                 className="inline break-words text-sm 
                         text-black dark:text-white whitespace-pre-wrap"
                 target="_blank"
                 rel="noopener noreferrer"
             >
-                {data.texto26LinkEnlace}
+                {data.item3.texto6LinkEnlace}
             </a>
         </div>
 
         <div className="mb-2">
             <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
-                {data.texto27LinkTexto}
+                {data.item3.texto7LinkTexto}
             </p>
         </div>
 
         <div className="mb-7">
-            <a href={data.texto27LinkEnlace}
+            <a href={data.item3.texto7LinkEnlace}
                 className="inline break-words text-sm 
                         text-black dark:text-white whitespace-pre-wrap"
                 target="_blank"
                 rel="noopener noreferrer"
             >
-                {data.texto27LinkEnlace}
+                {data.item3.texto7LinkEnlace}
             </a>
         </div>
 
         <div className="mb-2">
             <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
-                {data.texto28}
+                {data.item4.texto1}
             </p>
         </div>
 
         <div className="mb-2">
             <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
-                {data.texto29}
+                {data.item4.texto2}
             </p>
         </div>
 
         <div className="mb-2">
             <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
-                {data.texto30}
+                {data.item4.texto3}
             </p>
         </div>
 
         <div className="mb-2">
             <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
-                {data.texto31}
+                {data.item4.texto4}
             </p>
         </div>
 
         <div className="mb-4">
             <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
-                {data.texto32}
+                {data.item4.texto5}
             </p>
         </div>
 
         <div className="mb-2">
             <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
-                {data.texto33LinkTexto}
+                {data.item4.texto6LinkTexto}
             </p>
         </div>
 
         <div className="mb-4">
-            <a href={data.texto33LinkEnlace}
+            <a href={data.item4.texto6LinkEnlace}
                 className="inline break-words text-sm 
                         text-black dark:text-white whitespace-pre-wrap"
                 target="_blank"
                 rel="noopener noreferrer"
             >
-                {data.texto33LinkEnlace}
+                {data.item4.texto6LinkEnlace}
             </a>
         </div>
 
         <div className="mb-2">
             <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
-                {data.texto34LinkTexto}
+                {data.item4.texto7LinkTexto}
             </p>
         </div>
 
         <div className="mb-2">
-            <a href={data.texto34LinkEnlace}
+            <a href={data.item4.texto7LinkEnlace}
                 className="inline break-words text-sm 
                         text-black dark:text-white whitespace-pre-wrap"
                 target="_blank"
                 rel="noopener noreferrer"
             >
-                {data.texto34LinkEnlace}
+                {data.item4.texto7LinkEnlace}
             </a>
         </div>
     </>
