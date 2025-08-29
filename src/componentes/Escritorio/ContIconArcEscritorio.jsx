@@ -382,7 +382,7 @@ const ContenidoProyectos = ({ data }) => (
             </p>
         </div>
 
-        <div className="mb-2">
+        <div className="mb-4">
             <a href={data.texto33LinkEnlace}
                 className="inline break-words text-sm 
                         text-black dark:text-white whitespace-pre-wrap"
