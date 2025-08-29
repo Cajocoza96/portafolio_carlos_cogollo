@@ -271,7 +271,7 @@ const ContenidoProyectos = ({ data }) => (
             </p>
         </div>
 
-        <div className="mb-2">
+        <div className="mb-7">
             <a href={data.texto20LinkEnlace}
                 className="inline break-words text-sm 
                         text-black dark:text-white whitespace-pre-wrap"
@@ -279,6 +279,134 @@ const ContenidoProyectos = ({ data }) => (
                 rel="noopener noreferrer"
             >
                 {data.texto20LinkEnlace}
+            </a>
+        </div>
+
+        <div className="mb-2">
+            <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
+                {data.texto21}
+            </p>
+        </div>
+
+        <div className="mb-2">
+            <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
+                {data.texto22}
+            </p>
+        </div>
+
+        <div className="mb-2">
+            <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
+                {data.texto23}
+            </p>
+        </div>
+
+        <div className="mb-2">
+            <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
+                {data.texto24}
+            </p>
+        </div>
+
+        <div className="mb-4">
+            <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
+                {data.texto25}
+            </p>
+        </div>
+
+        <div className="mb-2">
+            <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
+                {data.texto26LinkTexto}
+            </p>
+        </div>
+
+        <div className="mb-4">
+            <a href={data.texto26LinkEnlace}
+                className="inline break-words text-sm 
+                        text-black dark:text-white whitespace-pre-wrap"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                {data.texto26LinkEnlace}
+            </a>
+        </div>
+
+        <div className="mb-2">
+            <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
+                {data.texto27LinkTexto}
+            </p>
+        </div>
+
+        <div className="mb-7">
+            <a href={data.texto27LinkEnlace}
+                className="inline break-words text-sm 
+                        text-black dark:text-white whitespace-pre-wrap"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                {data.texto27LinkEnlace}
+            </a>
+        </div>
+
+        <div className="mb-2">
+            <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
+                {data.texto28}
+            </p>
+        </div>
+
+        <div className="mb-2">
+            <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
+                {data.texto29}
+            </p>
+        </div>
+
+        <div className="mb-2">
+            <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
+                {data.texto30}
+            </p>
+        </div>
+
+        <div className="mb-2">
+            <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
+                {data.texto31}
+            </p>
+        </div>
+
+        <div className="mb-4">
+            <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
+                {data.texto32}
+            </p>
+        </div>
+
+        <div className="mb-2">
+            <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
+                {data.texto33LinkTexto}
+            </p>
+        </div>
+
+        <div className="mb-2">
+            <a href={data.texto33LinkEnlace}
+                className="inline break-words text-sm 
+                        text-black dark:text-white whitespace-pre-wrap"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                {data.texto33LinkEnlace}
+            </a>
+        </div>
+
+        <div className="mb-2">
+            <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
+                {data.texto34LinkTexto}
+            </p>
+        </div>
+
+        <div className="mb-2">
+            <a href={data.texto34LinkEnlace}
+                className="inline break-words text-sm 
+                        text-black dark:text-white whitespace-pre-wrap"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                {data.texto34LinkEnlace}
             </a>
         </div>
     </>

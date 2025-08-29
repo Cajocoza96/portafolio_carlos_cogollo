@@ -41,16 +41,37 @@
         "texto10LinkEnlace": "xxxx",
         "texto11LinkTexto": "Vista en Vercel:",
         "texto11LinkEnlace": "https://tuclima360-frontend.vercel.app",
+
         "texto12": "Proyecto #2",
-        "texto13": "Nombre proyecto: uno-eccomerce-react – Aplicación Web eCommerce (En desarrollo)",
+        "texto13": "Nombre proyecto: Uno-eccomerce-react – Aplicación Web eCommerce (En desarrollo)",
         "texto14": "Descripción: Aplicación web de eCommerce con diseño responsivo.",
-        "texto15": "Funcionalidades: cabecera fija con mensaje promocional, menú hamburguesa, barra de búsqueda (en desarrollo), íconos interactivos (notificaciones, usuario, carrito), listado de productos con precios y descuentos, sección de entrega y contacto.",
-        "texto16": "Próximas mejoras: compras en línea, modo claro/oscuro y funciones dinámicas.",
+        "texto15": "Funcionalidades: cabecera fija con mensaje promocional, menú hamburguesa, barra de búsqueda (en desarrollo), íconos interactivos (notificaciones, usuario, carrito en desarrollo), listado de productos con precios y descuentos, sección de entrega y contacto, y modo claro/oscuro",
+        "texto16": "Próximas mejoras: compras en línea y funciones dinámicas.",
         "texto17": "Frontend: React, JavaScript, CSS",
         "texto18": "Datos: JSON locales",
         "texto19LinkTexto": "Repositorio en GitHub:",
         "texto19LinkEnlace": "xxxx",
         "texto20LinkTexto": "Vista en GitHub Pages:",
-        "texto20LinkEnlace": "https://Cajocoza96.github.io/uno-eccomerce-react/"
+        "texto20LinkEnlace": "https://Cajocoza96.github.io/uno-eccomerce-react/",
+
+        "texto21": "Proyecto #3",
+        "texto22": "Nombre proyecto: Carlitos Anime",
+        "texto23": "Descripción: Carlitos Anime es una página web sencilla inspirada en el anime Jujutsu Kaisen. Presenta un diseño visual atractivo con un video de portada y una galería de imágenes que representan diferentes capítulos del anime.",
+        "texto24": "Funcionalidades: video de portada como introducción al sitio, galería de imágenes representando capítulos del anime y navegación básica en un entorno web estático.",
+        "texto25": "Frontend: HTML, CSS y JavaScript.",
+        "texto26LinkTexto": "Repositorio en GitHub:",
+        "texto26LinkEnlace": "https://github.com/Cajocoza96/carlitos-anime.git",
+        "texto27LinkTexto": "Vista en GitHub Pages:",
+        "texto27LinkEnlace": "https://cajocoza96.github.io/carlitos-anime/",
+
+        "texto28": "Proyecto #4",
+        "texto29": "Nombre proyecto: Cronómetro JK",
+        "texto30": "Descripción: Cronómetro JK es una aplicación web sencilla inspirada en el anime Jujutsu Kaisen. Incluye un temporizador interactivo acompañado de una imagen temática del anime.",
+        "texto31": "Funcionalidades: temporizador con control de reproducción, pausa y reinicio, interruptor de modo claro/oscuro para personalizar la apariencia y diseño visual con imagen alusiva al anime.",
+        "texto32": "Frontend: HTML, CSS y JavaScript.",
+        "texto33LinkTexto": "Repositorio en GitHub:",
+        "texto33LinkEnlace": "xxxx",
+        "texto34LinkTexto": "Vista en GitHub Pages:",
+        "texto34LinkEnlace": "xxxx"
     }
 }
