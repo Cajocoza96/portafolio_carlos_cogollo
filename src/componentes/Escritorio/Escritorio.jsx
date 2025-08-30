@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useMemo } from "react";
 
+import { AnimatePresence } from "framer-motion";
+
 import useIsMobile from "../../hooks/useIsMobile";
 import windowsEscritorioHorizontal from "/assets/img/escritorio/normal/windowsEscritorioHorizontal.webp";
 import windowsEscritorioVertical from "/assets/img/escritorio/normal/windowsEscritorioVertical.webp";
@@ -303,48 +305,50 @@ export default function Escritorio() {
                 hoveredVentana={hoveredVentana}
             />
 
-            {verVentanaInicio && (
-                <VentanaInicio
-                    toggleVerVentanaInicio={toggleVerVentanaInicio}
-                    toggleVerVentanaBloqueo={toggleVerVentanaBloqueo}
-                    toggleVerVentanaSuspendido={toggleVerVentanaSuspendido}
-                    toggleVerVentanaApagado={toggleVerVentanaApagado}
-                    toggleVerVentanaReinicio={toggleVerVentanaReinicio}
+            <AnimatePresence>
+                {verVentanaInicio && (
+                    <VentanaInicio
+                        toggleVerVentanaInicio={toggleVerVentanaInicio}
+                        toggleVerVentanaBloqueo={toggleVerVentanaBloqueo}
+                        toggleVerVentanaSuspendido={toggleVerVentanaSuspendido}
+                        toggleVerVentanaApagado={toggleVerVentanaApagado}
+                        toggleVerVentanaReinicio={toggleVerVentanaReinicio}
 
-                    toggleVerAcercaDe={toggleVerAcercaDe}
-                    verAcercaDe={verAcercaDe}
-                    setVerAcercaDe={setVerAcercaDe}
-                    toggleMinimizarVentanaAcercaDe={toggleMinimizarVentanaAcercaDe}
-                    ventanaMinimizadaAcercaDe={ventanaMinimizadaAcercaDe}
-                    infoAcercaDe={infoAcercaDe}
+                        toggleVerAcercaDe={toggleVerAcercaDe}
+                        verAcercaDe={verAcercaDe}
+                        setVerAcercaDe={setVerAcercaDe}
+                        toggleMinimizarVentanaAcercaDe={toggleMinimizarVentanaAcercaDe}
+                        ventanaMinimizadaAcercaDe={ventanaMinimizadaAcercaDe}
+                        infoAcercaDe={infoAcercaDe}
 
-                    toggleVerContacto={toggleVerContacto}
-                    verContacto={verContacto}
-                    setVerContacto={setVerContacto}
-                    toggleMinimizarVentanaContacto={toggleMinimizarVentanaContacto}
-                    ventanaMinimizadaContacto={ventanaMinimizadaContacto}
-                    infoContacto={infoContacto}
+                        toggleVerContacto={toggleVerContacto}
+                        verContacto={verContacto}
+                        setVerContacto={setVerContacto}
+                        toggleMinimizarVentanaContacto={toggleMinimizarVentanaContacto}
+                        ventanaMinimizadaContacto={ventanaMinimizadaContacto}
+                        infoContacto={infoContacto}
 
-                    toggleVerHabilidades={toggleVerHabilidades}
-                    verHabilidades={verHabilidades}
-                    setVerHabilidades={setVerHabilidades}
-                    toggleMinimizarVentanaHabilidades={toggleMinimizarVentanaHabilidades}
-                    ventanaMinimizadaHabilidades={ventanaMinimizadaHabilidades}
-                    infoHabilidades={infoHabilidades}
+                        toggleVerHabilidades={toggleVerHabilidades}
+                        verHabilidades={verHabilidades}
+                        setVerHabilidades={setVerHabilidades}
+                        toggleMinimizarVentanaHabilidades={toggleMinimizarVentanaHabilidades}
+                        ventanaMinimizadaHabilidades={ventanaMinimizadaHabilidades}
+                        infoHabilidades={infoHabilidades}
 
-                    toggleVerProyectos={toggleVerProyectos}
-                    verProyectos={verProyectos}
-                    setVerProyectos={setVerProyectos}
-                    toggleMinimizarVentanaProyectos={toggleMinimizarVentanaProyectos}
-                    ventanaMinimizadaProyectos={ventanaMinimizadaProyectos}
-                    infoProyectos={infoProyectos}
+                        toggleVerProyectos={toggleVerProyectos}
+                        verProyectos={verProyectos}
+                        setVerProyectos={setVerProyectos}
+                        toggleMinimizarVentanaProyectos={toggleMinimizarVentanaProyectos}
+                        ventanaMinimizadaProyectos={ventanaMinimizadaProyectos}
+                        infoProyectos={infoProyectos}
 
-                    setUserInteracted={setUserInteracted}
+                        setUserInteracted={setUserInteracted}
 
-                    // Pasar la función bringToFront para usar desde VentanaInicio
-                    bringToFront={bringToFront}
-                />
-            )}
+                        // Pasar la función bringToFront para usar desde VentanaInicio
+                        bringToFront={bringToFront}
+                    />
+                )}
+            </AnimatePresence>
 
             {/*
             {verVentanaBusqueda && (
