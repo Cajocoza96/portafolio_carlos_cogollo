@@ -196,7 +196,7 @@ const ContenidoProyectos = ({ data }) => (
         </div>
 
         <div className="mb-7">
-            <a href={data.texto11LinkEnlace}
+            <a href={data.item1.texto11LinkEnlace}
                 className="inline break-words text-sm 
                         text-black dark:text-white whitespace-pre-wrap"
                 target="_blank"
