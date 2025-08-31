@@ -1,7 +1,8 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Archivo from "./Archivos_accesos_directos/Archivo";
 import VentanaPrincipal from "../Ventanas/VentanaPrincipal";
 import { Rnd } from "react-rnd";
+import useIsMobile from "../../hooks/useIsMobile";
 
 // Componentes de contenido específico para cada ventana
 const ContenidoAcercaDe = ({ data }) => (
@@ -441,6 +442,9 @@ export default function ContIconArcEscritorio({
     hoveredVentana
 }) {
 
+    const isMobile = useIsMobile();
+    const containerRef = useRef(null);
+
     // --- NUEVO: flag para diferenciar click vs drag (sirve mouse y touch)
     const draggingRef = useRef(false);
     const dragStartPos = useRef({ x: 0, y: 0, time: 0 });
@@ -457,6 +461,106 @@ export default function ContIconArcEscritorio({
     const ICON_WIDTH = 75;
     const ICON_HEIGHT = 72;
 
+    // Función para obtener las dimensiones del contenedor
+    const getContainerDimensions = () => {
+        if (containerRef.current) {
+            const rect = containerRef.current.getBoundingClientRect();
+            return {
+                width: rect.width,
+                height: rect.height
+            };
+        }
+        return {
+            width: window.innerWidth,
+            height: window.innerHeight
+        };
+    };
+
+    // Función para ajustar posiciones dentro de los límites
+    const adjustPositionsToBounds = () => {
+        const { width, height } = getContainerDimensions();
+        const maxX = width - ICON_WIDTH;
+        const maxY = height - ICON_HEIGHT;
+
+        setIconPositions(prevPositions => {
+            const newPositions = { ...prevPositions };
+            
+            Object.keys(newPositions).forEach(iconId => {
+                // Ajustar X
+                if (newPositions[iconId].x > maxX) {
+                    newPositions[iconId].x = Math.max(0, maxX);
+                }
+                if (newPositions[iconId].x < 0) {
+                    newPositions[iconId].x = 0;
+                }
+                
+                // Ajustar Y
+                if (newPositions[iconId].y > maxY) {
+                    newPositions[iconId].y = Math.max(0, maxY);
+                }
+                if (newPositions[iconId].y < 0) {
+                    newPositions[iconId].y = 0;
+                }
+            });
+
+            return newPositions;
+        });
+    };
+
+    // Función para reorganizar iconos automáticamente en móvil
+    const reorganizeIconsForMobile = () => {
+        if (!isMobile) return;
+
+        const { width, height } = getContainerDimensions();
+        const margin = 24;
+        const iconKeys = Object.keys(iconPositions);
+        
+        // Calcular cuántos iconos caben por fila
+        const iconsPerRow = Math.floor((width - margin) / (ICON_WIDTH + margin));
+        
+        const newPositions = {};
+        
+        iconKeys.forEach((iconId, index) => {
+            const row = Math.floor(index / iconsPerRow);
+            const col = index % iconsPerRow;
+            
+            newPositions[iconId] = {
+                x: margin + col * (ICON_WIDTH + margin),
+                y: margin + row * (ICON_HEIGHT + margin)
+            };
+        });
+
+        setIconPositions(newPositions);
+    };
+
+    // Effect para manejar cambios de orientación en móvil
+    useEffect(() => {
+        const handleOrientationChange = () => {
+            if (isMobile) {
+                // Pequeño delay para que se complete el cambio de orientación
+                setTimeout(() => {
+                    reorganizeIconsForMobile();
+                }, 100);
+            } else {
+                // En desktop, solo ajustar si están fuera de límites
+                setTimeout(() => {
+                    adjustPositionsToBounds();
+                }, 100);
+            }
+        };
+
+        // Escuchar cambios de tamaño de ventana
+        window.addEventListener('resize', handleOrientationChange);
+        
+        // Ejecutar una vez al montar el componente
+        handleOrientationChange();
+
+        return () => {
+            window.removeEventListener('resize', handleOrientationChange);
+        };
+    }, [isMobile]); // Ejecutar cuando cambie isMobile
+
+
     // Función de colisión
     const checkCollision = (id, newPos) => {
         return Object.entries(iconPositions).some(([otherId, pos]) => {
@@ -468,6 +572,18 @@ export default function ContIconArcEscritorio({
                 newPos.y > pos.y + ICON_HEIGHT    // demasiado abajo
             );
         });
+    };
+
+    // Función para validar que la posición esté dentro de los límites
+    const validatePositionBounds = (newPos) => {
+        const { width, height } = getContainerDimensions();
+        const maxX = width - ICON_WIDTH;
+        const maxY = height - ICON_HEIGHT;
+
+        return {
+            x: Math.max(0, Math.min(newPos.x, maxX)),
+            y: Math.max(0, Math.min(newPos.y, maxY))
+        };
     };
 
     // Estado para conservar el tamaño, posición y estado de maximización de la ventana Acerca de
@@ -597,6 +713,29 @@ export default function ContIconArcEscritorio({
         }
     };
 
+    // Función mejorada para manejar drag stop con validación de límites
+    const handleDragStop = (iconId) => (e, d) => {
+        const rawPos = { x: d.x, y: d.y };
+        const boundedPos = validatePositionBounds(rawPos);
+        
+        if (checkCollision(iconId, boundedPos)) {
+            // ❌ Colisión → revertir
+            setIconPositions((prev) => ({ ...prev }));
+        } else {
+            // ✅ Sin colisión → actualizar con posición validada
+            setIconPositions((prev) => ({ ...prev, [iconId]: boundedPos }));
+        }
+        
+        // Manejar el drag común
+        const distX = Math.abs(d.x - dragStartPos.current.x);
+        const distY = Math.abs(d.y - dragStartPos.current.y);
+        const timeDiff = Date.now() - dragStartPos.current.time;
+
+        if (distX < 5 && distY < 5 && timeDiff < 200) {
+            draggingRef.current = false;
+        }
+    };
+
     return (
         <div className="fixed inset-0 z-50 bg-black/20
                         flex items-center justify-center gap-2">
@@ -684,19 +823,10 @@ export default function ContIconArcEscritorio({
             <Rnd
                 {...rndCommon}
                 position={iconPositions.acercaDe}
-                onDragStop={(e, d) => {
-                    const newPos = { x: d.x, y: d.y };
-                    if (checkCollision("acercaDe", newPos)) {
-                        // ❌ Colisión → revertir
-                        setIconPositions((prev) => ({ ...prev }));
-                    } else {
-                        // ✅ Sin colisión → actualizar
-                        setIconPositions((prev) => ({ ...prev, acercaDe: newPos }));
-                    }
-                }}
+                onDragStop={handleDragStop("acercaDe")}
             >
                 <Archivo
-                    onClick={handleClickArchivoAcercaDe}
+                    onDoubleClick={handleClickArchivoAcercaDe}
                     onTouchEnd={handleClickArchivoAcercaDe}
                     nombre={infoAcercaDe.titulo}
                 />
@@ -706,19 +836,10 @@ export default function ContIconArcEscritorio({
             <Rnd
                 {...rndCommon}
                 position={iconPositions.contacto}
-                onDragStop={(e, d) => {
-                    const newPos = { x: d.x, y: d.y };
-                    if (checkCollision("contacto", newPos)) {
-                        // ❌ Colisión → revertir
-                        setIconPositions((prev) => ({ ...prev }));
-                    } else {
-                        // ✅ Sin colisión → actualizar
-                        setIconPositions((prev) => ({ ...prev, contacto: newPos }));
-                    }
-                }}
+                onDragStop={handleDragStop("contacto")}
             >
                 <Archivo
-                    onClick={handleClickArchivoContacto}
+                    onDoubleClick={handleClickArchivoContacto}
                     onTouchEnd={handleClickArchivoContacto}
                     nombre={infoContacto.titulo}
                 />
@@ -728,19 +849,10 @@ export default function ContIconArcEscritorio({
             <Rnd
                 {...rndCommon}
                 position={iconPositions.habilidades}
-                onDragStop={(e, d) => {
-                    const newPos = { x: d.x, y: d.y };
-                    if (checkCollision("habilidades", newPos)) {
-                        // ❌ Colisión → revertir
-                        setIconPositions((prev) => ({ ...prev }));
-                    } else {
-                        // ✅ Sin colisión → actualizar
-                        setIconPositions((prev) => ({ ...prev, habilidades: newPos }));
-                    }
-                }}
+                onDragStop={handleDragStop("habilidades")}
             >
                 <Archivo
-                    onClick={handleClickArchivoHabilidades}
+                    onDoubleClick={handleClickArchivoHabilidades}
                     onTouchEnd={handleClickArchivoHabilidades}
                     nombre={infoHabilidades.titulo}
                 />
@@ -750,19 +862,10 @@ export default function ContIconArcEscritorio({
             <Rnd
                 {...rndCommon}
                 position={iconPositions.proyectos}
-                onDragStop={(e, d) => {
-                    const newPos = { x: d.x, y: d.y };
-                    if (checkCollision("proyectos", newPos)) {
-                        // ❌ Colisión → revertir
-                        setIconPositions((prev) => ({ ...prev }));
-                    } else {
-                        // ✅ Sin colisión → actualizar
-                        setIconPositions((prev) => ({ ...prev, proyectos: newPos }));
-                    }
-                }}
+                onDragStop={handleDragStop("proyectos")}
             >
                 <Archivo
-                    onClick={handleClickArchivoProyectos}
+                    onDoubleClick={handleClickArchivoProyectos}
                     onTouchEnd={handleClickArchivoProyectos}
                     nombre={infoProyectos.titulo}
                 />

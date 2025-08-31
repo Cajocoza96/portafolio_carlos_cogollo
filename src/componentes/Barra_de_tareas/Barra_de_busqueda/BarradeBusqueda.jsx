@@ -30,11 +30,13 @@ export default function BarradeBusqueda({ toggleVerVentanaBusqueda,
                 ref={inputRef}
                 type="text"
                 onClick={handleClickVentanaInicioBusqueda}
-                placeholder="Escribe aquí para buscar."
+                placeholder="No es posible buscar."
                 onFocus={handleFocus}
+                disabled
+                
                 className="w-[80%]
                             placeholder:text-gray-500 dark:placeholder:text-gray-400
-                            text-sm lg:text-base 2xl:text-xl
+                            text-sm lg:text-base 2xl:text-xl truncate
                             placeholder:text-sm lg:placeholder:text-base 2xl:placeholder:text-xl 
                             border-none focus:outline-none focus:ring-0"/>
         </div>

@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 
+import { motion, AnimatePresence } from "framer-motion";
+
 import { HiChevronDown, HiChevronUp } from "react-icons/hi";
 
 import { HiWifi, HiVolumeUp, HiVolumeOff, HiOutlineQuestionMarkCircle, HiBan } from "react-icons/hi";
@@ -34,10 +36,16 @@ export default function EspacioDerechoMobile() {
                 {!verEspacioDerechoMobile ? <HiChevronUp /> : <HiChevronDown />}
             </div>
 
+            <AnimatePresence>
             {verEspacioDerechoMobile && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center"
                     onClick={toggleVerEspacioDerechoMobile}>
-                    <div className="bg-blue-800 dark:bg-gray-900 h-auto
+                    <motion.div
+                            initial={{ y: "100%" }}
+                            animate={{ y: 0 }}
+                            exit={{ y: "100%" }}
+                            transition={{ duration: 0.4, ease: "easeOut" }} 
+                            className="bg-blue-800 dark:bg-gray-900 h-auto
                                     w-auto overflow-hidden
                                     absolute bottom-10 right-0 
                                     flex items-center justify-center"
@@ -98,9 +106,10 @@ export default function EspacioDerechoMobile() {
 
                         </div>
 
-                    </div>
+                    </motion.div>
                 </div>
             )}
+            </AnimatePresence>
         </div>
     );
 }

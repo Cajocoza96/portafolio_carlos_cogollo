@@ -5,15 +5,15 @@ import EspacioDerecho from "./EspacioDerecho";
 import EspacioCentro from "./EspacioCentro";
 import EspacioDerechoMobile from "./EspacioDerechoMobile";
 
-export default function BarraDeTareas({ 
-    toggleVerVentanaInicio, 
+export default function BarraDeTareas({
+    toggleVerVentanaInicio,
     toggleVerVentanaBusqueda,
-    setVerVentanaBusqueda,  
+    setVerVentanaBusqueda,
     verVentanaBusqueda,
-    setVerVentanaInicio, 
-    verVentanaInicio, 
+    setVerVentanaInicio,
+    verVentanaInicio,
 
-    verAcercaDe, 
+    verAcercaDe,
     toggleVerAcercaDe,
     infoAcercaDe,
     toggleMinimizarVentanaAcercaDe,
@@ -36,24 +36,24 @@ export default function BarraDeTareas({
     infoProyectos,
     toggleMinimizarVentanaProyectos,
     ventanaMinimizadaProyectos,
-                
+
     bringToFront, onHoverVentana
 }) {
     return (
         <div className="bg-blue-800 dark:bg-gray-900 gap-1
                         grid grid-cols-[7fr_1fr_1fr] md:grid-cols-[3fr_1fr_1fr]
                         lg:grid-cols-3 z-60 items-center">
-            <EspacioIzquierdo 
+            <EspacioIzquierdo
                 toggleVerVentanaInicio={toggleVerVentanaInicio}
                 toggleVerVentanaBusqueda={toggleVerVentanaBusqueda}
 
                 setVerVentanaInicio={setVerVentanaInicio}
                 verVentanaInicio={verVentanaInicio}
-                
+
                 setVerVentanaBusqueda={setVerVentanaBusqueda}
                 verVentanaBusqueda={verVentanaBusqueda}
             />
-            <EspacioCentro 
+            <EspacioCentro
                 verAcercaDe={verAcercaDe}
                 toggleMinimizarVentanaAcercaDe={toggleMinimizarVentanaAcercaDe}
                 toggleVerAcercaDe={toggleVerAcercaDe}
@@ -77,12 +77,12 @@ export default function BarraDeTareas({
                 toggleVerProyectos={toggleVerProyectos}
                 infoProyectos={infoProyectos}
                 ventanaMinimizadaProyectos={ventanaMinimizadaProyectos}
-                
+
                 bringToFront={bringToFront}
 
                 onHoverVentana={onHoverVentana}
             />
-            <EspacioDerecho/>
+            <EspacioDerecho />
             <EspacioDerechoMobile />
         </div>
     );
