@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useRef  } from "react";
 import Archivo from "./Archivos_accesos_directos/Archivo";
 import VentanaPrincipal from "../Ventanas/VentanaPrincipal";
+import { Rnd } from "react-rnd";
 
 // Componentes de contenido específico para cada ventana
 const ContenidoAcercaDe = ({ data }) => (
@@ -440,6 +441,9 @@ export default function ContIconArcEscritorio({
     hoveredVentana
 }) {
 
+    // --- NUEVO: flag para diferenciar click vs drag (sirve mouse y touch)
+    const draggingRef = useRef(false);
+
     // Estado para conservar el tamaño, posición y estado de maximización de la ventana Acerca de
     const [ventanaStateAcercaDe, setVentanaStateAcercaDe] = useState(null);
 
@@ -474,6 +478,7 @@ export default function ContIconArcEscritorio({
 
 
     const handleClickArchivoAcercaDe = () => {
+        if (draggingRef.current) { draggingRef.current = false; return; }
         if (verAcercaDe && ventanaMinimizadaAcercaDe) {
             toggleMinimizarVentanaAcercaDe();
         } if (verAcercaDe) {
@@ -485,6 +490,7 @@ export default function ContIconArcEscritorio({
     }
 
     const handleClickArchivoContacto = () => {
+        if (draggingRef.current) { draggingRef.current = false; return; }
         if (verContacto && ventanaMinimizadaContacto) {
             toggleMinimizarVentanaContacto();
         } if (verContacto) {
@@ -496,6 +502,7 @@ export default function ContIconArcEscritorio({
     }
 
     const handleClickArchivoHabilidades = () => {
+        if (draggingRef.current) { draggingRef.current = false; return; }
         if (verHabilidades && ventanaMinimizadaHabilidades) {
             toggleMinimizarVentanaHabilidades();
         } if (verHabilidades) {
@@ -507,6 +514,7 @@ export default function ContIconArcEscritorio({
     }
 
     const handleClickArchivoProyectos = () => {
+        if (draggingRef.current) { draggingRef.current = false; return; }
         if (verProyectos && ventanaMinimizadaProyectos) {
             toggleMinimizarVentanaProyectos();
         } if (verProyectos) {
@@ -522,6 +530,16 @@ export default function ContIconArcEscritorio({
         // Si hay hover y esta ventana no es la que está siendo hovereada, debe estar semitransparente
         return hoveredVentana && hoveredVentana !== ventanaType;
     };
+
+    // Helper para no repetir props de Rnd
+  const rndCommon = {
+    bounds: "parent",          // ⬅️ no sale de ContIconArcEscritorio
+    enableResizing: false,     // solo mover, no redimensionar
+    dragHandleClassName: "rnd-handle", // ⬅️ arrastra desde todo Archivo.jsx
+    onDragStart: () => { draggingRef.current = false; },
+    onDrag: () => { draggingRef.current = true; }
+    // Nota: NO reseteamos aquí. Lo reseteo en el onClick cuando corresponda.
+  };
 
     return (
         <div className="fixed inset-0 z-50 bg-black/20
@@ -606,26 +624,34 @@ export default function ContIconArcEscritorio({
                     contenido={<ContenidoProyectos data={infoProyectos} />}
                 />
             )}
-
+            
+            <Rnd {...rndCommon} default={{ x: 24, y: 24 }}>
             <Archivo
                 onClick={handleClickArchivoAcercaDe}
                 nombre={infoAcercaDe.titulo}
             />
-
+            </Rnd>
+            
+            <Rnd {...rndCommon} default={{ x: 24, y: 120 }}>
             <Archivo
                 onClick={handleClickArchivoContacto}
                 nombre={infoContacto.titulo}
             />
-
+            </Rnd>
+            
+            <Rnd {...rndCommon} default={{ x: 24, y: 216 }}>
             <Archivo
                 onClick={handleClickArchivoHabilidades}
                 nombre={infoHabilidades.titulo}
             />
+            </Rnd>
 
+            <Rnd {...rndCommon} default={{ x: 24, y: 312  }}>
             <Archivo
                 onClick={handleClickArchivoProyectos}
                 nombre={infoProyectos.titulo}
             />
+            </Rnd>
 
         </div>
     );
