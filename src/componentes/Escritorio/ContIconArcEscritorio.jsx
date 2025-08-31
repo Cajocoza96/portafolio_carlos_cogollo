@@ -445,6 +445,31 @@ export default function ContIconArcEscritorio({
     const draggingRef = useRef(false);
     const dragStartPos = useRef({ x: 0, y: 0, time: 0 });
 
+    // Estado para posiciones de cada icono
+    const [iconPositions, setIconPositions] = useState({
+        acercaDe: { x: 24, y: 24 },
+        contacto: { x: 24, y: 120 },
+        habilidades: { x: 24, y: 216 },
+        proyectos: { x: 24, y: 312 }
+    });
+
+    // Tamaño aproximado de cada icono (Archivo.jsx mide h-20 => 80px aprox)
+    const ICON_WIDTH = 75;
+    const ICON_HEIGHT = 72;
+
+    // Función de colisión
+    const checkCollision = (id, newPos) => {
+        return Object.entries(iconPositions).some(([otherId, pos]) => {
+            if (id === otherId) return false;
+            return !(
+                newPos.x + ICON_WIDTH < pos.x || // demasiado a la izquierda
+                newPos.x > pos.x + ICON_WIDTH || // demasiado a la derecha
+                newPos.y + ICON_HEIGHT < pos.y || // demasiado arriba
+                newPos.y > pos.y + ICON_HEIGHT    // demasiado abajo
+            );
+        });
+    };
+
     // Estado para conservar el tamaño, posición y estado de maximización de la ventana Acerca de
     const [ventanaStateAcercaDe, setVentanaStateAcercaDe] = useState(null);
 
@@ -479,9 +504,9 @@ export default function ContIconArcEscritorio({
 
 
     const handleClickArchivoAcercaDe = () => {
-        if (draggingRef.current) { 
-            draggingRef.current = false; 
-            return; 
+        if (draggingRef.current) {
+            draggingRef.current = false;
+            return;
         }
         if (verAcercaDe && ventanaMinimizadaAcercaDe) {
             toggleMinimizarVentanaAcercaDe();
@@ -494,9 +519,9 @@ export default function ContIconArcEscritorio({
     }
 
     const handleClickArchivoContacto = () => {
-        if (draggingRef.current) { 
-            draggingRef.current = false; 
-            return; 
+        if (draggingRef.current) {
+            draggingRef.current = false;
+            return;
         }
         if (verContacto && ventanaMinimizadaContacto) {
             toggleMinimizarVentanaContacto();
@@ -509,9 +534,9 @@ export default function ContIconArcEscritorio({
     }
 
     const handleClickArchivoHabilidades = () => {
-        if (draggingRef.current) { 
-            draggingRef.current = false; 
-            return; 
+        if (draggingRef.current) {
+            draggingRef.current = false;
+            return;
         }
         if (verHabilidades && ventanaMinimizadaHabilidades) {
             toggleMinimizarVentanaHabilidades();
@@ -524,9 +549,9 @@ export default function ContIconArcEscritorio({
     }
 
     const handleClickArchivoProyectos = () => {
-        if (draggingRef.current) { 
-            draggingRef.current = false; 
-            return; 
+        if (draggingRef.current) {
+            draggingRef.current = false;
+            return;
         }
         if (verProyectos && ventanaMinimizadaProyectos) {
             toggleMinimizarVentanaProyectos();
@@ -656,7 +681,20 @@ export default function ContIconArcEscritorio({
                 />
             )}
 
-            <Rnd {...rndCommon} default={{ x: 24, y: 24 }}>
+            <Rnd
+                {...rndCommon}
+                position={iconPositions.acercaDe}
+                onDragStop={(e, d) => {
+                    const newPos = { x: d.x, y: d.y };
+                    if (checkCollision("acercaDe", newPos)) {
+                        // ❌ Colisión → revertir
+                        setIconPositions((prev) => ({ ...prev }));
+                    } else {
+                        // ✅ Sin colisión → actualizar
+                        setIconPositions((prev) => ({ ...prev, acercaDe: newPos }));
+                    }
+                }}
+            >
                 <Archivo
                     onClick={handleClickArchivoAcercaDe}
                     onTouchEnd={handleClickArchivoAcercaDe}
@@ -664,7 +702,21 @@ export default function ContIconArcEscritorio({
                 />
             </Rnd>
 
-            <Rnd {...rndCommon} default={{ x: 24, y: 120 }}>
+
+            <Rnd
+                {...rndCommon}
+                position={iconPositions.contacto}
+                onDragStop={(e, d) => {
+                    const newPos = { x: d.x, y: d.y };
+                    if (checkCollision("contacto", newPos)) {
+                        // ❌ Colisión → revertir
+                        setIconPositions((prev) => ({ ...prev }));
+                    } else {
+                        // ✅ Sin colisión → actualizar
+                        setIconPositions((prev) => ({ ...prev, contacto: newPos }));
+                    }
+                }}
+            >
                 <Archivo
                     onClick={handleClickArchivoContacto}
                     onTouchEnd={handleClickArchivoContacto}
@@ -672,7 +724,21 @@ export default function ContIconArcEscritorio({
                 />
             </Rnd>
 
-            <Rnd {...rndCommon} default={{ x: 24, y: 216 }}>
+
+            <Rnd
+                {...rndCommon}
+                position={iconPositions.habilidades}
+                onDragStop={(e, d) => {
+                    const newPos = { x: d.x, y: d.y };
+                    if (checkCollision("habilidades", newPos)) {
+                        // ❌ Colisión → revertir
+                        setIconPositions((prev) => ({ ...prev }));
+                    } else {
+                        // ✅ Sin colisión → actualizar
+                        setIconPositions((prev) => ({ ...prev, habilidades: newPos }));
+                    }
+                }}
+            >
                 <Archivo
                     onClick={handleClickArchivoHabilidades}
                     onTouchEnd={handleClickArchivoHabilidades}
@@ -680,7 +746,21 @@ export default function ContIconArcEscritorio({
                 />
             </Rnd>
 
-            <Rnd {...rndCommon} default={{ x: 24, y: 312 }}>
+
+            <Rnd
+                {...rndCommon}
+                position={iconPositions.proyectos}
+                onDragStop={(e, d) => {
+                    const newPos = { x: d.x, y: d.y };
+                    if (checkCollision("proyectos", newPos)) {
+                        // ❌ Colisión → revertir
+                        setIconPositions((prev) => ({ ...prev }));
+                    } else {
+                        // ✅ Sin colisión → actualizar
+                        setIconPositions((prev) => ({ ...prev, proyectos: newPos }));
+                    }
+                }}
+            >
                 <Archivo
                     onClick={handleClickArchivoProyectos}
                     onTouchEnd={handleClickArchivoProyectos}
