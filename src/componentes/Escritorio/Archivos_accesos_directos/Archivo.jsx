@@ -2,7 +2,7 @@ import React from "react";
 
 import { FaRegFileAlt } from "react-icons/fa";
 
-export default function Archivo({ nombre, onClick, handleClassName = "rnd-handle" }) {
+export default function Archivo({ nombre, onClick, onTouchEnd, handleClassName = "rnd-handle" }) {
     return (
         <div className={`${handleClassName} flex flex-col items-center justify-around
                         hover:border hover:border-gray-300
@@ -11,6 +11,7 @@ export default function Archivo({ nombre, onClick, handleClassName = "rnd-handle
                         dark:hover:bg-gray-300/30 dark:active:bg-gray-300/30
                             h-20 w-auto px-1 select-none`}
             onClick={onClick}
+            onTouchEnd={onTouchEnd}
             role="button"
             tabIndex={0}
             onKeyDown={(e) => {

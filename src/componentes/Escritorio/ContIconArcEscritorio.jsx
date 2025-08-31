@@ -1,4 +1,4 @@
-import React, { useState, useRef  } from "react";
+import React, { useState, useRef } from "react";
 import Archivo from "./Archivos_accesos_directos/Archivo";
 import VentanaPrincipal from "../Ventanas/VentanaPrincipal";
 import { Rnd } from "react-rnd";
@@ -443,6 +443,7 @@ export default function ContIconArcEscritorio({
 
     // --- NUEVO: flag para diferenciar click vs drag (sirve mouse y touch)
     const draggingRef = useRef(false);
+    const dragStartPos = useRef({ x: 0, y: 0, time: 0 });
 
     // Estado para conservar el tamaño, posición y estado de maximización de la ventana Acerca de
     const [ventanaStateAcercaDe, setVentanaStateAcercaDe] = useState(null);
@@ -478,7 +479,10 @@ export default function ContIconArcEscritorio({
 
 
     const handleClickArchivoAcercaDe = () => {
-        if (draggingRef.current) { draggingRef.current = false; return; }
+        if (draggingRef.current) { 
+            draggingRef.current = false; 
+            return; 
+        }
         if (verAcercaDe && ventanaMinimizadaAcercaDe) {
             toggleMinimizarVentanaAcercaDe();
         } if (verAcercaDe) {
@@ -490,7 +494,10 @@ export default function ContIconArcEscritorio({
     }
 
     const handleClickArchivoContacto = () => {
-        if (draggingRef.current) { draggingRef.current = false; return; }
+        if (draggingRef.current) { 
+            draggingRef.current = false; 
+            return; 
+        }
         if (verContacto && ventanaMinimizadaContacto) {
             toggleMinimizarVentanaContacto();
         } if (verContacto) {
@@ -502,7 +509,10 @@ export default function ContIconArcEscritorio({
     }
 
     const handleClickArchivoHabilidades = () => {
-        if (draggingRef.current) { draggingRef.current = false; return; }
+        if (draggingRef.current) { 
+            draggingRef.current = false; 
+            return; 
+        }
         if (verHabilidades && ventanaMinimizadaHabilidades) {
             toggleMinimizarVentanaHabilidades();
         } if (verHabilidades) {
@@ -514,7 +524,10 @@ export default function ContIconArcEscritorio({
     }
 
     const handleClickArchivoProyectos = () => {
-        if (draggingRef.current) { draggingRef.current = false; return; }
+        if (draggingRef.current) { 
+            draggingRef.current = false; 
+            return; 
+        }
         if (verProyectos && ventanaMinimizadaProyectos) {
             toggleMinimizarVentanaProyectos();
         } if (verProyectos) {
@@ -532,14 +545,32 @@ export default function ContIconArcEscritorio({
     };
 
     // Helper para no repetir props de Rnd
-  const rndCommon = {
-    bounds: "parent",          // ⬅️ no sale de ContIconArcEscritorio
-    enableResizing: false,     // solo mover, no redimensionar
-    dragHandleClassName: "rnd-handle", // ⬅️ arrastra desde todo Archivo.jsx
-    onDragStart: () => { draggingRef.current = false; },
-    onDrag: () => { draggingRef.current = true; }
-    // Nota: NO reseteamos aquí. Lo reseteo en el onClick cuando corresponda.
-  };
+    const rndCommon = {
+        bounds: "parent",
+        enableResizing: false,
+        dragHandleClassName: "rnd-handle",
+        onDragStart: (e, d) => {
+            draggingRef.current = false;
+            dragStartPos.current = {
+                x: d.x,
+                y: d.y,
+                time: Date.now()
+            };
+        },
+        onDrag: () => {
+            draggingRef.current = true;
+        },
+        onDragStop: (e, d) => {
+            const distX = Math.abs(d.x - dragStartPos.current.x);
+            const distY = Math.abs(d.y - dragStartPos.current.y);
+            const timeDiff = Date.now() - dragStartPos.current.time;
+
+            // Si se movió muy poco (<5px) y fue rápido (<200ms) => tratar como "tap/click"
+            if (distX < 5 && distY < 5 && timeDiff < 200) {
+                draggingRef.current = false; // permitir click
+            }
+        }
+    };
 
     return (
         <div className="fixed inset-0 z-50 bg-black/20
@@ -624,33 +655,37 @@ export default function ContIconArcEscritorio({
                     contenido={<ContenidoProyectos data={infoProyectos} />}
                 />
             )}
-            
+
             <Rnd {...rndCommon} default={{ x: 24, y: 24 }}>
-            <Archivo
-                onClick={handleClickArchivoAcercaDe}
-                nombre={infoAcercaDe.titulo}
-            />
-            </Rnd>
-            
-            <Rnd {...rndCommon} default={{ x: 24, y: 120 }}>
-            <Archivo
-                onClick={handleClickArchivoContacto}
-                nombre={infoContacto.titulo}
-            />
-            </Rnd>
-            
-            <Rnd {...rndCommon} default={{ x: 24, y: 216 }}>
-            <Archivo
-                onClick={handleClickArchivoHabilidades}
-                nombre={infoHabilidades.titulo}
-            />
+                <Archivo
+                    onClick={handleClickArchivoAcercaDe}
+                    onTouchEnd={handleClickArchivoAcercaDe}
+                    nombre={infoAcercaDe.titulo}
+                />
             </Rnd>
 
-            <Rnd {...rndCommon} default={{ x: 24, y: 312  }}>
-            <Archivo
-                onClick={handleClickArchivoProyectos}
-                nombre={infoProyectos.titulo}
-            />
+            <Rnd {...rndCommon} default={{ x: 24, y: 120 }}>
+                <Archivo
+                    onClick={handleClickArchivoContacto}
+                    onTouchEnd={handleClickArchivoContacto}
+                    nombre={infoContacto.titulo}
+                />
+            </Rnd>
+
+            <Rnd {...rndCommon} default={{ x: 24, y: 216 }}>
+                <Archivo
+                    onClick={handleClickArchivoHabilidades}
+                    onTouchEnd={handleClickArchivoHabilidades}
+                    nombre={infoHabilidades.titulo}
+                />
+            </Rnd>
+
+            <Rnd {...rndCommon} default={{ x: 24, y: 312 }}>
+                <Archivo
+                    onClick={handleClickArchivoProyectos}
+                    onTouchEnd={handleClickArchivoProyectos}
+                    nombre={infoProyectos.titulo}
+                />
             </Rnd>
 
         </div>
