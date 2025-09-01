@@ -19,7 +19,16 @@ import VistaApagadoInicio from "../Ventanas/Ventana_inicio/Opcion_usua_config_ap
 
 import VentanaBusqueda from "../Ventanas/Ventana_busqueda/VentanaBusqueda";
 
+import ContEspacioDerechoMobile from "../Barra_de_tareas/ContEspacioDerechoMobile";
+
 export default function Escritorio() {
+
+    const [verEspacioDerechoMobile, setVerEspacioDerechoMobile] = useState(false);
+
+    const toggleVerEspacioDerechoMobile = () => {
+        setVerEspacioDerechoMobile(!verEspacioDerechoMobile);
+    }
+
     const infoAcercaDe = infoBlocNotas.acercaDe;
     const infoContacto = infoBlocNotas.contacto;
     const infoHabilidades = infoBlocNotas.habilidades;
@@ -431,6 +440,15 @@ export default function Escritorio() {
                 bringToFront={bringToFront}
 
                 onHoverVentana={handleHoverVentana}
+
+                verEspacioDerechoMobile={verEspacioDerechoMobile}
+                setVerEspacioDerechoMobile={setVerEspacioDerechoMobile}
+                toggleVerEspacioDerechoMobile={toggleVerEspacioDerechoMobile}
+            />
+
+            <ContEspacioDerechoMobile 
+                verEspacioDerechoMobile={verEspacioDerechoMobile}
+                toggleVerEspacioDerechoMobile={toggleVerEspacioDerechoMobile}
             />
         </>
     );

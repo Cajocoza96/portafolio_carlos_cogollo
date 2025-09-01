@@ -37,7 +37,10 @@ export default function BarraDeTareas({
     toggleMinimizarVentanaProyectos,
     ventanaMinimizadaProyectos,
 
-    bringToFront, onHoverVentana
+    bringToFront, onHoverVentana,
+
+    verEspacioDerechoMobile, toggleVerEspacioDerechoMobile,
+    setVerEspacioDerechoMobile
 }) {
     return (
         <div className="bg-blue-800 dark:bg-gray-900 gap-1
@@ -52,6 +55,10 @@ export default function BarraDeTareas({
 
                 setVerVentanaBusqueda={setVerVentanaBusqueda}
                 verVentanaBusqueda={verVentanaBusqueda}
+
+                verEspacioDerechoMobile={verEspacioDerechoMobile}
+                toggleVerEspacioDerechoMobile={toggleVerEspacioDerechoMobile}
+                setVerEspacioDerechoMobile={setVerEspacioDerechoMobile}
             />
             <EspacioCentro
                 verAcercaDe={verAcercaDe}
@@ -83,7 +90,10 @@ export default function BarraDeTareas({
                 onHoverVentana={onHoverVentana}
             />
             <EspacioDerecho />
-            <EspacioDerechoMobile />
+            <EspacioDerechoMobile
+                verEspacioDerechoMobile={verEspacioDerechoMobile}
+                toggleVerEspacioDerechoMobile={toggleVerEspacioDerechoMobile}
+            />
         </div>
     );
 }

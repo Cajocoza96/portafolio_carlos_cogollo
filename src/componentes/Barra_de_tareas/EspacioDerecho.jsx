@@ -1,10 +1,7 @@
 import React from "react";
-import { HiWifi, HiVolumeUp, HiVolumeOff, HiOutlineQuestionMarkCircle, HiBan } from "react-icons/hi";
+import { HiWifi, HiVolumeUp, HiOutlineQuestionMarkCircle, HiBan } from "react-icons/hi";
 import { HiOutlineChatBubbleOvalLeft, HiGlobeAlt } from "react-icons/hi2";
-import {
-    FaBatteryEmpty, FaBatteryQuarter, FaBatteryHalf,
-    FaBatteryThreeQuarters, FaBatteryFull, FaChargingStation
-} from "react-icons/fa";
+import { FaBatteryFull } from "react-icons/fa";
 import HoraFecha from "./Hora_y_fecha/HoraFecha";
 
 import useConexionInternet from "../../hooks/useConexionInternet";
@@ -29,18 +26,17 @@ export default function EspacioDerecho() {
             <div className="hover:bg-blue-700 hover:dark:bg-gray-800
                             active:bg-blue-600 dark:active:bg-gray-700
                             h-10 p-2 flex items-center
-                            text-sm lg:text-base 2xl:text-xl" title="No Disponible">
+                            text-sm lg:text-base 2xl:text-xl" title="Bateria">
                 <div className="relative inline-block  text-xl 2xl:text-2xl">
-                    <FaBatteryEmpty />
-                    <HiBan className="absolute bottom-0 right-0 text-red-600 text-sm" />
+                    <FaBatteryFull />
                 </div>
             </div>
 
             <div className="hover:bg-blue-700 hover:dark:bg-gray-800
                             active:bg-blue-600 dark:active:bg-gray-700
                             h-10 p-2 flex items-center
-                            text-sm lg:text-base 2xl:text-xl" title="No Disponible">
-                <HiVolumeOff />
+                            text-sm lg:text-base 2xl:text-xl" title="Volumen">
+                <HiVolumeUp />
             </div>
 
             <div className="hover:bg-blue-700 hover:dark:bg-gray-800

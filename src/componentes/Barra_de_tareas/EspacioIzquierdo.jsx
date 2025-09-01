@@ -4,14 +4,27 @@ import BarradeBusqueda from "./Barra_de_busqueda/BarradeBusqueda";
 
 export default function EspacioIzquierdo({ toggleVerVentanaInicio, toggleVerVentanaBusqueda,
                                             setVerVentanaBusqueda, verVentanaBusqueda,
-                                            setVerVentanaInicio, verVentanaInicio }) {
+                                            setVerVentanaInicio, verVentanaInicio,
+                                            verEspacioDerechoMobile, setVerEspacioDerechoMobile,
+                                            toggleVerEspacioDerechoMobile
+                                        }) {
 
     const handleClickVentanaInicioBusqueda = () => {
         if (verVentanaBusqueda) {
             setVerVentanaBusqueda(false);
         }
 
-        toggleVerVentanaInicio()
+        if(verVentanaInicio || !verVentanaInicio){
+            toggleVerVentanaInicio()
+        }
+
+        if(verVentanaInicio && verEspacioDerechoMobile){
+            toggleVerEspacioDerechoMobile()
+        }
+
+        if(!verVentanaInicio && verEspacioDerechoMobile){
+            toggleVerEspacioDerechoMobile()
+        }
     }
 
     return (
