@@ -24,7 +24,7 @@ export default function VentanaPrincipal({ toggleVerVentana, ventanaState, handl
             default={previousState}
             minWidth={isMobile ? 150 : 200}
             minHeight={32}
-            bounds="window"
+            bounds={isMaximized ? "window" : "parent"}
             dragHandleClassName="drag-handle"
             disableDragging={isMaximized}
             enableResizing={!isMaximized}

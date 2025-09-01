@@ -444,22 +444,16 @@ export default function ContIconArcEscritorio({
 
     const isMobile = useIsMobile();
     const containerRef = useRef(null);
+    const isInitialized = useRef(false);
 
     // --- NUEVO: flag para diferenciar click vs drag (sirve mouse y touch)
     const draggingRef = useRef(false);
     const dragStartPos = useRef({ x: 0, y: 0, time: 0 });
 
-    // Estado para posiciones de cada icono
-    const [iconPositions, setIconPositions] = useState({
-        acercaDe: { x: 24, y: 24 },
-        contacto: { x: 24, y: 120 },
-        habilidades: { x: 24, y: 216 },
-        proyectos: { x: 24, y: 312 }
-    });
-
     // Tamaño aproximado de cada icono (Archivo.jsx mide h-20 => 80px aprox)
     const ICON_WIDTH = 75;
     const ICON_HEIGHT = 72;
+    const MARGIN = 12;
 
     // Función para obtener las dimensiones del contenedor
     const getContainerDimensions = () => {
@@ -476,100 +470,149 @@ export default function ContIconArcEscritorio({
         };
     };
 
-    // Función para ajustar posiciones dentro de los límites
-    const adjustPositionsToBounds = () => {
+    // Estado para posiciones de cada icono - inicializado de forma inteligente
+    const [iconPositions, setIconPositions] = useState(() => {
+        // Calcular posiciones iniciales correctas desde el principio
+        const initialWidth = window.innerWidth;
+        const initialHeight = window.innerHeight;
+        const initialIsMobile = initialWidth < 768; // Estimación inicial de móvil
+        const iconKeys = ['acercaDe', 'contacto', 'habilidades', 'proyectos'];
+        
+        if (initialIsMobile) {
+            // En móvil: organizar en grid
+            const iconsPerRow = Math.floor((initialWidth - MARGIN) / (ICON_WIDTH + MARGIN));
+            const newPositions = {};
+            
+            iconKeys.forEach((iconId, index) => {
+                const row = Math.floor(index / iconsPerRow);
+                const col = index % iconsPerRow;
+                
+                newPositions[iconId] = {
+                    x: MARGIN + col * (ICON_WIDTH + MARGIN),
+                    y: MARGIN + row * (ICON_HEIGHT + MARGIN)
+                };
+            });
+            
+            return newPositions;
+        } else {
+            // En desktop: organizar verticalmente
+            const newPositions = {};
+            
+            iconKeys.forEach((iconId, index) => {
+                newPositions[iconId] = {
+                    x: MARGIN,
+                    y: MARGIN + index * (ICON_HEIGHT + 10)
+                };
+            });
+            
+            return newPositions;
+        }
+    });
+
+    // Función para preservar posiciones cuando sea posible
+    const smartRepositionIcons = () => {
         const { width, height } = getContainerDimensions();
         const maxX = width - ICON_WIDTH;
         const maxY = height - ICON_HEIGHT;
 
         setIconPositions(prevPositions => {
             const newPositions = { ...prevPositions };
+            const iconKeys = Object.keys(newPositions);
             
-            Object.keys(newPositions).forEach(iconId => {
-                // Ajustar X
+            // 1. Primero, intentar mantener posiciones actuales si caben
+            iconKeys.forEach(iconId => {
+                // Ajustar a límites si es necesario
                 if (newPositions[iconId].x > maxX) {
                     newPositions[iconId].x = Math.max(0, maxX);
                 }
-                if (newPositions[iconId].x < 0) {
-                    newPositions[iconId].x = 0;
-                }
-                
-                // Ajustar Y
                 if (newPositions[iconId].y > maxY) {
                     newPositions[iconId].y = Math.max(0, maxY);
+                }
+                if (newPositions[iconId].x < 0) {
+                    newPositions[iconId].x = 0;
                 }
                 if (newPositions[iconId].y < 0) {
                     newPositions[iconId].y = 0;
                 }
             });
 
+            // 2. Solo reorganizar automáticamente en móvil si hay colisiones masivas
+            if (isMobile) {
+                const hasMultipleCollisions = iconKeys.some((iconId, index) => {
+                    return iconKeys.slice(index + 1).some(otherId => {
+                        const pos1 = newPositions[iconId];
+                        const pos2 = newPositions[otherId];
+                        return !(
+                            pos1.x + ICON_WIDTH < pos2.x ||
+                            pos1.x > pos2.x + ICON_WIDTH ||
+                            pos1.y + ICON_HEIGHT < pos2.y ||
+                            pos1.y > pos2.y + ICON_HEIGHT
+                        );
+                    });
+                });
+
+                if (hasMultipleCollisions) {
+                    // Solo aquí reorganizar automáticamente
+                    const iconsPerRow = Math.floor((width - MARGIN) / (ICON_WIDTH + MARGIN));
+                    iconKeys.forEach((iconId, index) => {
+                        const row = Math.floor(index / iconsPerRow);
+                        const col = index % iconsPerRow;
+                        
+                        newPositions[iconId] = {
+                            x: MARGIN + col * (ICON_WIDTH + MARGIN),
+                            y: MARGIN + row * (ICON_HEIGHT + MARGIN)
+                        };
+                    });
+                }
+            }
+
             return newPositions;
         });
     };
 
-    // Función para reorganizar iconos automáticamente en móvil
-    const reorganizeIconsForMobile = () => {
-        if (!isMobile) return;
-
-        const { width, height } = getContainerDimensions();
-        const margin = 24;
-        const iconKeys = Object.keys(iconPositions);
-        
-        // Calcular cuántos iconos caben por fila
-        const iconsPerRow = Math.floor((width - margin) / (ICON_WIDTH + margin));
-        
-        const newPositions = {};
-        
-        iconKeys.forEach((iconId, index) => {
-            const row = Math.floor(index / iconsPerRow);
-            const col = index % iconsPerRow;
-            
-            newPositions[iconId] = {
-                x: margin + col * (ICON_WIDTH + margin),
-                y: margin + row * (ICON_HEIGHT + margin)
-            };
-        });
-
-        setIconPositions(newPositions);
-    };
-
-    // Effect para manejar cambios de orientación en móvil
+    // Effect para inicialización y cambios de orientación
     useEffect(() => {
-        const handleOrientationChange = () => {
-            if (isMobile) {
-                // Pequeño delay para que se complete el cambio de orientación
+        const handleResize = () => {
+            // Solo manejar cambios de tamaño después de la inicialización
+            if (isInitialized.current) {
                 setTimeout(() => {
-                    reorganizeIconsForMobile();
-                }, 100);
-            } else {
-                // En desktop, solo ajustar si están fuera de límites
-                setTimeout(() => {
-                    adjustPositionsToBounds();
-                }, 100);
+                    smartRepositionIcons();
+                }, 150);
             }
         };
 
-        // Escuchar cambios de tamaño de ventana
-        window.addEventListener('resize', handleOrientationChange);
+        // Marcar como inicializado inmediatamente
+        if (!isInitialized.current) {
+            isInitialized.current = true;
+        }
+
+        // Escuchar cambios de tamaño solo después de la inicialización
+        window.addEventListener('resize', handleResize);
         
-        // Ejecutar una vez al montar el componente
-        handleOrientationChange();
-
         return () => {
-            window.removeEventListener('resize', handleOrientationChange);
+            window.removeEventListener('resize', handleResize);
         };
-    }, [isMobile]); // Ejecutar cuando cambie isMobile
+    }, [isMobile]); // Re-ejecutar cuando cambie isMobile
 
+    // Effect separado para manejar cambios de isMobile (orientación)
+    useEffect(() => {
+        if (isInitialized.current) {
+            // Solo reposicionar si ya estamos inicializados y cambió el tipo de dispositivo
+            setTimeout(() => {
+                smartRepositionIcons();
+            }, 150);
+        }
+    }, [isMobile]);
 
     // Función de colisión
     const checkCollision = (id, newPos) => {
         return Object.entries(iconPositions).some(([otherId, pos]) => {
             if (id === otherId) return false;
             return !(
-                newPos.x + ICON_WIDTH < pos.x || // demasiado a la izquierda
-                newPos.x > pos.x + ICON_WIDTH || // demasiado a la derecha
-                newPos.y + ICON_HEIGHT < pos.y || // demasiado arriba
-                newPos.y > pos.y + ICON_HEIGHT    // demasiado abajo
+                newPos.x + ICON_WIDTH < pos.x ||
+                newPos.x > pos.x + ICON_WIDTH ||
+                newPos.y + ICON_HEIGHT < pos.y ||
+                newPos.y > pos.y + ICON_HEIGHT
             );
         });
     };
@@ -618,7 +661,6 @@ export default function ContIconArcEscritorio({
         setVentanaStateProyectos(newState);
     };
 
-
     const handleClickArchivoAcercaDe = () => {
         if (draggingRef.current) {
             draggingRef.current = false;
@@ -627,6 +669,7 @@ export default function ContIconArcEscritorio({
         if (verAcercaDe && ventanaMinimizadaAcercaDe) {
             toggleMinimizarVentanaAcercaDe();
         } if (verAcercaDe) {
+            bringToFront('acercaDe');
             return
         }
         else {
@@ -642,6 +685,7 @@ export default function ContIconArcEscritorio({
         if (verContacto && ventanaMinimizadaContacto) {
             toggleMinimizarVentanaContacto();
         } if (verContacto) {
+            bringToFront('contacto');
             return
         }
         else {
@@ -657,6 +701,7 @@ export default function ContIconArcEscritorio({
         if (verHabilidades && ventanaMinimizadaHabilidades) {
             toggleMinimizarVentanaHabilidades();
         } if (verHabilidades) {
+            bringToFront('habilidades');
             return
         }
         else {
@@ -672,6 +717,7 @@ export default function ContIconArcEscritorio({
         if (verProyectos && ventanaMinimizadaProyectos) {
             toggleMinimizarVentanaProyectos();
         } if (verProyectos) {
+            bringToFront('proyectos');
             return
         }
         else {
@@ -681,7 +727,6 @@ export default function ContIconArcEscritorio({
 
     // Determinar si una ventana debe estar semitransparente
     const shouldBeTransparent = (ventanaType) => {
-        // Si hay hover y esta ventana no es la que está siendo hovereada, debe estar semitransparente
         return hoveredVentana && hoveredVentana !== ventanaType;
     };
 
@@ -706,9 +751,8 @@ export default function ContIconArcEscritorio({
             const distY = Math.abs(d.y - dragStartPos.current.y);
             const timeDiff = Date.now() - dragStartPos.current.time;
 
-            // Si se movió muy poco (<5px) y fue rápido (<200ms) => tratar como "tap/click"
             if (distX < 5 && distY < 5 && timeDiff < 200) {
-                draggingRef.current = false; // permitir click
+                draggingRef.current = false;
             }
         }
     };
@@ -719,10 +763,10 @@ export default function ContIconArcEscritorio({
         const boundedPos = validatePositionBounds(rawPos);
         
         if (checkCollision(iconId, boundedPos)) {
-            // ❌ Colisión → revertir
+            // Colisión → revertir
             setIconPositions((prev) => ({ ...prev }));
         } else {
-            // ✅ Sin colisión → actualizar con posición validada
+            // Sin colisión → actualizar con posición validada
             setIconPositions((prev) => ({ ...prev, [iconId]: boundedPos }));
         }
         
@@ -737,9 +781,10 @@ export default function ContIconArcEscritorio({
     };
 
     return (
-        <div className="fixed inset-0 z-50 bg-black/20
-                        flex items-center justify-center gap-2">
-
+        <div 
+            ref={containerRef}
+            className="fixed inset-0 bottom-10 z-50 bg-black/20 flex items-center justify-center gap-2"
+        >
             {verAcercaDe && !ventanaMinimizadaAcercaDe && (
                 <VentanaPrincipal
                     titulo={infoAcercaDe.titulo}
@@ -747,15 +792,9 @@ export default function ContIconArcEscritorio({
                     ventanaState={ventanaStateAcercaDe}
                     handleVentanaStateChange={handleVentanaStateChangeAcercaDe}
                     toggleMinimizarVentana={toggleMinimizarVentanaAcercaDe}
-
-                    // Props para el sistema de z-index
                     zIndex={ventanaZIndexes.acercaDe}
                     onFocus={() => bringToFront('acercaDe')}
-
-                    // Prop para el efecto semitransparente
                     isTransparent={shouldBeTransparent('acercaDe')}
-
-                    // Contenido específico
                     contenido={<ContenidoAcercaDe data={infoAcercaDe} />}
                 />
             )}
@@ -767,15 +806,9 @@ export default function ContIconArcEscritorio({
                     ventanaState={ventanaStateContacto}
                     handleVentanaStateChange={handleVentanaStateChangeContacto}
                     toggleMinimizarVentana={toggleMinimizarVentanaContacto}
-
-                    // Props para el sistema de z-index
                     zIndex={ventanaZIndexes.contacto}
                     onFocus={() => bringToFront('contacto')}
-
-                    // Prop para el efecto semitransparente
                     isTransparent={shouldBeTransparent('contacto')}
-
-                    // Contenido específico
                     contenido={<ContenidoContacto data={infoContacto} />}
                 />
             )}
@@ -787,15 +820,9 @@ export default function ContIconArcEscritorio({
                     ventanaState={ventanaStateHabilidades}
                     handleVentanaStateChange={handleVentanaStateChangeHabilidades}
                     toggleMinimizarVentana={toggleMinimizarVentanaHabilidades}
-
-                    // Props para el sistema de z-index
                     zIndex={ventanaZIndexes.habilidades}
                     onFocus={() => bringToFront('habilidades')}
-
-                    // Prop para el efecto semitransparente
                     isTransparent={shouldBeTransparent('habilidades')}
-
-                    // Contenido específico
                     contenido={<ContenidoHabilidades data={infoHabilidades} />}
                 />
             )}
@@ -807,15 +834,9 @@ export default function ContIconArcEscritorio({
                     ventanaState={ventanaStateProyectos}
                     handleVentanaStateChange={handleVentanaStateChangeProyectos}
                     toggleMinimizarVentana={toggleMinimizarVentanaProyectos}
-
-                    // Props para el sistema de z-index
                     zIndex={ventanaZIndexes.proyectos}
                     onFocus={() => bringToFront('proyectos')}
-
-                    // Prop para el efecto semitransparente
                     isTransparent={shouldBeTransparent('proyectos')}
-
-                    // Contenido específico
                     contenido={<ContenidoProyectos data={infoProyectos} />}
                 />
             )}
@@ -832,7 +853,6 @@ export default function ContIconArcEscritorio({
                 />
             </Rnd>
 
-
             <Rnd
                 {...rndCommon}
                 position={iconPositions.contacto}
@@ -845,8 +865,7 @@ export default function ContIconArcEscritorio({
                 />
             </Rnd>
 
-
-            <Rnd
+            <Rnd className="ml-1"
                 {...rndCommon}
                 position={iconPositions.habilidades}
                 onDragStop={handleDragStop("habilidades")}
@@ -857,7 +876,6 @@ export default function ContIconArcEscritorio({
                     nombre={infoHabilidades.titulo}
                 />
             </Rnd>
-
 
             <Rnd
                 {...rndCommon}
@@ -870,7 +888,6 @@ export default function ContIconArcEscritorio({
                     nombre={infoProyectos.titulo}
                 />
             </Rnd>
-
         </div>
     );
 }
