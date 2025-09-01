@@ -48,20 +48,32 @@ export default function Escritorio() {
     // Sistema de z-index dinámico para las ventanas - MOVIDO AQUÍ
     const [zIndexCounter, setZIndexCounter] = useState(1000);
     const [ventanaZIndexes, setVentanaZIndexes] = useState({
-        acercaDe: 1000,
-        contacto: 1001,
-        habilidades: 1002,
-        proyectos: 1003
+        acercaDe: null,
+        contacto: null,
+        habilidades: null,
+        proyectos: null
     });
 
     // Función para traer una ventana al frente - MOVIDO AQUÍ
     const bringToFront = (ventanaId) => {
-        const newZIndex = zIndexCounter + 1;
-        setZIndexCounter(newZIndex);
-        setVentanaZIndexes(prev => ({
-            ...prev,
-            [ventanaId]: newZIndex
-        }));
+        setZIndexCounter(prevCounter => {
+            const newZIndex = prevCounter + 1;
+            setVentanaZIndexes(prev => ({
+                ...prev,
+                [ventanaId]: newZIndex
+            }));
+            return newZIndex;
+        });
+    };
+
+    // Función para obtener z-index de una ventana (asigna uno si no existe)
+    const getZIndex = (ventanaId) => {
+        if (ventanaZIndexes[ventanaId] === null) {
+            // Si la ventana no tiene z-index asignado, asignar uno automáticamente
+            bringToFront(ventanaId);
+            return zIndexCounter + 1; // Devolver el que se va a asignar
+        }
+        return ventanaZIndexes[ventanaId];
     };
 
     // Estado para manejar el hover en las miniaturas
@@ -310,6 +322,7 @@ export default function Escritorio() {
                 // Pasar las funciones y estados de z-index
                 ventanaZIndexes={ventanaZIndexes}
                 bringToFront={bringToFront}
+                getZIndex={getZIndex}
 
                 hoveredVentana={hoveredVentana}
             />

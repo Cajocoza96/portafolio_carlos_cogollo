@@ -437,6 +437,7 @@ export default function ContIconArcEscritorio({
 
     ventanaZIndexes,
     bringToFront,
+    getZIndex,
 
     // Nueva prop para el hover
     hoveredVentana
@@ -792,7 +793,7 @@ export default function ContIconArcEscritorio({
                     ventanaState={ventanaStateAcercaDe}
                     handleVentanaStateChange={handleVentanaStateChangeAcercaDe}
                     toggleMinimizarVentana={toggleMinimizarVentanaAcercaDe}
-                    zIndex={ventanaZIndexes.acercaDe}
+                    zIndex={getZIndex('acercaDe')}
                     onFocus={() => bringToFront('acercaDe')}
                     isTransparent={shouldBeTransparent('acercaDe')}
                     contenido={<ContenidoAcercaDe data={infoAcercaDe} />}
@@ -806,7 +807,7 @@ export default function ContIconArcEscritorio({
                     ventanaState={ventanaStateContacto}
                     handleVentanaStateChange={handleVentanaStateChangeContacto}
                     toggleMinimizarVentana={toggleMinimizarVentanaContacto}
-                    zIndex={ventanaZIndexes.contacto}
+                    zIndex={getZIndex('contacto')}
                     onFocus={() => bringToFront('contacto')}
                     isTransparent={shouldBeTransparent('contacto')}
                     contenido={<ContenidoContacto data={infoContacto} />}
@@ -820,7 +821,7 @@ export default function ContIconArcEscritorio({
                     ventanaState={ventanaStateHabilidades}
                     handleVentanaStateChange={handleVentanaStateChangeHabilidades}
                     toggleMinimizarVentana={toggleMinimizarVentanaHabilidades}
-                    zIndex={ventanaZIndexes.habilidades}
+                    zIndex={getZIndex('habilidades')}
                     onFocus={() => bringToFront('habilidades')}
                     isTransparent={shouldBeTransparent('habilidades')}
                     contenido={<ContenidoHabilidades data={infoHabilidades} />}
@@ -834,7 +835,7 @@ export default function ContIconArcEscritorio({
                     ventanaState={ventanaStateProyectos}
                     handleVentanaStateChange={handleVentanaStateChangeProyectos}
                     toggleMinimizarVentana={toggleMinimizarVentanaProyectos}
-                    zIndex={ventanaZIndexes.proyectos}
+                    zIndex={getZIndex('proyectos')}
                     onFocus={() => bringToFront('proyectos')}
                     isTransparent={shouldBeTransparent('proyectos')}
                     contenido={<ContenidoProyectos data={infoProyectos} />}

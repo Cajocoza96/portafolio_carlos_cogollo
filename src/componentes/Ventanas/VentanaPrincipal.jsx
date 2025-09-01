@@ -35,7 +35,7 @@ export default function VentanaPrincipal({ toggleVerVentana, ventanaState, handl
             } : previousState}
             style={{
                 boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
-                zIndex: zIndex || 1000,
+                zIndex: zIndex,
             }}
             onDragStart={(e) => rndEvents.onDragStart(e, onFocus)}
             onDragStop={rndEvents.onDragStop}
