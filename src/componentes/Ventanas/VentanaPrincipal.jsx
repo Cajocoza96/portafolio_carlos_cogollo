@@ -48,7 +48,7 @@ export default function VentanaPrincipal({ toggleVerVentana, ventanaState, handl
                                                 bg-white dark:bg-black border
                                                 border-black dark:border-white overflow-hidden`}
                 onClick={(e) => handleWindowClick(e, onFocus)}
-                onTouchStart={(e) => {
+                onTouchEnd={(e) => {
                     handleWindowClick(e, onFocus);
                 }}
             >
@@ -73,7 +73,7 @@ export default function VentanaPrincipal({ toggleVerVentana, ventanaState, handl
                                     e.stopPropagation();
                                     handleMinimize();
                                 }}
-                                onTouchStart={handleTouchStart(handleMinimize)}
+                                onTouchEnd={handleTouchStart(handleMinimize)}
                                 style={{ WebkitTapHighlightColor: 'transparent' }}
                             >
                                 <HiMinus />
@@ -88,7 +88,7 @@ export default function VentanaPrincipal({ toggleVerVentana, ventanaState, handl
                                     e.stopPropagation();
                                     toggleMaximize();
                                 }}
-                                onTouchStart={handleTouchStart(toggleMaximize)}
+                                onTouchEnd={handleTouchStart(toggleMaximize)}
                                 style={{ WebkitTapHighlightColor: 'transparent' }}
                             >
                                 {isMaximized ? (
@@ -108,7 +108,7 @@ export default function VentanaPrincipal({ toggleVerVentana, ventanaState, handl
                                     e.stopPropagation();
                                     handleClose();
                                 }}
-                                onTouchStart={handleTouchStart(handleClose)}
+                                onTouchEnd={handleTouchStart(handleClose)}
                                 style={{ WebkitTapHighlightColor: 'transparent' }}
                             >
                                 <HiX />

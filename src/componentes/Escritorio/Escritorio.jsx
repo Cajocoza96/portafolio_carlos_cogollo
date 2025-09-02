@@ -66,15 +66,16 @@ export default function Escritorio() {
         });
     };
 
-    // Función para obtener z-index de una ventana (asigna uno si no existe)
+    // Función para obtener z-index de una ventana (SOLUCIONADO - sin setState durante render)
     const getZIndex = (ventanaId) => {
         if (ventanaZIndexes[ventanaId] === null) {
-            // Si la ventana no tiene z-index asignado, asignar uno automáticamente
-            bringToFront(ventanaId);
-            return zIndexCounter + 1; // Devolver el que se va a asignar
+            // Si no tiene z-index, devolver un valor por defecto sin llamar setState
+            return zIndexCounter;
         }
         return ventanaZIndexes[ventanaId];
     };
+
+    
 
     // Estado para manejar el hover en las miniaturas
     const [hoveredVentana, setHoveredVentana] = useState(null);
@@ -273,6 +274,30 @@ export default function Escritorio() {
             }
         }
     }, [verVentanaReinicio]);
+
+    // useEffect para inicializar z-indexes cuando las ventanas se abren
+    useEffect(() => {
+        const ventanasAbiertas = [];
+        if (verAcercaDe && ventanaZIndexes.acercaDe === null) ventanasAbiertas.push('acercaDe');
+        if (verContacto && ventanaZIndexes.contacto === null) ventanasAbiertas.push('contacto');
+        if (verHabilidades && ventanaZIndexes.habilidades === null) ventanasAbiertas.push('habilidades');
+        if (verProyectos && ventanaZIndexes.proyectos === null) ventanasAbiertas.push('proyectos');
+
+        if (ventanasAbiertas.length > 0) {
+            setZIndexCounter(prevCounter => {
+                let newCounter = prevCounter;
+                const newZIndexes = { ...ventanaZIndexes };
+                
+                ventanasAbiertas.forEach(ventanaId => {
+                    newCounter += 1;
+                    newZIndexes[ventanaId] = newCounter;
+                });
+                
+                setVentanaZIndexes(newZIndexes);
+                return newCounter;
+            });
+        }
+    }, [verAcercaDe, verContacto, verHabilidades, verProyectos]);
 
     return (
         <>

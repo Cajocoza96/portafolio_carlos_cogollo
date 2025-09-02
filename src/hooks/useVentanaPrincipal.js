@@ -189,11 +189,15 @@ export default function useVentanaPrincipal({ ventanaState, handleVentanaStateCh
         toggleVerVentana();
     };
 
-    // Manejar eventos touch específicamente
+    // Manejar eventos touch específicamente - SOLUCION DEL PROBLEMA
     const handleTouchStart = (callback) => (e) => {
+        // Prevenir la propagación inmediatamente
         e.stopPropagation();
-        // Prevenir el comportamiento por defecto para evitar conflictos
-        callback();
+        
+        // Crear un timeout pequeño para asegurar que solo se ejecute una vez
+        setTimeout(() => {
+            callback();
+        }, 10);
     };
 
     // Función para manejar el clic en cualquier parte de la ventana
