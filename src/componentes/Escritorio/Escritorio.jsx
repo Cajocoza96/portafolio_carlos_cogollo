@@ -300,7 +300,7 @@ export default function Escritorio() {
     }, [verAcercaDe, verContacto, verHabilidades, verProyectos]);
 
     return (
-        <div className="bg-blue-950 dark:bg-gray-950 min-h-[100svh] flex flex-col justify-end">
+        <>
             <div className="w-full">
                 <OptimizedImage
                     src={imageConfig.src}
@@ -504,6 +504,6 @@ export default function Escritorio() {
                 verEspacioDerechoMobile={verEspacioDerechoMobile}
                 toggleVerEspacioDerechoMobile={toggleVerEspacioDerechoMobile}
             />
-        </div>
+        </>
     );
 }
