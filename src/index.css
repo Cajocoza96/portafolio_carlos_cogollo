@@ -20,47 +20,6 @@
     --breakpoint-2xs: 600px;
   }
 
-
-  /* Prevenir espacios en blanco al hacer zoom */
-  html {
-    height: 100%;
-    overflow-x: hidden;
-  }
-  
-  body {
-    min-height: 100%;
-    overflow-x: hidden;
-    position: relative;
-  }
-  
-  /* Prevenir el comportamiento errático del viewport en móviles */
-  @supports (-webkit-touch-callout: none) {
-    html {
-      height: -webkit-fill-available;
-    }
-    
-    body {
-      min-height: -webkit-fill-available;
-    }
-  }
-  
-  /* Mejorar el comportamiento del zoom en dispositivos táctiles */
-  @media (pointer: coarse) {
-    html {
-      -webkit-text-size-adjust: 100%;
-      -moz-text-size-adjust: 100%;
-      -ms-text-size-adjust: 100%;
-      text-size-adjust: 100%;
-    }
-    
-    body {
-      -webkit-overflow-scrolling: touch;
-      overflow-anchor: none;
-      scroll-behavior: auto;
-    }
-  }
-
-
   /* ========== WINDOWS 10 SCROLLBAR CONFIGURATION ========== */
 
   /* Configuración básica del scrollbar */
