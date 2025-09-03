@@ -485,6 +485,22 @@ export default function Escritorio() {
             />
 
             <ContEspacioDerechoMobile 
+                verAcercaDe={verAcercaDe}
+                toggleMinimizarVentanaAcercaDe={toggleMinimizarVentanaAcercaDe}
+                ventanaMinimizadaAcercaDe={ventanaMinimizadaAcercaDe} 
+            
+                verContacto={verContacto}
+                toggleMinimizarVentanaContacto={toggleMinimizarVentanaContacto}
+                ventanaMinimizadaContacto={ventanaMinimizadaContacto}
+            
+                verHabilidades={verHabilidades}
+                toggleMinimizarVentanaHabilidades={toggleMinimizarVentanaHabilidades}
+                ventanaMinimizadaHabilidades={ventanaMinimizadaHabilidades}
+            
+                verProyectos={verProyectos}
+                toggleMinimizarVentanaProyectos={toggleMinimizarVentanaProyectos}
+                ventanaMinimizadaProyectos={ventanaMinimizadaProyectos}
+
                 verEspacioDerechoMobile={verEspacioDerechoMobile}
                 toggleVerEspacioDerechoMobile={toggleVerEspacioDerechoMobile}
             />

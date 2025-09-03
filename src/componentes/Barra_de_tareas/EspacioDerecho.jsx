@@ -6,9 +6,39 @@ import HoraFecha from "./Hora_y_fecha/HoraFecha";
 
 import useConexionInternet from "../../hooks/useConexionInternet";
 
-export default function EspacioDerecho() {
+export default function EspacioDerecho({ 
+    verAcercaDe, toggleMinimizarVentanaAcercaDe, ventanaMinimizadaAcercaDe,
+    verContacto, toggleMinimizarVentanaContacto, ventanaMinimizadaContacto,
+    verHabilidades, toggleMinimizarVentanaHabilidades, ventanaMinimizadaHabilidades,
+    verProyectos, toggleMinimizarVentanaProyectos, ventanaMinimizadaProyectos
+}) {
 
     const { isOnline } = useConexionInternet();
+
+    const handleClickArchivoAcercaDe = () => {
+        if (verAcercaDe && !ventanaMinimizadaAcercaDe) {
+            toggleMinimizarVentanaAcercaDe();
+        }
+    }
+
+    const handleClickArchivoContacto = () => {
+        if (verContacto && !ventanaMinimizadaContacto) {
+            toggleMinimizarVentanaContacto();
+        }
+    }
+
+    const handleClickArchivoHabilidades = () => {
+        if (verHabilidades && !ventanaMinimizadaHabilidades) {
+            toggleMinimizarVentanaHabilidades();
+        }
+    }
+
+    const handleClickArchivoProyectos = () => {
+        if (verProyectos && !ventanaMinimizadaProyectos) {
+            toggleMinimizarVentanaProyectos();
+        }
+    }
+    
 
     return (
         <div className="w-full h-10 text-white hidden
@@ -68,7 +98,14 @@ export default function EspacioDerecho() {
                             active:bg-blue-600 dark:active:bg-gray-700
                             h-10 p-1 flex items-center
                             text-sm lg:text-base 2xl:text-xl
-                            border border-white">
+                            border border-white" 
+                onClick={() => {
+                    handleClickArchivoAcercaDe()
+                    handleClickArchivoContacto()
+                    handleClickArchivoHabilidades()
+                    handleClickArchivoProyectos()
+                } }
+                >
             </div>
         </div>
     );

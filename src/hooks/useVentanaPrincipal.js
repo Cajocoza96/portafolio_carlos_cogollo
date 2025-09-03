@@ -190,7 +190,7 @@ export default function useVentanaPrincipal({ ventanaState, handleVentanaStateCh
     };
 
     // Manejar eventos touch específicamente - SOLUCION DEL PROBLEMA
-    const handleTouchStart = (callback) => (e) => {
+    const handleTouchEnd = (callback) => (e) => {
         // Prevenir la propagación inmediatamente
         e.stopPropagation();
         
@@ -268,7 +268,7 @@ export default function useVentanaPrincipal({ ventanaState, handleVentanaStateCh
         handleDoubleClick,
         handleMinimize,
         handleClose,
-        handleTouchStart,
+        handleTouchEnd,
         handleWindowClick,
         rndEvents
     };

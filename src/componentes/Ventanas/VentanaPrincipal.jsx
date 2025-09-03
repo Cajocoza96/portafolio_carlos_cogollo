@@ -1,22 +1,36 @@
-import React from "react";
+import React, { useState} from "react";
 import { Rnd } from "react-rnd";
 import { HiMinus, HiX } from "react-icons/hi";
 import { HiOutlineSquare2Stack } from "react-icons/hi2";
 import { FaRegFileAlt } from "react-icons/fa";
 import useVentanaPrincipal from "../../hooks/useVentanaPrincipal";
 
+import { motion } from "framer-motion";
+
 export default function VentanaPrincipal({ toggleVerVentana, ventanaState, handleVentanaStateChange,
     toggleMinimizarVentana, titulo, zIndex,
     onFocus, isTransparent, contenido }) {
+    
+    const [minimized, setMinimized] = useState(false);
 
     const { rndRef, currentDimensions, isMaximized, windowDimensions, previousState, isMobile,
-        toggleMaximize, handleDoubleClick, handleMinimize, handleClose, handleTouchStart,
+        toggleMaximize, handleDoubleClick, handleMinimize: originalHandleMinimize, handleClose, handleTouchEnd,
         handleWindowClick, rndEvents } = useVentanaPrincipal({
             ventanaState,
             handleVentanaStateChange,
             toggleMinimizarVentana,
             toggleVerVentana
         });
+
+    // Función modificada para incluir la animación
+    const handleMinimize = () => {
+        setMinimized(true);
+        setTimeout(() => {
+            originalHandleMinimize();
+            setMinimized(false);
+        }, 600); // Duración de la animación
+    };
+
 
     return (
         <Rnd
@@ -43,7 +57,13 @@ export default function VentanaPrincipal({ toggleVerVentana, ventanaState, handl
             onResize={rndEvents.onResize}
             onResizeStop={rndEvents.onResizeStop}
         >
-            <div
+            <motion.div
+                animate={{
+                    scale: minimized ? 0 : 1,       // minimiza con escala
+                    opacity: minimized ? 0 : 1,     // se desvanece al minimizar
+                    y: minimized ? 100 : 0          // baja un poco al minimizar
+                }}
+                transition={{ duration: 0.6, ease: "easeInOut" }}
                 className={`${isTransparent ? "opacity-30" : "opacity-100"} w-full h-full flex flex-col 
                                                 bg-white dark:bg-black border
                                                 border-black dark:border-white overflow-hidden`}
@@ -73,7 +93,7 @@ export default function VentanaPrincipal({ toggleVerVentana, ventanaState, handl
                                     e.stopPropagation();
                                     handleMinimize();
                                 }}
-                                onTouchEnd={handleTouchStart(handleMinimize)}
+                                onTouchEnd={handleTouchEnd(handleMinimize)}
                                 style={{ WebkitTapHighlightColor: 'transparent' }}
                             >
                                 <HiMinus />
@@ -88,7 +108,7 @@ export default function VentanaPrincipal({ toggleVerVentana, ventanaState, handl
                                     e.stopPropagation();
                                     toggleMaximize();
                                 }}
-                                onTouchEnd={handleTouchStart(toggleMaximize)}
+                                onTouchEnd={handleTouchEnd(toggleMaximize)}
                                 style={{ WebkitTapHighlightColor: 'transparent' }}
                             >
                                 {isMaximized ? (
@@ -108,7 +128,7 @@ export default function VentanaPrincipal({ toggleVerVentana, ventanaState, handl
                                     e.stopPropagation();
                                     handleClose();
                                 }}
-                                onTouchEnd={handleTouchStart(handleClose)}
+                                onTouchEnd={handleTouchEnd(handleClose)}
                                 style={{ WebkitTapHighlightColor: 'transparent' }}
                             >
                                 <HiX />
@@ -142,7 +162,7 @@ export default function VentanaPrincipal({ toggleVerVentana, ventanaState, handl
                             </div>
                         )}
                 </div>
-            </div>
+            </motion.div>
         </Rnd>
     );
 }

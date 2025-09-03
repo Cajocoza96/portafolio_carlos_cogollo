@@ -9,10 +9,40 @@ import HoraFecha from "./Hora_y_fecha/HoraFecha";
 
 import useConexionInternet from "../../hooks/useConexionInternet";
 
-export default function ContEspacioDerechoMobile({ verEspacioDerechoMobile, 
-                                                    toggleVerEspacioDerechoMobile }) {
+export default function ContEspacioDerechoMobile({ verEspacioDerechoMobile,
+    toggleVerEspacioDerechoMobile,
+    
+    verAcercaDe, toggleMinimizarVentanaAcercaDe, ventanaMinimizadaAcercaDe,
+    verContacto, toggleMinimizarVentanaContacto, ventanaMinimizadaContacto,
+    verHabilidades, toggleMinimizarVentanaHabilidades, ventanaMinimizadaHabilidades,
+    verProyectos, toggleMinimizarVentanaProyectos, ventanaMinimizadaProyectos
+}) {
 
     const { isOnline } = useConexionInternet();
+
+    const handleClickArchivoAcercaDe = () => {
+        if (verAcercaDe && !ventanaMinimizadaAcercaDe) {
+            toggleMinimizarVentanaAcercaDe();
+        }
+    }
+
+    const handleClickArchivoContacto = () => {
+        if (verContacto && !ventanaMinimizadaContacto) {
+            toggleMinimizarVentanaContacto();
+        }
+    }
+
+    const handleClickArchivoHabilidades = () => {
+        if (verHabilidades && !ventanaMinimizadaHabilidades) {
+            toggleMinimizarVentanaHabilidades();
+        }
+    }
+
+    const handleClickArchivoProyectos = () => {
+        if (verProyectos && !ventanaMinimizadaProyectos) {
+            toggleMinimizarVentanaProyectos();
+        }
+    }
 
     return (
         <AnimatePresence>
@@ -80,6 +110,20 @@ export default function ContEspacioDerechoMobile({ verEspacioDerechoMobile,
                                                         w-full h-10 p-2 flex items-center justify-center
                                                         text-sm lg:text-base 2xl:text-xl" title="Sin Notificaciones">
                                 <HiOutlineChatBubbleOvalLeft />
+                            </div>
+
+                            <div className="hover:bg-blue-700 hover:dark:bg-gray-800
+                            active:bg-blue-600 dark:active:bg-gray-700
+                            h-10 p-1 flex items-center
+                            text-sm lg:text-base 2xl:text-xl
+                            border border-white"
+                                onClick={() => {
+                                    handleClickArchivoAcercaDe()
+                                    handleClickArchivoContacto()
+                                    handleClickArchivoHabilidades()
+                                    handleClickArchivoProyectos()
+                                }}
+                            >
                             </div>
 
                         </div>

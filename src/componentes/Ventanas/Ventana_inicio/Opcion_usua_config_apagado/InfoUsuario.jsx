@@ -2,16 +2,23 @@ import React from "react";
 
 import { HiUserCircle } from "react-icons/hi";
 
+import { motion } from "framer-motion";
+
 export default function InfoUsuario({ toogleVerInfoUsuario }) {
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center" 
-                onClick={toogleVerInfoUsuario}>
+        <motion.div
+            initial={{ opacity: 0, y: 5 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 5 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
+            className="fixed inset-0 z-50 flex items-center justify-center"
+            onClick={toogleVerInfoUsuario}>
             <div className="bg-blue-800 dark:bg-gray-900 h-auto 
                             w-[49%] 2xs:w-[37%] md:w-[35%] lg:w-[20%] 2xl:w-[20%]
                             absolute bottom-40 left-0
                             flex flex-col items-center justify-center select-none"
-                onClick={(e)=> e.stopPropagation()}
-                >
+                onClick={(e) => e.stopPropagation()}
+            >
 
                 <div className="w-[95%] h-auto py-4 px-1 flex flex-col gap-2">
 
@@ -32,7 +39,7 @@ export default function InfoUsuario({ toogleVerInfoUsuario }) {
 
 
                     <div className="flex flex-row items-center gap-1">
-                        <HiUserCircle className="text-white text-4xl lg:text-6xl"/>
+                        <HiUserCircle className="text-white text-4xl lg:text-6xl" />
 
                         <div className="flex flex-col justify-center">
                             <p className="text-white text-sm lg:text-base 2xl:text-xl" translate="no">
@@ -47,6 +54,6 @@ export default function InfoUsuario({ toogleVerInfoUsuario }) {
 
                 </div>
             </div>
-        </div>
+        </motion.div>
     );
 }

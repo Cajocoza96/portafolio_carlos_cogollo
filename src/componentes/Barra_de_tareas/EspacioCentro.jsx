@@ -2,6 +2,8 @@ import React, { useState, useRef, useEffect } from "react";
 import { FaRegFileAlt } from "react-icons/fa";
 import { HiX } from "react-icons/hi";
 
+import { motion, AnimatePresence } from "framer-motion";
+
 export default function EspacioCentro({
     verAcercaDe, toggleMinimizarVentanaAcercaDe,
     toggleVerAcercaDe, infoAcercaDe, ventanaMinimizadaAcercaDe,
@@ -23,6 +25,8 @@ export default function EspacioCentro({
     const [hoveredVentana, setHoveredVentana] = useState(null);
     const previewRef = useRef(null);
     const iconRef = useRef(null);
+    // *** MODIFICACIÓN 1: Agregado useRef para manejar el timeout ***
+    const timeoutRef = useRef(null);
 
     // Determinar si hay ventanas del bloc de notas abiertas
     const hayVentanasBlocNotas = verAcercaDe || verContacto || verHabilidades || verProyectos;
@@ -34,6 +38,12 @@ export default function EspacioCentro({
     };
 
     const handleClickIconoBlocNotas = () => {
+        // *** MODIFICACIÓN 2: Limpiar timeout al hacer clic ***
+        if (timeoutRef.current) {
+            clearTimeout(timeoutRef.current);
+            timeoutRef.current = null;
+        }
+
         if (numeroVentanas === 1) {
             // Si solo hay una ventana, comportamiento actual
             if (verAcercaDe && toggleMinimizarVentanaAcercaDe) {
@@ -45,19 +55,35 @@ export default function EspacioCentro({
             } else if (verProyectos && toggleMinimizarVentanaProyectos) {
                 toggleMinimizarVentanaProyectos();
             }
-        } else if (numeroVentanas > 0) {
-            // Si hay múltiples ventanas, mostrar/ocultar preview
+        } else if (numeroVentanas >= 1) {
+            // Si hay una o más ventanas, mostrar/ocultar preview
             setShowPreview(!showPreview);
         }
     };
 
     const handleMouseEnter = () => {
-        if (numeroVentanas > 0) {
-            setShowPreview(true);
+        if (numeroVentanas >= 1) {
+            // *** MODIFICACIÓN 3: Implementar timeout de 2 segundos ***
+            // Limpiar cualquier timeout existente
+            if (timeoutRef.current) {
+                clearTimeout(timeoutRef.current);
+            }
+            
+            // Establecer nuevo timeout de 2 segundos
+            timeoutRef.current = setTimeout(() => {
+                setShowPreview(true);
+                timeoutRef.current = null;
+            }, 2000);
         }
     };
 
     const handleMouseLeave = () => {
+        // *** MODIFICACIÓN 4: Limpiar timeout al salir del hover ***
+        if (timeoutRef.current) {
+            clearTimeout(timeoutRef.current);
+            timeoutRef.current = null;
+        }
+
         // Pequeño delay para permitir que el usuario mueva el mouse a la preview
         setTimeout(() => {
             if (previewRef.current && !previewRef.current.matches(':hover') &&
@@ -130,6 +156,13 @@ export default function EspacioCentro({
         } else if (tipo === 'proyectos') {
             toggleVerProyectos();
         }
+        
+        // Ocultar la vista previa después de cerrar una ventana
+        setShowPreview(false);
+        setHoveredVentana(null);
+        if (onHoverVentana) {
+            onHoverVentana(null);
+        }
     };
 
     // Manejar hover sobre las miniaturas individuales
@@ -146,6 +179,17 @@ export default function EspacioCentro({
             onHoverVentana(null);
         }
     };
+
+    // Efecto para ocultar la vista previa cuando no hay ventanas
+    useEffect(() => {
+        if (numeroVentanas === 0) {
+            setShowPreview(false);
+            setHoveredVentana(null);
+            if (onHoverVentana) {
+                onHoverVentana(null);
+            }
+        }
+    }, [numeroVentanas, onHoverVentana]);
 
     // Cerrar preview al hacer clic fuera
     useEffect(() => {
@@ -169,6 +213,15 @@ export default function EspacioCentro({
         };
     }, [showPreview]);
 
+    // *** MODIFICACIÓN 5: useEffect para limpiar timeout al desmontar componente ***
+    useEffect(() => {
+        return () => {
+            if (timeoutRef.current) {
+                clearTimeout(timeoutRef.current);
+            }
+        };
+    }, []);
+
     if (!hayVentanasBlocNotas) {
         return (
             <div className="w-full h-10 text-white flex flex-row items-center lg:justify-start">
@@ -181,8 +234,13 @@ export default function EspacioCentro({
         <div className="w-full h-10 text-white flex flex-row items-center lg:justify-start">
             <div
                 ref={iconRef}
-                className={`hover:bg-blue-700 hover:dark:bg-gray-800 relative
-                            active:bg-blue-600 dark:active:bg-gray-700
+                className={`relative
+                            ${(verAcercaDe && !ventanaMinimizadaAcercaDe) 
+                            || (verContacto && !ventanaMinimizadaContacto) 
+                            || (verHabilidades && !ventanaMinimizadaHabilidades)
+                            || (verProyectos && !ventanaMinimizadaProyectos) ? "bg-blue-700 dark:bg-gray-700 hover:bg-blue-500 hover:dark:bg-gray-500" : "hover:bg-blue-600 hover:dark:bg-gray-600"}
+
+                            active:bg-blue-800 dark:active:bg-gray-800
                             ${numeroVentanas === 1 ? 'border-b-2 border-blue-300 dark:border-gray-300' : ''}
                             ${numeroVentanas > 1 ? 'border-b-2 custom-border-r border-blue-300 dark:border-gray-300' : ''}
                             h-10 w-12 p-1 flex items-center justify-center
@@ -195,8 +253,13 @@ export default function EspacioCentro({
 
 
                 {/* Vista previa de miniaturas */}
-                {showPreview && numeroVentanas > 0 && (
-                    <div
+                <AnimatePresence>
+                {showPreview && numeroVentanas >= 1 && (
+                    <motion.div
+                    initial={{ opacity: 0, y: 5 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 5 }}
+                    transition={{ duration: 0.2, ease: "easeOut" }}
                         ref={previewRef}
                         className={`absolute 
                                 bottom-10 right-0 lg:right-auto
@@ -336,8 +399,9 @@ export default function EspacioCentro({
                             )}
 
                         </div>
-                    </div>
+                    </motion.div>
                 )}
+                </AnimatePresence>
             </div>
         </div>
     );

@@ -1,6 +1,8 @@
 import React from "react";
 import { HiOutlineLockClosed, HiOutlineMoon, HiPower, HiOutlineArrowPath } from "react-icons/hi2";
 
+import { motion } from "framer-motion";
+
 export default function OpcionesApagado({ toggleVerOpcionesApagado, 
                                             toggleVerVentanaBloqueo, toggleVerVentanaSuspendido,
                                             toggleVerVentanaApagado, toggleVerVentanaReinicio,
@@ -39,7 +41,12 @@ export default function OpcionesApagado({ toggleVerOpcionesApagado,
     };
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center"
+        <motion.div
+            initial={{ opacity: 0, y: 5 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 5 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
+            className="fixed inset-0 z-50 flex items-center justify-center"
             onClick={toggleVerOpcionesApagado}>
 
             <div className="bg-blue-800 dark:bg-gray-900 h-auto 
@@ -100,6 +107,6 @@ export default function OpcionesApagado({ toggleVerOpcionesApagado,
                 </div>
 
             </div>
-        </div>
+        </motion.div>
     );
 }

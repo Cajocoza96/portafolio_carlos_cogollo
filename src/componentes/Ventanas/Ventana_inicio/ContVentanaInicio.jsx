@@ -7,6 +7,8 @@ import OpcionesApagado from "./Opcion_usua_config_apagado/OpcionesApagado";
 import InfoUsuario from "./Opcion_usua_config_apagado/InfoUsuario";
 import ConfiguracionTema from "./Opcion_usua_config_apagado/ConfiguracionTema";
 
+import { AnimatePresence } from "framer-motion";
+
 export default function ContVentanaInicio({ toggleVerVentanaInicio,
     toggleVerVentanaBloqueo, toggleVerVentanaSuspendido,
     toggleVerVentanaApagado, toggleVerVentanaReinicio,
@@ -19,7 +21,7 @@ export default function ContVentanaInicio({ toggleVerVentanaInicio,
     ventanaMinimizadaContacto, toggleMinimizarVentanaContacto,
     infoContacto,
 
-    toggleVerHabilidades, verHabilidades, 
+    toggleVerHabilidades, verHabilidades,
     ventanaMinimizadaHabilidades, toggleMinimizarVentanaHabilidades,
     infoHabilidades,
 
@@ -27,7 +29,7 @@ export default function ContVentanaInicio({ toggleVerVentanaInicio,
     ventanaMinimizadaProyectos, toggleMinimizarVentanaProyectos,
     infoProyectos,
 
-    setUserInteracted, bringToFront  }) {
+    setUserInteracted, bringToFront }) {
 
     const [verOpcionesApagado, setVerOpcionesApagado] = useState(false);
 
@@ -117,14 +119,19 @@ export default function ContVentanaInicio({ toggleVerVentanaInicio,
         <div className="h-full w-full mx-auto 
                         grid grid-cols-[47px_3fr_3fr] 2xs:grid-cols-[45px_2fr_3fr] relative">
 
-            {verInfoUsuario && (
-                <InfoUsuario toogleVerInfoUsuario={toogleVerInfoUsuario} />
-            )}
+            <AnimatePresence>
+                {verInfoUsuario && (
+                    <InfoUsuario toogleVerInfoUsuario={toogleVerInfoUsuario} />
+                )}
+            </AnimatePresence>
 
-            {verConfigTema && (
-                <ConfiguracionTema toggleVerConfigTema={toggleVerConfigTema} />
-            )}
-
+            <AnimatePresence>
+                {verConfigTema && (
+                    <ConfiguracionTema toggleVerConfigTema={toggleVerConfigTema} />
+                )}
+            </AnimatePresence>
+            
+            <AnimatePresence>
             {verOpcionesApagado && (
                 <OpcionesApagado
                     toggleVerOpcionesApagado={toggleVerOpcionesApagado}
@@ -135,6 +142,7 @@ export default function ContVentanaInicio({ toggleVerVentanaInicio,
                     setUserInteracted={setUserInteracted}
                 />
             )}
+            </AnimatePresence>
 
             <div className="flex flex-col h-full overflow-y-auto">
                 <div className="w-full h-full flex flex-col justify-between">

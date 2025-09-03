@@ -43,7 +43,7 @@ export default function BarraDeTareas({
     setVerEspacioDerechoMobile
 }) {
     return (
-        <div className="bg-blue-800 dark:bg-gray-900 gap-1
+        <div className="bg-blue-900 dark:bg-gray-900 gap-1
                         grid grid-cols-[7fr_1fr_1fr] md:grid-cols-[3fr_1fr_1fr]
                         lg:grid-cols-3 z-60 items-center">
             <EspacioIzquierdo
@@ -89,7 +89,24 @@ export default function BarraDeTareas({
 
                 onHoverVentana={onHoverVentana}
             />
-            <EspacioDerecho />
+            <EspacioDerecho 
+                verAcercaDe={verAcercaDe}
+                toggleMinimizarVentanaAcercaDe={toggleMinimizarVentanaAcercaDe}
+                ventanaMinimizadaAcercaDe={ventanaMinimizadaAcercaDe} 
+            
+                verContacto={verContacto}
+                toggleMinimizarVentanaContacto={toggleMinimizarVentanaContacto}
+                ventanaMinimizadaContacto={ventanaMinimizadaContacto}
+            
+                verHabilidades={verHabilidades}
+                toggleMinimizarVentanaHabilidades={toggleMinimizarVentanaHabilidades}
+                ventanaMinimizadaHabilidades={ventanaMinimizadaHabilidades}
+            
+                verProyectos={verProyectos}
+                toggleMinimizarVentanaProyectos={toggleMinimizarVentanaProyectos}
+                ventanaMinimizadaProyectos={ventanaMinimizadaProyectos}
+            />
+
             <EspacioDerechoMobile
                 verEspacioDerechoMobile={verEspacioDerechoMobile}
                 toggleVerEspacioDerechoMobile={toggleVerEspacioDerechoMobile}

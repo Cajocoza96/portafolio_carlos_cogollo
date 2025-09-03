@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { HiDesktopComputer, HiSun, HiMoon } from "react-icons/hi";
 
+import { motion } from "framer-motion";
+
 const themeKeys = {
     system: "system",
     light: "light",
@@ -11,20 +13,26 @@ export default function ConfiguracionTema({ toggleVerConfigTema }) {
     const [theme, setTheme] = useState(localStorage.getItem("theme") || themeKeys.system);
 
     const options = [
-        { label: <div className="flex flex-row items-center gap-2">
-                    <HiSun />
-                    <p>Claro</p>
-                </div>, value: "light" },
+        {
+            label: <div className="flex flex-row items-center gap-2">
+                <HiSun />
+                <p>Claro</p>
+            </div>, value: "light"
+        },
 
-        { label: <div className="flex flex-row items-center gap-2">
-                    <HiMoon />
-                    <p>Oscuro</p>
-                </div>, value: "dark" },
-                
-        { label: <div className="flex flex-row items-center gap-2">
-                    <HiDesktopComputer />
-                    <p>Sistema (predeterminado)</p>
-                </div>, value: "system" }
+        {
+            label: <div className="flex flex-row items-center gap-2">
+                <HiMoon />
+                <p>Oscuro</p>
+            </div>, value: "dark"
+        },
+
+        {
+            label: <div className="flex flex-row items-center gap-2">
+                <HiDesktopComputer />
+                <p>Sistema (predeterminado)</p>
+            </div>, value: "system"
+        }
     ];
 
     useEffect(() => {
@@ -63,7 +71,12 @@ export default function ConfiguracionTema({ toggleVerConfigTema }) {
     };
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center"
+        <motion.div
+            initial={{ opacity: 0, y: 5 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 5 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
+            className="fixed inset-0 z-50 flex items-center justify-center"
             onClick={toggleVerConfigTema}>
 
             <div className="bg-blue-800 dark:bg-gray-900 h-auto overflow-hidden
@@ -115,6 +128,6 @@ export default function ConfiguracionTema({ toggleVerConfigTema }) {
 
             </div>
 
-        </div>
+        </motion.div>
     );
 }
