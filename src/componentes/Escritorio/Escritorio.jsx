@@ -311,13 +311,11 @@ export default function Escritorio() {
                 <OptimizedImage
                     src={imageConfig.src}
                     alt={imageConfig.alt}
-                    className="w-screen min-h-full brightness-60 dark:brightness-50"
+                    className="w-screen brightness-60 dark:brightness-50"
                     asBackground={true}
                     backgroundSize="cover"
                     backgroundPosition="center"
-
-                    /*minHeight="100svh"*/
-
+                    minHeight="100svh"
                     showSkeleton={false}
                     {...IMAGE_CONFIGS.CRITICAL}
                 />
