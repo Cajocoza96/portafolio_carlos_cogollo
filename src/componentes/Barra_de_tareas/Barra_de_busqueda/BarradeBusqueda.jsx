@@ -23,7 +23,7 @@ export default function BarradeBusqueda({ toggleVerVentanaBusqueda,
     return (
         <div className="bg-white dark:bg-gray-700 h-10 w-full
                         flex flex-row items-center justify-baseline gap-2 rounded-sm
-                        text-black dark:text-white">
+                        text-black dark:text-white select-none">
             <HiSearch className="ml-2 text-sm lg:text-xl 2xl:text-2xl" />
 
             <input

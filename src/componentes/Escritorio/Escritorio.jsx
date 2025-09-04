@@ -23,6 +23,12 @@ import ContEspacioDerechoMobile from "../Barra_de_tareas/ContEspacioDerechoMobil
 
 export default function Escritorio() {
 
+    const ventanaInicio = "ventanaInicio";
+
+    const shouldBeTransparent = (ventanaType) => {
+        return hoveredVentana && hoveredVentana !== ventanaType;
+    };
+
     const [verEspacioDerechoMobile, setVerEspacioDerechoMobile] = useState(false);
 
     const toggleVerEspacioDerechoMobile = () => {
@@ -393,6 +399,8 @@ export default function Escritorio() {
 
                         // Pasar la función bringToFront para usar desde VentanaInicio
                         bringToFront={bringToFront}
+
+                        isTransparent={shouldBeTransparent('ventanaInicio')}
                     />
                 )}
             </AnimatePresence>

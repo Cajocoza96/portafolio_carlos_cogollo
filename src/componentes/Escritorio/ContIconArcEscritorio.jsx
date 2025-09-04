@@ -454,7 +454,7 @@ export default function ContIconArcEscritorio({
     // Tamaño aproximado de cada icono (Archivo.jsx mide h-20 => 80px aprox)
     const ICON_WIDTH = 75;
     const ICON_HEIGHT = 72;
-    const MARGIN = 12;
+    const MARGIN = 5;
 
     // Función para obtener las dimensiones del contenedor
     const getContainerDimensions = () => {

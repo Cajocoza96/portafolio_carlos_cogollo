@@ -29,7 +29,7 @@ export default function ContVentanaInicio({ toggleVerVentanaInicio,
     ventanaMinimizadaProyectos, toggleMinimizarVentanaProyectos,
     infoProyectos,
 
-    setUserInteracted, bringToFront }) {
+    setUserInteracted, bringToFront, isTransparent }) {
 
     const [verOpcionesApagado, setVerOpcionesApagado] = useState(false);
 
@@ -116,8 +116,8 @@ export default function ContVentanaInicio({ toggleVerVentanaInicio,
     }
 
     return (
-        <div className="h-full w-full mx-auto 
-                        grid grid-cols-[47px_3fr_3fr] 2xs:grid-cols-[45px_2fr_3fr] relative">
+        <div className={`${isTransparent ? "invisible" : "visible"} h-full w-full mx-auto 
+                        grid grid-cols-[47px_3fr_3fr] 2xs:grid-cols-[45px_2fr_3fr] relative`}>
 
             <AnimatePresence>
                 {verInfoUsuario && (
@@ -130,18 +130,18 @@ export default function ContVentanaInicio({ toggleVerVentanaInicio,
                     <ConfiguracionTema toggleVerConfigTema={toggleVerConfigTema} />
                 )}
             </AnimatePresence>
-            
+
             <AnimatePresence>
-            {verOpcionesApagado && (
-                <OpcionesApagado
-                    toggleVerOpcionesApagado={toggleVerOpcionesApagado}
-                    toggleVerVentanaBloqueo={toggleVerVentanaBloqueo}
-                    toggleVerVentanaSuspendido={toggleVerVentanaSuspendido}
-                    toggleVerVentanaApagado={toggleVerVentanaApagado}
-                    toggleVerVentanaReinicio={toggleVerVentanaReinicio}
-                    setUserInteracted={setUserInteracted}
-                />
-            )}
+                {verOpcionesApagado && (
+                    <OpcionesApagado
+                        toggleVerOpcionesApagado={toggleVerOpcionesApagado}
+                        toggleVerVentanaBloqueo={toggleVerVentanaBloqueo}
+                        toggleVerVentanaSuspendido={toggleVerVentanaSuspendido}
+                        toggleVerVentanaApagado={toggleVerVentanaApagado}
+                        toggleVerVentanaReinicio={toggleVerVentanaReinicio}
+                        setUserInteracted={setUserInteracted}
+                    />
+                )}
             </AnimatePresence>
 
             <div className="flex flex-col h-full overflow-y-auto">
@@ -179,7 +179,7 @@ export default function ContVentanaInicio({ toggleVerVentanaInicio,
                 </div>
             </div>
 
-            <div className="flex flex-col h-full overflow-y-auto select-none">
+            <div className="flex flex-col h-full overflow-y-auto overflow-x-hidden select-none">
                 <div className="w-full h-full grid grid-cols-1">
                     <div className="flex flex-col gap-1">
                         <div className="hover:bg-blue-600 hover:dark:bg-gray-700
@@ -199,12 +199,11 @@ export default function ContVentanaInicio({ toggleVerVentanaInicio,
                                         flex items-center"
                             onClick={handleClickVerAcercaDe}>
                             <div className="flex flex-row items-center
-                                            h-auto w-auto py-1 gap-2">
+                                            h-auto w-full py-1 gap-2">
                                 <FaRegFileAlt className="text-xl lg:text-2xl 
                                                         2xl:text-3xl text-white" />
                                 <p className="text-xs lg:text-sm 2xl:text-base 
-                                            text-white text-center"
-                                    style={{ textShadow: "0 2px 6px rgba(0,0,0,0.75)" }}>
+                                            text-white text-center truncate">
                                     {infoAcercaDe.titulo}
                                 </p>
                             </div>
@@ -229,12 +228,11 @@ export default function ContVentanaInicio({ toggleVerVentanaInicio,
                                         flex items-center "
                             onClick={handleClickVerContacto}>
                             <div className="flex flex-row items-center
-                                                    h-auto w-auto py-1 gap-2">
+                                                    h-auto w-full py-1 gap-2">
                                 <FaRegFileAlt className="text-xl lg:text-2xl 2xl:text-3xl 
                                                         text-white" />
                                 <p className="text-xs lg:text-sm 2xl:text-base 
-                                            text-white text-center"
-                                    style={{ textShadow: "0 2px 6px rgba(0,0,0,0.75)" }}>
+                                            text-white text-center truncate">
                                     {infoContacto.titulo}
                                 </p>
                             </div>
@@ -259,12 +257,11 @@ export default function ContVentanaInicio({ toggleVerVentanaInicio,
                                         flex items-center"
                             onClick={handleClickVerHabilidades}>
                             <div className="flex flex-row items-center
-                                                    h-auto w-auto py-1 gap-2">
+                                                    h-auto w-full py-1 gap-2">
                                 <FaRegFileAlt className="text-xl lg:text-2xl 2xl:text-3xl 
                                                         text-white" />
                                 <p className="text-xs lg:text-sm 2xl:text-base 
-                                            text-white text-center"
-                                    style={{ textShadow: "0 2px 6px rgba(0,0,0,0.75)" }}>
+                                            text-white text-center truncate">
                                     {infoHabilidades.titulo}
                                 </p>
                             </div>
@@ -289,12 +286,11 @@ export default function ContVentanaInicio({ toggleVerVentanaInicio,
                                         flex items-center"
                             onClick={handleClickVerProyectos}>
                             <div className="flex flex-row items-center
-                                                    h-auto w-auto py-1 gap-2">
+                                                    h-auto w-full py-1 gap-2">
                                 <FaRegFileAlt className="text-xl lg:text-2xl 2xl:text-3xl 
                                                         text-white" />
                                 <p className="text-xs lg:text-sm 2xl:text-base 
-                                            text-white text-center"
-                                    style={{ textShadow: "0 2px 6px rgba(0,0,0,0.75)" }}>
+                                            text-white text-center truncate">
                                     {infoProyectos.titulo}
                                 </p>
                             </div>
@@ -318,12 +314,14 @@ export default function ContVentanaInicio({ toggleVerVentanaInicio,
                                     hover:border-2 hover:border-white active:border-white
                                     flex flex-col items-center justify-center"
                         onClick={handleClickVerAcercaDe}>
+
                         <FaRegFileAlt className="text-xl lg:text-2xl 2xl:text-3xl text-white" />
-                        <p className="text-xs lg:text-sm 2xl:text-base 
-                                            text-white text-center"
-                            style={{ textShadow: "0 2px 6px rgba(0,0,0,0.75)" }}>
-                            {infoAcercaDe.titulo}
-                        </p>
+                        <div className="w-full ">
+                            <p className="text-xs lg:text-sm 2xl:text-base 
+                                            text-white text-center truncate">
+                                {infoAcercaDe.titulo}
+                            </p>
+                        </div>
                     </div>
 
                     <div className="bg-red-600 hover:bg-red-700 active:bg-red-500
@@ -332,11 +330,12 @@ export default function ContVentanaInicio({ toggleVerVentanaInicio,
                                     flex flex-col items-center justify-center"
                         onClick={handleClickVerContacto}>
                         <FaRegFileAlt className="text-xl lg:text-2xl 2xl:text-3xl text-white" />
-                        <p className="text-xs lg:text-sm 2xl:text-base 
-                                            text-white text-center"
-                            style={{ textShadow: "0 2px 6px rgba(0,0,0,0.75)" }}>
-                            {infoContacto.titulo}
-                        </p>
+                        <div className="w-full ">
+                            <p className="text-xs lg:text-sm 2xl:text-base 
+                                            text-white text-center truncate">
+                                {infoContacto.titulo}
+                            </p>
+                        </div>
                     </div>
 
                     <div className="bg-violet-600 hover:bg-violet-700 active:bg-violet-500
@@ -345,11 +344,12 @@ export default function ContVentanaInicio({ toggleVerVentanaInicio,
                                     flex flex-col items-center justify-center"
                         onClick={handleClickVerHabilidades}>
                         <FaRegFileAlt className="text-xl lg:text-2xl 2xl:text-3xl text-white" />
-                        <p className="text-xs lg:text-sm 2xl:text-base 
-                                            text-white text-center"
-                            style={{ textShadow: "0 2px 6px rgba(0,0,0,0.75)" }}>
-                            {infoHabilidades.titulo}
-                        </p>
+                        <div className="w-full ">
+                            <p className="text-xs lg:text-sm 2xl:text-base 
+                                            text-white text-center truncate">
+                                {infoHabilidades.titulo}
+                            </p>
+                        </div>
                     </div>
 
                     <div className="bg-green-600 hover:bg-green-700 active:bg-green-500
@@ -358,11 +358,12 @@ export default function ContVentanaInicio({ toggleVerVentanaInicio,
                                     flex flex-col items-center justify-center"
                         onClick={handleClickVerProyectos}>
                         <FaRegFileAlt className="text-xl lg:text-2xl 2xl:text-3xl text-white" />
-                        <p className="text-xs lg:text-sm 2xl:text-base 
-                                            text-white text-center"
-                            style={{ textShadow: "0 2px 6px rgba(0,0,0,0.75)" }}>
-                            {infoProyectos.titulo}
-                        </p>
+                        <div className="w-full ">
+                            <p className="text-xs lg:text-sm 2xl:text-base 
+                                            text-white text-center truncate">
+                                {infoProyectos.titulo}
+                            </p>
+                        </div>
                     </div>
 
                 </div>

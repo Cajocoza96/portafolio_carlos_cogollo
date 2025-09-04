@@ -5,6 +5,8 @@ import { HiX } from "react-icons/hi";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function EspacioCentro({
+    verVentanaInicio, toggleVerVentanaInicio,
+
     verAcercaDe, toggleMinimizarVentanaAcercaDe,
     toggleVerAcercaDe, infoAcercaDe, ventanaMinimizadaAcercaDe,
 
@@ -46,15 +48,50 @@ export default function EspacioCentro({
 
         if (numeroVentanas === 1) {
             // Si solo hay una ventana, comportamiento actual
-            if (verAcercaDe && toggleMinimizarVentanaAcercaDe) {
+            if (!verVentanaInicio && verAcercaDe && toggleMinimizarVentanaAcercaDe) {
                 toggleMinimizarVentanaAcercaDe();
-            } else if (verContacto && toggleMinimizarVentanaContacto) {
+
+            } else if (!verVentanaInicio && verContacto && toggleMinimizarVentanaContacto) {
                 toggleMinimizarVentanaContacto();
-            } else if (verHabilidades && toggleMinimizarVentanaHabilidades) {
+
+            } else if (!verVentanaInicio && verHabilidades && toggleMinimizarVentanaHabilidades) {
                 toggleMinimizarVentanaHabilidades();
-            } else if (verProyectos && toggleMinimizarVentanaProyectos) {
+
+            } else if (!verVentanaInicio && verProyectos && toggleMinimizarVentanaProyectos) {
                 toggleMinimizarVentanaProyectos();
             }
+
+            if (verVentanaInicio && !ventanaMinimizadaAcercaDe) {
+                toggleVerVentanaInicio();
+
+            } else if (verVentanaInicio && !ventanaMinimizadaContacto) {
+                toggleVerVentanaInicio();
+
+            } else if (verVentanaInicio && !ventanaMinimizadaHabilidades) {
+                toggleVerVentanaInicio();
+
+            } else if (verVentanaInicio && !ventanaMinimizadaProyectos) {
+                toggleVerVentanaInicio();
+            }
+
+            if (verVentanaInicio && verAcercaDe && ventanaMinimizadaAcercaDe) {
+                toggleVerVentanaInicio();
+                toggleMinimizarVentanaAcercaDe();
+
+            } else if (verVentanaInicio && verContacto && ventanaMinimizadaContacto) {
+                toggleVerVentanaInicio();
+                toggleMinimizarVentanaContacto();
+
+            } else if (verVentanaInicio && verHabilidades && ventanaMinimizadaHabilidades) {
+                toggleVerVentanaInicio();
+                toggleMinimizarVentanaHabilidades();
+
+            } else if (verVentanaInicio && verProyectos && ventanaMinimizadaProyectos) {
+                toggleVerVentanaInicio();
+                toggleMinimizarVentanaProyectos();
+            }
+
+
         } else if (numeroVentanas >= 1) {
             // Si hay una o más ventanas, mostrar/ocultar preview
             setShowPreview(!showPreview);
@@ -68,7 +105,7 @@ export default function EspacioCentro({
             if (timeoutRef.current) {
                 clearTimeout(timeoutRef.current);
             }
-            
+
             // Establecer nuevo timeout de 2 segundos
             timeoutRef.current = setTimeout(() => {
                 setShowPreview(true);
@@ -115,12 +152,18 @@ export default function EspacioCentro({
             if (verAcercaDe && ventanaMinimizadaAcercaDe) {
                 toggleMinimizarVentanaAcercaDe();
             }
+            if(verVentanaInicio){
+                toggleVerVentanaInicio();
+            }
         } else if (tipo === 'contacto') {
             if (bringToFront) {
                 bringToFront('contacto');
             }
             if (verContacto && ventanaMinimizadaContacto) {
                 toggleMinimizarVentanaContacto();
+            }
+            if(verVentanaInicio){
+                toggleVerVentanaInicio();
             }
         } else if (tipo === 'habilidades') {
             if (bringToFront) {
@@ -129,12 +172,18 @@ export default function EspacioCentro({
             if (verHabilidades && ventanaMinimizadaHabilidades) {
                 toggleMinimizarVentanaHabilidades();
             }
+            if(verVentanaInicio){
+                toggleVerVentanaInicio();
+            }
         } else if (tipo === 'proyectos') {
             if (bringToFront) {
                 bringToFront('proyectos');
             }
             if (verProyectos && ventanaMinimizadaProyectos) {
                 toggleMinimizarVentanaProyectos();
+            }
+            if(verVentanaInicio){
+                toggleVerVentanaInicio();
             }
         }
         setShowPreview(false);
@@ -156,7 +205,7 @@ export default function EspacioCentro({
         } else if (tipo === 'proyectos') {
             toggleVerProyectos();
         }
-        
+
         // Ocultar la vista previa después de cerrar una ventana
         setShowPreview(false);
         setHoveredVentana(null);
@@ -235,10 +284,10 @@ export default function EspacioCentro({
             <div
                 ref={iconRef}
                 className={`relative
-                            ${(verAcercaDe && !ventanaMinimizadaAcercaDe) 
-                            || (verContacto && !ventanaMinimizadaContacto) 
-                            || (verHabilidades && !ventanaMinimizadaHabilidades)
-                            || (verProyectos && !ventanaMinimizadaProyectos) ? "bg-blue-700 dark:bg-gray-700 hover:bg-blue-500 hover:dark:bg-gray-500" : "hover:bg-blue-600 hover:dark:bg-gray-600"}
+                            ${(verAcercaDe && !ventanaMinimizadaAcercaDe)
+                        || (verContacto && !ventanaMinimizadaContacto)
+                        || (verHabilidades && !ventanaMinimizadaHabilidades)
+                        || (verProyectos && !ventanaMinimizadaProyectos) ? "bg-blue-700 dark:bg-gray-700 hover:bg-blue-500 hover:dark:bg-gray-500" : "hover:bg-blue-600 hover:dark:bg-gray-600"}
 
                             active:bg-blue-800 dark:active:bg-gray-800
                             ${numeroVentanas === 1 ? 'border-b-2 border-blue-300 dark:border-gray-300' : ''}
@@ -254,153 +303,153 @@ export default function EspacioCentro({
 
                 {/* Vista previa de miniaturas */}
                 <AnimatePresence>
-                {showPreview && numeroVentanas >= 1 && (
-                    <motion.div
-                    initial={{ opacity: 0, y: 5 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 5 }}
-                    transition={{ duration: 0.2, ease: "easeOut" }}
-                        ref={previewRef}
-                        className={`absolute 
+                    {showPreview && numeroVentanas >= 1 && (
+                        <motion.div
+                            initial={{ opacity: 0, y: 5 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: 5 }}
+                            transition={{ duration: 0.2, ease: "easeOut" }}
+                            ref={previewRef}
+                            className={`absolute 
                                 bottom-10 right-0 lg:right-auto
                                 bg-blue-700 dark:bg-gray-800 border select-none overflow-hidden
                                 border-blue-700 dark:border-gray-800 shadow-lg p-2 z-50
                                 ${getPreviewClasses()}`}
-                        onMouseLeave={handlePreviewMouseLeave}
-                    >
-                        <div className={`grid ${numeroVentanas === 1 ? 'grid-cols-1 lg:grid-cols-1' : numeroVentanas === 2 ? 'grid-cols-1 lg:grid-cols-2' : numeroVentanas === 3 ? 'grid-cols-2 lg:grid-cols-3': 'grid-cols-2 lg:grid-cols-4'} 
+                            onMouseLeave={handlePreviewMouseLeave}
+                        >
+                            <div className={`grid ${numeroVentanas === 1 ? 'grid-cols-1 lg:grid-cols-1' : numeroVentanas === 2 ? 'grid-cols-1 lg:grid-cols-2' : numeroVentanas === 3 ? 'grid-cols-2 lg:grid-cols-3' : 'grid-cols-2 lg:grid-cols-4'} 
                                     gap-3 h-full`}>
-                            {verAcercaDe && (
-                                <div
-                                    className={`w-30 lg:w-40 rounded relative group transition-opacity duration-200 ${hoveredVentana && hoveredVentana !== 'acercaDe' ? 'opacity-50' : 'opacity-100'
-                                        }`}
-                                    onClick={() => handleSelectWindow('acercaDe')}
-                                    onMouseEnter={() => handleMiniatureHover('acercaDe')}
-                                    onMouseLeave={handleMiniatureLeave}
-                                >
-                                    <div className="w-full flex flex-col items-center h-full">
-                                        <div className="w-full p-2 flex flex-row items-center justify-between">
-                                            <div className="text-white flex flex-row items-center justify-center gap-2 flex-1 min-w-0">
-                                                <FaRegFileAlt className="text-sm flex-shrink-0" />
-                                                <p className="text-sm font-medium truncate">
-                                                    {infoAcercaDe?.titulo || 'Acerca de.txt'}
-                                                </p>
-                                            </div>
-                                            <button
-                                                className="ml-2 p-1 text-white hover:bg-red-600
+                                {verAcercaDe && (
+                                    <div
+                                        className={`w-30 lg:w-40 rounded relative group transition-opacity duration-200 ${hoveredVentana && hoveredVentana !== 'acercaDe' ? 'opacity-50' : 'opacity-100'
+                                            }`}
+                                        onClick={() => handleSelectWindow('acercaDe')}
+                                        onMouseEnter={() => handleMiniatureHover('acercaDe')}
+                                        onMouseLeave={handleMiniatureLeave}
+                                    >
+                                        <div className="w-full flex flex-col items-center h-full">
+                                            <div className="w-full p-2 flex flex-row items-center justify-between">
+                                                <div className="text-white flex flex-row items-center justify-center gap-2 flex-1 min-w-0">
+                                                    <FaRegFileAlt className="text-sm flex-shrink-0" />
+                                                    <p className="text-sm font-medium truncate">
+                                                        {infoAcercaDe?.titulo || 'Acerca de.txt'}
+                                                    </p>
+                                                </div>
+                                                <button
+                                                    className="ml-2 p-1 text-white hover:bg-red-600
                                                     rounded transition-colors flex-shrink-0"
-                                                onClick={(e) => handleCloseWindow(e, 'acercaDe')}>
-                                                <HiX className="w-3 h-3 text-white" />
-                                            </button>
-                                        </div>
-                                        <div className="w-full p-2 flex-1 bg-white dark:bg-black">
-                                            <div className="text-sm text-black dark:text-white line-clamp-3">
-                                                {infoAcercaDe?.texto1 || 'Contenido de acerca de...'}
+                                                    onClick={(e) => handleCloseWindow(e, 'acercaDe')}>
+                                                    <HiX className="w-3 h-3 text-white" />
+                                                </button>
+                                            </div>
+                                            <div className="w-full p-2 flex-1 bg-white dark:bg-black">
+                                                <div className="text-sm text-black dark:text-white line-clamp-3">
+                                                    {infoAcercaDe?.texto1 || 'Contenido de acerca de...'}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            )}
+                                )}
 
-                            {verContacto && (
-                                <div
-                                    className={`w-30 lg:w-40 rounded relative group transition-opacity duration-200 ${hoveredVentana && hoveredVentana !== 'contacto' ? 'opacity-50' : 'opacity-100'
-                                        }`}
-                                    onClick={() => handleSelectWindow('contacto')}
-                                    onMouseEnter={() => handleMiniatureHover('contacto')}
-                                    onMouseLeave={handleMiniatureLeave}
-                                >
-                                    <div className="w-full flex flex-col items-center h-full">
-                                        <div className="w-full p-2 flex flex-row items-center justify-between">
-                                            <div className="text-white flex flex-row items-center justify-center gap-2 flex-1 min-w-0">
-                                                <FaRegFileAlt className="text-sm flex-shrink-0" />
-                                                <p className="text-sm font-medium truncate">
-                                                    {infoContacto?.titulo || 'Contacto.txt'}
-                                                </p>
-                                            </div>
-                                            <button
-                                                className="ml-2 p-1 text-white hover:bg-red-600
+                                {verContacto && (
+                                    <div
+                                        className={`w-30 lg:w-40 rounded relative group transition-opacity duration-200 ${hoveredVentana && hoveredVentana !== 'contacto' ? 'opacity-50' : 'opacity-100'
+                                            }`}
+                                        onClick={() => handleSelectWindow('contacto')}
+                                        onMouseEnter={() => handleMiniatureHover('contacto')}
+                                        onMouseLeave={handleMiniatureLeave}
+                                    >
+                                        <div className="w-full flex flex-col items-center h-full">
+                                            <div className="w-full p-2 flex flex-row items-center justify-between">
+                                                <div className="text-white flex flex-row items-center justify-center gap-2 flex-1 min-w-0">
+                                                    <FaRegFileAlt className="text-sm flex-shrink-0" />
+                                                    <p className="text-sm font-medium truncate">
+                                                        {infoContacto?.titulo || 'Contacto.txt'}
+                                                    </p>
+                                                </div>
+                                                <button
+                                                    className="ml-2 p-1 text-white hover:bg-red-600
                                                 rounded transition-colors flex-shrink-0"
-                                                onClick={(e) => handleCloseWindow(e, 'contacto')}>
-                                                <HiX className="w-3 h-3 text-white" />
-                                            </button>
-                                        </div>
-                                        <div className="w-full p-2 flex-1 bg-white dark:bg-black">
-                                            <div className="text-sm text-black dark:text-white line-clamp-3">
-                                                {infoContacto?.texto1 || 'Información de contacto...'}
+                                                    onClick={(e) => handleCloseWindow(e, 'contacto')}>
+                                                    <HiX className="w-3 h-3 text-white" />
+                                                </button>
+                                            </div>
+                                            <div className="w-full p-2 flex-1 bg-white dark:bg-black">
+                                                <div className="text-sm text-black dark:text-white line-clamp-3">
+                                                    {infoContacto?.texto1 || 'Información de contacto...'}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            )}
+                                )}
 
-                            {verHabilidades && (
-                                <div
-                                    className={`w-30 lg:w-40 rounded relative group transition-opacity duration-200 ${hoveredVentana && hoveredVentana !== 'habilidades' ? 'opacity-50' : 'opacity-100'
-                                        }`}
-                                    onClick={() => handleSelectWindow('habilidades')}
-                                    onMouseEnter={() => handleMiniatureHover('habilidades')}
-                                    onMouseLeave={handleMiniatureLeave}
-                                >
-                                    <div className="w-full flex flex-col items-center h-full">
-                                        <div className="w-full p-2 flex flex-row items-center justify-between">
-                                            <div className="text-white flex flex-row items-center justify-center gap-2 flex-1 min-w-0">
-                                                <FaRegFileAlt className="text-sm flex-shrink-0" />
-                                                <p className="text-sm font-medium truncate">
-                                                    {infoHabilidades?.titulo || 'Habilidades.txt'}
-                                                </p>
-                                            </div>
-                                            <button
-                                                className="ml-2 p-1 text-white hover:bg-red-600
+                                {verHabilidades && (
+                                    <div
+                                        className={`w-30 lg:w-40 rounded relative group transition-opacity duration-200 ${hoveredVentana && hoveredVentana !== 'habilidades' ? 'opacity-50' : 'opacity-100'
+                                            }`}
+                                        onClick={() => handleSelectWindow('habilidades')}
+                                        onMouseEnter={() => handleMiniatureHover('habilidades')}
+                                        onMouseLeave={handleMiniatureLeave}
+                                    >
+                                        <div className="w-full flex flex-col items-center h-full">
+                                            <div className="w-full p-2 flex flex-row items-center justify-between">
+                                                <div className="text-white flex flex-row items-center justify-center gap-2 flex-1 min-w-0">
+                                                    <FaRegFileAlt className="text-sm flex-shrink-0" />
+                                                    <p className="text-sm font-medium truncate">
+                                                        {infoHabilidades?.titulo || 'Habilidades.txt'}
+                                                    </p>
+                                                </div>
+                                                <button
+                                                    className="ml-2 p-1 text-white hover:bg-red-600
                                                 rounded transition-colors flex-shrink-0"
-                                                onClick={(e) => handleCloseWindow(e, 'habilidades')}>
-                                                <HiX className="w-3 h-3 text-white" />
-                                            </button>
-                                        </div>
-                                        <div className="w-full p-2 flex-1 bg-white dark:bg-black">
-                                            <div className="text-sm text-black dark:text-white line-clamp-3">
-                                                {infoHabilidades?.texto1 || 'Mis habilidades...'}
+                                                    onClick={(e) => handleCloseWindow(e, 'habilidades')}>
+                                                    <HiX className="w-3 h-3 text-white" />
+                                                </button>
+                                            </div>
+                                            <div className="w-full p-2 flex-1 bg-white dark:bg-black">
+                                                <div className="text-sm text-black dark:text-white line-clamp-3">
+                                                    {infoHabilidades?.texto1 || 'Mis habilidades...'}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            )}
+                                )}
 
-                            {verProyectos && (
-                                <div
-                                    className={`w-30 lg:w-40 rounded relative group transition-opacity duration-200 ${hoveredVentana && hoveredVentana !== 'proyectos' ? 'opacity-50' : 'opacity-100'
-                                        }`}
-                                    onClick={() => handleSelectWindow('proyectos')}
-                                    onMouseEnter={() => handleMiniatureHover('proyectos')}
-                                    onMouseLeave={handleMiniatureLeave}
-                                >
-                                    <div className="w-full flex flex-col items-center h-full">
-                                        <div className="w-full p-2 flex flex-row items-center justify-between">
-                                            <div className="text-white flex flex-row items-center justify-center gap-2 flex-1 min-w-0">
-                                                <FaRegFileAlt className="text-sm flex-shrink-0" />
-                                                <p className="text-sm font-medium truncate">
-                                                    {infoProyectos?.titulo || 'Proyectos.txt'}
-                                                </p>
-                                            </div>
-                                            <button
-                                                className="ml-2 p-1 text-white hover:bg-red-600
+                                {verProyectos && (
+                                    <div
+                                        className={`w-30 lg:w-40 rounded relative group transition-opacity duration-200 ${hoveredVentana && hoveredVentana !== 'proyectos' ? 'opacity-50' : 'opacity-100'
+                                            }`}
+                                        onClick={() => handleSelectWindow('proyectos')}
+                                        onMouseEnter={() => handleMiniatureHover('proyectos')}
+                                        onMouseLeave={handleMiniatureLeave}
+                                    >
+                                        <div className="w-full flex flex-col items-center h-full">
+                                            <div className="w-full p-2 flex flex-row items-center justify-between">
+                                                <div className="text-white flex flex-row items-center justify-center gap-2 flex-1 min-w-0">
+                                                    <FaRegFileAlt className="text-sm flex-shrink-0" />
+                                                    <p className="text-sm font-medium truncate">
+                                                        {infoProyectos?.titulo || 'Proyectos.txt'}
+                                                    </p>
+                                                </div>
+                                                <button
+                                                    className="ml-2 p-1 text-white hover:bg-red-600
                                                 rounded transition-colors flex-shrink-0"
-                                                onClick={(e) => handleCloseWindow(e, 'proyectos')}>
-                                                <HiX className="w-3 h-3 text-white" />
-                                            </button>
-                                        </div>
-                                        <div className="w-full p-2 flex-1 bg-white dark:bg-black">
-                                            <div className="text-sm text-black dark:text-white line-clamp-3">
-                                                {infoProyectos?.texto1 || 'Mis proyectos...'}
+                                                    onClick={(e) => handleCloseWindow(e, 'proyectos')}>
+                                                    <HiX className="w-3 h-3 text-white" />
+                                                </button>
+                                            </div>
+                                            <div className="w-full p-2 flex-1 bg-white dark:bg-black">
+                                                <div className="text-sm text-black dark:text-white line-clamp-3">
+                                                    {infoProyectos?.texto1 || 'Mis proyectos...'}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            )}
+                                )}
 
-                        </div>
-                    </motion.div>
-                )}
+                            </div>
+                        </motion.div>
+                    )}
                 </AnimatePresence>
             </div>
         </div>

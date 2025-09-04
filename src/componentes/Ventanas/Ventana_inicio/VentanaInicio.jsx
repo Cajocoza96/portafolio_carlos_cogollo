@@ -24,7 +24,7 @@ export default function VentanaInicio({
     ventanaMinimizadaProyectos, toggleMinimizarVentanaProyectos,
     infoProyectos,
 
-    setUserInteracted, bringToFront }) {
+    setUserInteracted, bringToFront, isTransparent }) {
 
     return (
         <div
@@ -38,8 +38,10 @@ export default function VentanaInicio({
                 exit={{ y: "100%" }}
                 transition={{ duration: 0.4, ease: "easeOut" }}
                 className="fixed inset-0 bottom-10 left-0 right-0">
-                <div className="h-full w-[83%] lg:w-[47%] 
-                            bg-blue-700 dark:bg-gray-800" onClick={(e) => e.stopPropagation()}>
+                <div className={`${isTransparent ? "opacity-30" : "opacity-100"} h-full w-[83%] lg:w-[47%] 
+                            bg-blue-700 dark:bg-gray-800`} 
+                    
+                    onClick={(e) => e.stopPropagation()}>
                     <ContVentanaInicio
                         toggleVerVentanaInicio={toggleVerVentanaInicio}
                         toggleVerVentanaBloqueo={toggleVerVentanaBloqueo}
@@ -78,6 +80,8 @@ export default function VentanaInicio({
                         setUserInteracted={setUserInteracted}
 
                         bringToFront={bringToFront}
+
+                        isTransparent={isTransparent}
                     />
                 </div>
             </motion.div>

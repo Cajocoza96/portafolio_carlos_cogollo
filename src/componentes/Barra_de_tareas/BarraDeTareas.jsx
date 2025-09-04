@@ -61,6 +61,9 @@ export default function BarraDeTareas({
                 setVerEspacioDerechoMobile={setVerEspacioDerechoMobile}
             />
             <EspacioCentro
+                verVentanaInicio={verVentanaInicio}
+                toggleVerVentanaInicio={toggleVerVentanaInicio}
+
                 verAcercaDe={verAcercaDe}
                 toggleMinimizarVentanaAcercaDe={toggleMinimizarVentanaAcercaDe}
                 toggleVerAcercaDe={toggleVerAcercaDe}

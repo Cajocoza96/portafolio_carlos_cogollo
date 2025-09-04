@@ -31,6 +31,10 @@ export default function VentanaPrincipal({ toggleVerVentana, ventanaState, handl
         }, 600); // Duración de la animación
     };
 
+    const getOpacity = () => {
+        if (minimized) return 0;
+        return isTransparent ? 0.3 : 1;
+    }
 
     return (
         <Rnd
@@ -60,10 +64,11 @@ export default function VentanaPrincipal({ toggleVerVentana, ventanaState, handl
             <motion.div
                 animate={{
                     scale: minimized ? 0 : 1,       // minimiza con escala
-                    opacity: minimized ? 0 : 1,     // se desvanece al minimizar
+                    opacity: getOpacity(),     // se desvanece al minimizar
                     y: minimized ? 100 : 0          // baja un poco al minimizar
                 }}
                 transition={{ duration: 0.6, ease: "easeInOut" }}
+                
                 className={`${isTransparent ? "opacity-30" : "opacity-100"} w-full h-full flex flex-col 
                                                 bg-white dark:bg-black border
                                                 border-black dark:border-white overflow-hidden`}
