@@ -478,34 +478,34 @@ export default function ContIconArcEscritorio({
         const initialHeight = window.innerHeight;
         const initialIsMobile = initialWidth < 768; // Estimación inicial de móvil
         const iconKeys = ['acercaDe', 'contacto', 'habilidades', 'proyectos'];
-        
+
         if (initialIsMobile) {
             // En móvil: organizar en grid
             const iconsPerRow = Math.floor((initialWidth - MARGIN) / (ICON_WIDTH + MARGIN));
             const newPositions = {};
-            
+
             iconKeys.forEach((iconId, index) => {
                 const row = Math.floor(index / iconsPerRow);
                 const col = index % iconsPerRow;
-                
+
                 newPositions[iconId] = {
                     x: MARGIN + col * (ICON_WIDTH + MARGIN),
                     y: MARGIN + row * (ICON_HEIGHT + MARGIN)
                 };
             });
-            
+
             return newPositions;
         } else {
             // En desktop: organizar verticalmente
             const newPositions = {};
-            
+
             iconKeys.forEach((iconId, index) => {
                 newPositions[iconId] = {
                     x: MARGIN,
                     y: MARGIN + index * (ICON_HEIGHT + 10)
                 };
             });
-            
+
             return newPositions;
         }
     });
@@ -519,7 +519,7 @@ export default function ContIconArcEscritorio({
         setIconPositions(prevPositions => {
             const newPositions = { ...prevPositions };
             const iconKeys = Object.keys(newPositions);
-            
+
             // 1. Primero, intentar mantener posiciones actuales si caben
             iconKeys.forEach(iconId => {
                 // Ajustar a límites si es necesario
@@ -558,7 +558,7 @@ export default function ContIconArcEscritorio({
                     iconKeys.forEach((iconId, index) => {
                         const row = Math.floor(index / iconsPerRow);
                         const col = index % iconsPerRow;
-                        
+
                         newPositions[iconId] = {
                             x: MARGIN + col * (ICON_WIDTH + MARGIN),
                             y: MARGIN + row * (ICON_HEIGHT + MARGIN)
@@ -589,7 +589,7 @@ export default function ContIconArcEscritorio({
 
         // Escuchar cambios de tamaño solo después de la inicialización
         window.addEventListener('resize', handleResize);
-        
+
         return () => {
             window.removeEventListener('resize', handleResize);
         };
@@ -667,64 +667,71 @@ export default function ContIconArcEscritorio({
             draggingRef.current = false;
             return;
         }
+
         if (verAcercaDe && ventanaMinimizadaAcercaDe) {
+
             toggleMinimizarVentanaAcercaDe();
-        } if (verAcercaDe) {
+        } else if (verAcercaDe && !ventanaMinimizadaAcercaDe) {
+
             bringToFront('acercaDe');
-            return
-        }
-        else {
+        } else {
             toggleVerAcercaDe();
         }
-    }
+    };
 
     const handleClickArchivoContacto = () => {
         if (draggingRef.current) {
             draggingRef.current = false;
             return;
         }
+
         if (verContacto && ventanaMinimizadaContacto) {
+            // Si está visible pero minimizada → desminimizar
             toggleMinimizarVentanaContacto();
-        } if (verContacto) {
+        } else if (verContacto && !ventanaMinimizadaContacto) {
+            // Si está visible y no minimizada → traer al frente
             bringToFront('contacto');
-            return
-        }
-        else {
+        } else {
+            // Si no está visible → mostrar
             toggleVerContacto();
         }
-    }
+    };
 
     const handleClickArchivoHabilidades = () => {
         if (draggingRef.current) {
             draggingRef.current = false;
             return;
         }
+
         if (verHabilidades && ventanaMinimizadaHabilidades) {
+            // Si está visible pero minimizada → desminimizar
             toggleMinimizarVentanaHabilidades();
-        } if (verHabilidades) {
+        } else if (verHabilidades && !ventanaMinimizadaHabilidades) {
+            // Si está visible y no minimizada → traer al frente
             bringToFront('habilidades');
-            return
-        }
-        else {
+        } else {
+            // Si no está visible → mostrar
             toggleVerHabilidades();
         }
-    }
+    };
 
     const handleClickArchivoProyectos = () => {
         if (draggingRef.current) {
             draggingRef.current = false;
             return;
         }
+
         if (verProyectos && ventanaMinimizadaProyectos) {
+            // Si está visible pero minimizada → desminimizar
             toggleMinimizarVentanaProyectos();
-        } if (verProyectos) {
+        } else if (verProyectos && !ventanaMinimizadaProyectos) {
+            // Si está visible y no minimizada → traer al frente
             bringToFront('proyectos');
-            return
-        }
-        else {
+        } else {
+            // Si no está visible → mostrar
             toggleVerProyectos();
         }
-    }
+    };
 
     // Determinar si una ventana debe estar semitransparente
     const shouldBeTransparent = (ventanaType) => {
@@ -762,7 +769,7 @@ export default function ContIconArcEscritorio({
     const handleDragStop = (iconId) => (e, d) => {
         const rawPos = { x: d.x, y: d.y };
         const boundedPos = validatePositionBounds(rawPos);
-        
+
         if (checkCollision(iconId, boundedPos)) {
             // Colisión → revertir
             setIconPositions((prev) => ({ ...prev }));
@@ -770,7 +777,7 @@ export default function ContIconArcEscritorio({
             // Sin colisión → actualizar con posición validada
             setIconPositions((prev) => ({ ...prev, [iconId]: boundedPos }));
         }
-        
+
         // Manejar el drag común
         const distX = Math.abs(d.x - dragStartPos.current.x);
         const distY = Math.abs(d.y - dragStartPos.current.y);
@@ -782,7 +789,7 @@ export default function ContIconArcEscritorio({
     };
 
     return (
-        <div 
+        <div
             ref={containerRef}
             className="fixed inset-0 bottom-10 z-50 bg-black/20 flex items-center justify-center gap-2"
         >
