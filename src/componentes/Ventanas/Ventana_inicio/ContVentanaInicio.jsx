@@ -54,10 +54,14 @@ export default function ContVentanaInicio({ toggleVerVentanaInicio,
     const handleClickVerAcercaDe = () => {
         if (verAcercaDe && ventanaMinimizadaAcercaDe) {
             toggleMinimizarVentanaAcercaDe();
-        } if (verAcercaDe) {
+            toggleVerVentanaInicio();
+            return;
+
+        } else if (verAcercaDe && !ventanaMinimizadaAcercaDe) {
             bringToFront('acercaDe');
-            toggleVerVentanaInicio()
-            return
+            toggleVerVentanaInicio();
+            return;
+
         } else {
             toggleVerAcercaDe();
             setTimeout(() => {
@@ -70,10 +74,14 @@ export default function ContVentanaInicio({ toggleVerVentanaInicio,
     const handleClickVerContacto = () => {
         if (verContacto && ventanaMinimizadaContacto) {
             toggleMinimizarVentanaContacto();
-        } if (verContacto) {
+            toggleVerVentanaInicio();
+            return;
+
+        } else if (verContacto && !ventanaMinimizadaContacto) {
             bringToFront('contacto');
-            toggleVerVentanaInicio()
-            return
+            toggleVerVentanaInicio();
+            return;
+
         } else {
             toggleVerContacto();
             setTimeout(() => {
@@ -86,10 +94,14 @@ export default function ContVentanaInicio({ toggleVerVentanaInicio,
     const handleClickVerHabilidades = () => {
         if (verHabilidades && ventanaMinimizadaHabilidades) {
             toggleMinimizarVentanaHabilidades();
-        } if (verHabilidades) {
+            toggleVerVentanaInicio();
+            return;
+
+        } else if (verHabilidades && !ventanaMinimizadaHabilidades) {
             bringToFront('habilidades');
             toggleVerVentanaInicio()
             return
+
         } else {
             toggleVerHabilidades();
             setTimeout(() => {
@@ -102,10 +114,14 @@ export default function ContVentanaInicio({ toggleVerVentanaInicio,
     const handleClickVerProyectos = () => {
         if (verProyectos && ventanaMinimizadaProyectos) {
             toggleMinimizarVentanaProyectos();
-        } if (verProyectos) {
+            toggleVerVentanaInicio()
+            return
+
+        } else if (verProyectos && !ventanaMinimizadaProyectos) {
             bringToFront('proyectos');
             toggleVerVentanaInicio()
             return
+
         } else {
             toggleVerProyectos();
             setTimeout(() => {

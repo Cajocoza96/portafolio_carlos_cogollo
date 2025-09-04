@@ -669,13 +669,19 @@ export default function ContIconArcEscritorio({
         }
 
         if (verAcercaDe && ventanaMinimizadaAcercaDe) {
-
             toggleMinimizarVentanaAcercaDe();
-        } else if (verAcercaDe && !ventanaMinimizadaAcercaDe) {
-
             bringToFront('acercaDe');
+            return;
+
+        } else if (verAcercaDe && !ventanaMinimizadaAcercaDe) {
+            bringToFront('acercaDe');
+            return;
+
         } else {
             toggleVerAcercaDe();
+            setTimeout(() => {
+                bringToFront('acercaDe');
+            }, 0);
         }
     };
 
@@ -686,14 +692,19 @@ export default function ContIconArcEscritorio({
         }
 
         if (verContacto && ventanaMinimizadaContacto) {
-            // Si está visible pero minimizada → desminimizar
             toggleMinimizarVentanaContacto();
-        } else if (verContacto && !ventanaMinimizadaContacto) {
-            // Si está visible y no minimizada → traer al frente
             bringToFront('contacto');
+            return;
+
+        } else if (verContacto && !ventanaMinimizadaContacto) {
+            bringToFront('contacto');
+            return;
+
         } else {
-            // Si no está visible → mostrar
             toggleVerContacto();
+            setTimeout(() => {
+                bringToFront('contacto');
+            }, 0);
         }
     };
 
@@ -704,14 +715,19 @@ export default function ContIconArcEscritorio({
         }
 
         if (verHabilidades && ventanaMinimizadaHabilidades) {
-            // Si está visible pero minimizada → desminimizar
             toggleMinimizarVentanaHabilidades();
-        } else if (verHabilidades && !ventanaMinimizadaHabilidades) {
-            // Si está visible y no minimizada → traer al frente
             bringToFront('habilidades');
+            return;
+
+        } else if (verHabilidades && !ventanaMinimizadaHabilidades) {
+            bringToFront('habilidades');
+            return;
+
         } else {
-            // Si no está visible → mostrar
             toggleVerHabilidades();
+            setTimeout(() => {
+                bringToFront('habilidades');
+            }, 0);
         }
     };
 
@@ -722,14 +738,19 @@ export default function ContIconArcEscritorio({
         }
 
         if (verProyectos && ventanaMinimizadaProyectos) {
-            // Si está visible pero minimizada → desminimizar
             toggleMinimizarVentanaProyectos();
-        } else if (verProyectos && !ventanaMinimizadaProyectos) {
-            // Si está visible y no minimizada → traer al frente
             bringToFront('proyectos');
+            return;
+
+        } else if (verProyectos && !ventanaMinimizadaProyectos) {
+            bringToFront('proyectos');
+            return;
+
         } else {
-            // Si no está visible → mostrar
             toggleVerProyectos();
+            setTimeout(() => {
+                bringToFront('proyectos');
+            }, 0);
         }
     };
 
