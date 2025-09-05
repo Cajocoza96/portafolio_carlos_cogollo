@@ -14,7 +14,6 @@ export default function VistaApagadoInicio({ accionApagadoInicio, mentiraApagado
     const [showSecondContainer, setShowSecondContainer] = useState(false);
     const audioRef = useRef(null);
 
-    // Estados para las dimensiones del confetti
     const [confettiDimensions, setConfettiDimensions] = useState({
         width: window.innerWidth,
         height: window.innerHeight
@@ -22,7 +21,6 @@ export default function VistaApagadoInicio({ accionApagadoInicio, mentiraApagado
 
     const isMobile = useIsMobile();
 
-    // Efecto para actualizar las dimensiones del confetti
     useEffect(() => {
         const updateDimensions = () => {
             setConfettiDimensions({
@@ -31,36 +29,29 @@ export default function VistaApagadoInicio({ accionApagadoInicio, mentiraApagado
             });
         };
 
-        // Actualizar dimensiones inmediatamente
         updateDimensions();
 
-        // Escuchar cambios de tamaño y orientación
         window.addEventListener('resize', updateDimensions);
         window.addEventListener('orientationchange', updateDimensions);
 
-        // Cleanup
         return () => {
             window.removeEventListener('resize', updateDimensions);
             window.removeEventListener('orientationchange', updateDimensions);
         };
-    }, [isMobile]); // Se ejecuta cuando cambia isMobile
+    }, [isMobile]);
 
     useEffect(() => {
-        // Timer para mostrar el segundo contenedor después de 5 segundos
         const timer = setTimeout(() => {
             setShowSecondContainer(true);
         }, 5000);
 
-        // Cleanup
         return () => {
             clearTimeout(timer);
         };
     }, []);
 
     useEffect(() => {
-        // Reproducir audio cuando aparece el segundo contenedor Y el usuario ha interactuado
         if (showSecondContainer && userInteracted && audioRef.current) {
-            // Pequeño delay para asegurar que el elemento esté completamente montado
             setTimeout(() => {
                 audioRef.current.play().catch(error => {
                     console.log("Error al reproducir audio:", error);
@@ -78,7 +69,6 @@ export default function VistaApagadoInicio({ accionApagadoInicio, mentiraApagado
                         fixed inset-0 z-80"
             onClick={handleContainerClick}>
 
-            {/* Audio element oculto */}
             <audio
                 ref={audioRef}
                 src={RisaRamon}
@@ -86,7 +76,6 @@ export default function VistaApagadoInicio({ accionApagadoInicio, mentiraApagado
                 style={{ display: 'none' }}
             />
 
-            {/* Primer contenedor - se muestra los primeros 5 segundos */}
             {!showSecondContainer && (
                 <div className="h-[100svh] flex flex-col items-center justify-center gap-3">
                     <FaSpinner className="animate-spin text-xl lg:text-2xl 2xl:text-3xl 
@@ -99,7 +88,6 @@ export default function VistaApagadoInicio({ accionApagadoInicio, mentiraApagado
                 </div>
             )}
 
-            {/* Segundo contenedor - se muestra después de 5 segundos */}
             {showSecondContainer && (
                 <div className="h-[100svh] flex flex-col items-center justify-center gap-3">
                     <Confetti

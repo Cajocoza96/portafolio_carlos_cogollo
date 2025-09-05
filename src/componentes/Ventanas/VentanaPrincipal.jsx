@@ -22,13 +22,12 @@ export default function VentanaPrincipal({ toggleVerVentana, ventanaState, handl
             toggleVerVentana
         });
 
-    // Función modificada para incluir la animación
     const handleMinimize = () => {
         setMinimized(true);
         setTimeout(() => {
             originalHandleMinimize();
             setMinimized(false);
-        }, 600); // Duración de la animación
+        }, 600); 
     };
 
     const getOpacity = () => {
@@ -63,9 +62,9 @@ export default function VentanaPrincipal({ toggleVerVentana, ventanaState, handl
         >
             <motion.div
                 animate={{
-                    scale: minimized ? 0 : 1,       // minimiza con escala
-                    opacity: getOpacity(),     // se desvanece al minimizar
-                    y: minimized ? 100 : 0          // baja un poco al minimizar
+                    scale: minimized ? 0 : 1,       
+                    opacity: getOpacity(),     
+                    y: minimized ? 100 : 0          
                 }}
                 transition={{ duration: 0.6, ease: "easeInOut" }}
                 

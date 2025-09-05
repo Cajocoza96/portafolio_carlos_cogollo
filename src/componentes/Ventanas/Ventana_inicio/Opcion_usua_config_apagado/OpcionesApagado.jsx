@@ -8,35 +8,23 @@ export default function OpcionesApagado({ toggleVerOpcionesApagado,
                                             toggleVerVentanaApagado, toggleVerVentanaReinicio,
                                             setUserInteracted}) {
 
-    // Función que se ejecuta al hacer clic en "Bloquear"
     const handleBloquearClick = () => {
-        // Activar la interacción del usuario para permitir audio
         setUserInteracted(true);
-        // Ejecutar la función original de bloquear
         toggleVerVentanaBloqueo();
     };
 
-    // Función que se ejecuta al hacer clic en "Suspender"
     const handleSuspenderClick = () => {
-        // Activar la interacción del usuario para permitir audio
         setUserInteracted(true);
-        // Ejecutar la función original de suspender
         toggleVerVentanaSuspendido();
     };
 
-    // Función que se ejecuta al hacer clic en "Apagar"
     const handleApagarClick = () => {
-        // Activar la interacción del usuario para permitir audio
         setUserInteracted(true);
-        // Ejecutar la función original de apagar
         toggleVerVentanaApagado();
     };
 
-    // Función que se ejecuta al hacer clic en "Reiniciar"
     const handleReiniciarClick = () => {
-        // Activar la interacción del usuario para permitir audio
         setUserInteracted(true);
-        // Ejecutar la función original de reiniciar
         toggleVerVentanaReinicio();
     };
 
@@ -53,8 +41,6 @@ export default function OpcionesApagado({ toggleVerOpcionesApagado,
                             w-[35%] 2xs:w-[30%] md:w-[25%] lg:w-[20%] 2xl:w-[15%]
                             absolute bottom-20 left-0">
                 <div className="w-full h-full p-1">
-
-                    {/*Aqui quiero que se active la logica que permite reproducir el audio */}
                     <div className="hover:bg-blue-700 hover:dark:bg-gray-800
                                     active:bg-blue-600 dark:active:bg-gray-700
                                     h-auto w-auto p-1 overflow-hidden select-none"

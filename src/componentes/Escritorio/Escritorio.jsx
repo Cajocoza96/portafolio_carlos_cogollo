@@ -42,7 +42,6 @@ export default function Escritorio() {
 
     const isMobile = useIsMobile();
 
-    // Memoizar la configuración de la imagen para evitar recálculos innecesarios
     const imageConfig = useMemo(() => {
         return {
             src: isMobile ? windowsEscritorioVertical : windowsEscritorioHorizontal,
@@ -51,7 +50,6 @@ export default function Escritorio() {
     }, [isMobile]);
 
 
-    // Sistema de z-index dinámico para las ventanas - MOVIDO AQUÍ
     const [zIndexCounter, setZIndexCounter] = useState(1000);
     const [ventanaZIndexes, setVentanaZIndexes] = useState({
         acercaDe: null,
@@ -60,7 +58,6 @@ export default function Escritorio() {
         proyectos: null
     });
 
-    // Función para traer una ventana al frente - MOVIDO AQUÍ
     const bringToFront = (ventanaId) => {
         setZIndexCounter(prevCounter => {
             const newZIndex = prevCounter + 1;
@@ -72,21 +69,15 @@ export default function Escritorio() {
         });
     };
 
-    // Función para obtener z-index de una ventana (SOLUCIONADO - sin setState durante render)
     const getZIndex = (ventanaId) => {
         if (ventanaZIndexes[ventanaId] === null) {
-            // Si no tiene z-index, devolver un valor por defecto sin llamar setState
             return zIndexCounter;
         }
         return ventanaZIndexes[ventanaId];
     };
 
-    
-
-    // Estado para manejar el hover en las miniaturas
     const [hoveredVentana, setHoveredVentana] = useState(null);
 
-    // Función para manejar el hover desde EspacioCentro
     const handleHoverVentana = (ventanaType) => {
         setHoveredVentana(ventanaType);
     };
@@ -97,55 +88,39 @@ export default function Escritorio() {
         setVerVentanaInicio(!verVentanaInicio);
     }
 
-
-    // Estado para controlar si la ventana está minimizada de Acerca de
     const [ventanaMinimizadaAcercaDe, setVentanaMinimizadaAcercaDe] = useState(false);
 
-    // Nueva función para alternar el estado de minimización
     const toggleMinimizarVentanaAcercaDe = () => {
         setVentanaMinimizadaAcercaDe(!ventanaMinimizadaAcercaDe);
     }
 
-
-    // Estado para controlar si la ventana está minimizada de Contacto
     const [ventanaMinimizadaContacto, setVentanaMinimizadaContacto] = useState(false);
 
-    // Nueva función para alternar el estado de minimización
     const toggleMinimizarVentanaContacto = () => {
         setVentanaMinimizadaContacto(!ventanaMinimizadaContacto);
     }
 
-
-    // Estado para controlar si la ventana está minimizada de Habilidades
     const [ventanaMinimizadaHabilidades, setVentanaMinimizadaHabilidades] = useState(false);
 
-    // Nueva función para alternar el estado de minimización
     const toggleMinimizarVentanaHabilidades = () => {
         setVentanaMinimizadaHabilidades(!ventanaMinimizadaHabilidades);
     }
 
-
-    // Estado para controlar si la ventana está minimizada de Proyectos
     const [ventanaMinimizadaProyectos, setVentanaMinimizadaProyectos] = useState(false);
 
-    // Nueva función para alternar el estado de minimización
     const toggleMinimizarVentanaProyectos = () => {
         setVentanaMinimizadaProyectos(!ventanaMinimizadaProyectos);
     }
 
-
-    //Estado para ver Acerca de.txt
     const [verAcercaDe, setVerAcercaDe] = useState(false);
 
     const toggleVerAcercaDe = () => {
         setVerAcercaDe(!verAcercaDe);
-        // Resetear el estado de minimización cuando se cierra/abre la ventana
         if (verAcercaDe) {
             setVentanaMinimizadaAcercaDe(false);
         }
     }
 
-    //Estado para ver Contacto.txt
     const [verContacto, setVerContacto] = useState(false);
 
     const toggleVerContacto = () => {
@@ -155,8 +130,6 @@ export default function Escritorio() {
         }
     }
 
-
-    //Estado para ver Habilidades.txt
     const [verHabilidades, setVerHabilidades] = useState(false);
 
     const toggleVerHabilidades = () => {
@@ -166,8 +139,6 @@ export default function Escritorio() {
         }
     }
 
-
-    //Estado para ver Proyectos.txt
     const [verProyectos, setVerProyectos] = useState(false);
 
     const toggleVerProyectos = () => {
@@ -183,14 +154,9 @@ export default function Escritorio() {
         setVerVentanaBusqueda(!verVentanaBusqueda);
     }
 
-    /*Estados para ventana de bloqueo, suspendido, apagado y reiniciando*/
-
-    // Estado para controlar la interacción del usuario para el audio
     const [userInteracted, setUserInteracted] = useState(false);
 
-    /*Estado para ver ventana de bloqueo*/
     const [verVentanaBloqueo, setVerVentanaBloqueo] = useState(false);
-
 
     const toggleVerVentanaBloqueo = () => {
         setVerVentanaBloqueo(!verVentanaBloqueo);
@@ -204,7 +170,6 @@ export default function Escritorio() {
             }, 14000);
         }
 
-        //limpiar el timer cuando el componente se desmonte o cuando verVentanaBloqueo cambie
         return () => {
             if (timer) {
                 clearTimeout(timer);
@@ -212,7 +177,6 @@ export default function Escritorio() {
         }
     }, [verVentanaBloqueo]);
 
-    /*Estado para ver ventana de suspendido*/
     const [verVentanaSuspendido, setVerVentanaSuspendido] = useState(false);
 
     const toggleVerVentanaSuspendido = () => {
@@ -227,7 +191,6 @@ export default function Escritorio() {
             }, 14000);
         }
 
-        //limpiar el timer cuando el componente se desmonte o cuando verVentanaBloqueo cambie
         return () => {
             if (timer) {
                 clearTimeout(timer);
@@ -235,7 +198,6 @@ export default function Escritorio() {
         }
     }, [verVentanaSuspendido]);
 
-    /*Estado para ver ventana de apagado*/
     const [verVentanaApagado, setVerVentanaApagado] = useState(false);
 
     const toggleVerVentanaApagado = () => {
@@ -250,7 +212,6 @@ export default function Escritorio() {
             }, 14000);
         }
 
-        //limpiar el timer cuando el componente se desmonte o cuando verVentanaBloqueo cambie
         return () => {
             if (timer) {
                 clearTimeout(timer);
@@ -258,7 +219,6 @@ export default function Escritorio() {
         }
     }, [verVentanaApagado]);
 
-    /*Estado para ver ventana de reinicio*/
     const [verVentanaReinicio, setVerVentanaReinicio] = useState(false);
 
     const toggleVerVentanaReinicio = () => {
@@ -273,7 +233,6 @@ export default function Escritorio() {
             }, 14000);
         }
 
-        //limpiar el timer cuando el componente se desmonte o cuando verVentanaBloqueo cambie
         return () => {
             if (timer) {
                 clearTimeout(timer);
@@ -281,7 +240,6 @@ export default function Escritorio() {
         }
     }, [verVentanaReinicio]);
 
-    // useEffect para inicializar z-indexes cuando las ventanas se abren
     useEffect(() => {
         const ventanasAbiertas = [];
         if (verAcercaDe && ventanaZIndexes.acercaDe === null) ventanasAbiertas.push('acercaDe');
@@ -350,7 +308,6 @@ export default function Escritorio() {
                 ventanaMinimizadaProyectos={ventanaMinimizadaProyectos}
                 infoProyectos={infoProyectos}
 
-                // Pasar las funciones y estados de z-index
                 ventanaZIndexes={ventanaZIndexes}
                 bringToFront={bringToFront}
                 getZIndex={getZIndex}
@@ -397,10 +354,9 @@ export default function Escritorio() {
 
                         setUserInteracted={setUserInteracted}
 
-                        // Pasar la función bringToFront para usar desde VentanaInicio
                         bringToFront={bringToFront}
 
-                        isTransparent={shouldBeTransparent('ventanaInicio')}
+                        isTransparent={shouldBeTransparent(ventanaInicio)}
                     />
                 )}
             </AnimatePresence>
@@ -413,7 +369,6 @@ export default function Escritorio() {
             )}
             */}
 
-            {/*Esto es para ver la ventana de bloqueo*/}
             {verVentanaBloqueo && (
                 <VistaApagadoInicio
                     accionApagadoInicio="Bloqueando"
@@ -422,7 +377,6 @@ export default function Escritorio() {
                 />
             )}
 
-            {/*Esto es para ver la ventana de suspendido*/}
             {verVentanaSuspendido && (
                 <VistaApagadoInicio
                     accionApagadoInicio="Suspendiendo"
@@ -431,7 +385,6 @@ export default function Escritorio() {
                 />
             )}
 
-            {/*Esto es para ver la ventana de apagado*/}
             {verVentanaApagado && (
                 <VistaApagadoInicio
                     accionApagadoInicio="Apagando"
@@ -440,7 +393,6 @@ export default function Escritorio() {
                 />
             )}
 
-            {/*Esto es para ver la ventana de reinicio*/}
             {verVentanaReinicio && (
                 <VistaApagadoInicio
                     accionApagadoInicio="Reiniciando"

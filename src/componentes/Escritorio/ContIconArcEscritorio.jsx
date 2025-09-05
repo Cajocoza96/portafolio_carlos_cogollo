@@ -4,7 +4,6 @@ import VentanaPrincipal from "../Ventanas/VentanaPrincipal";
 import { Rnd } from "react-rnd";
 import useIsMobile from "../../hooks/useIsMobile";
 
-// Componentes de contenido específico para cada ventana
 const ContenidoAcercaDe = ({ data }) => (
     <>
         <div className="mb-2">
@@ -416,30 +415,27 @@ const ContenidoProyectos = ({ data }) => (
 
 export default function ContIconArcEscritorio({
     toggleVerAcercaDe,
-    verAcercaDe, setVerAcercaDe,
+    verAcercaDe,
     toggleMinimizarVentanaAcercaDe, ventanaMinimizadaAcercaDe,
     infoAcercaDe,
 
     toggleVerContacto,
-    verContacto, setVerContacto,
+    verContacto, 
     toggleMinimizarVentanaContacto, ventanaMinimizadaContacto,
     infoContacto,
 
     toggleVerHabilidades,
-    verHabilidades, setVerHabilidades,
+    verHabilidades, 
     toggleMinimizarVentanaHabilidades, ventanaMinimizadaHabilidades,
     infoHabilidades,
 
     toggleVerProyectos,
-    verProyectos, setVerProyectos,
+    verProyectos, 
     toggleMinimizarVentanaProyectos, ventanaMinimizadaProyectos,
     infoProyectos,
 
-    ventanaZIndexes,
     bringToFront,
     getZIndex,
-
-    // Nueva prop para el hover
     hoveredVentana
 }) {
 
@@ -447,16 +443,13 @@ export default function ContIconArcEscritorio({
     const containerRef = useRef(null);
     const isInitialized = useRef(false);
 
-    // --- NUEVO: flag para diferenciar click vs drag (sirve mouse y touch)
     const draggingRef = useRef(false);
     const dragStartPos = useRef({ x: 0, y: 0, time: 0 });
 
-    // Tamaño aproximado de cada icono (Archivo.jsx mide h-20 => 80px aprox)
     const ICON_WIDTH = 75;
     const ICON_HEIGHT = 72;
     const MARGIN = 5;
 
-    // Función para obtener las dimensiones del contenedor
     const getContainerDimensions = () => {
         if (containerRef.current) {
             const rect = containerRef.current.getBoundingClientRect();
@@ -471,16 +464,12 @@ export default function ContIconArcEscritorio({
         };
     };
 
-    // Estado para posiciones de cada icono - inicializado de forma inteligente
     const [iconPositions, setIconPositions] = useState(() => {
-        // Calcular posiciones iniciales correctas desde el principio
         const initialWidth = window.innerWidth;
-        const initialHeight = window.innerHeight;
-        const initialIsMobile = initialWidth < 768; // Estimación inicial de móvil
+        const initialIsMobile = initialWidth < 768; 
         const iconKeys = ['acercaDe', 'contacto', 'habilidades', 'proyectos'];
 
         if (initialIsMobile) {
-            // En móvil: organizar en grid
             const iconsPerRow = Math.floor((initialWidth - MARGIN) / (ICON_WIDTH + MARGIN));
             const newPositions = {};
 
@@ -496,7 +485,6 @@ export default function ContIconArcEscritorio({
 
             return newPositions;
         } else {
-            // En desktop: organizar verticalmente
             const newPositions = {};
 
             iconKeys.forEach((iconId, index) => {
@@ -510,7 +498,6 @@ export default function ContIconArcEscritorio({
         }
     });
 
-    // Función para preservar posiciones cuando sea posible
     const smartRepositionIcons = () => {
         const { width, height } = getContainerDimensions();
         const maxX = width - ICON_WIDTH;
@@ -520,9 +507,7 @@ export default function ContIconArcEscritorio({
             const newPositions = { ...prevPositions };
             const iconKeys = Object.keys(newPositions);
 
-            // 1. Primero, intentar mantener posiciones actuales si caben
             iconKeys.forEach(iconId => {
-                // Ajustar a límites si es necesario
                 if (newPositions[iconId].x > maxX) {
                     newPositions[iconId].x = Math.max(0, maxX);
                 }
@@ -537,7 +522,6 @@ export default function ContIconArcEscritorio({
                 }
             });
 
-            // 2. Solo reorganizar automáticamente en móvil si hay colisiones masivas
             if (isMobile) {
                 const hasMultipleCollisions = iconKeys.some((iconId, index) => {
                     return iconKeys.slice(index + 1).some(otherId => {
@@ -553,7 +537,6 @@ export default function ContIconArcEscritorio({
                 });
 
                 if (hasMultipleCollisions) {
-                    // Solo aquí reorganizar automáticamente
                     const iconsPerRow = Math.floor((width - MARGIN) / (ICON_WIDTH + MARGIN));
                     iconKeys.forEach((iconId, index) => {
                         const row = Math.floor(index / iconsPerRow);
@@ -571,10 +554,8 @@ export default function ContIconArcEscritorio({
         });
     };
 
-    // Effect para inicialización y cambios de orientación
     useEffect(() => {
         const handleResize = () => {
-            // Solo manejar cambios de tamaño después de la inicialización
             if (isInitialized.current) {
                 setTimeout(() => {
                     smartRepositionIcons();
@@ -582,30 +563,25 @@ export default function ContIconArcEscritorio({
             }
         };
 
-        // Marcar como inicializado inmediatamente
         if (!isInitialized.current) {
             isInitialized.current = true;
         }
 
-        // Escuchar cambios de tamaño solo después de la inicialización
         window.addEventListener('resize', handleResize);
 
         return () => {
             window.removeEventListener('resize', handleResize);
         };
-    }, [isMobile]); // Re-ejecutar cuando cambie isMobile
+    }, [isMobile]);
 
-    // Effect separado para manejar cambios de isMobile (orientación)
     useEffect(() => {
         if (isInitialized.current) {
-            // Solo reposicionar si ya estamos inicializados y cambió el tipo de dispositivo
             setTimeout(() => {
                 smartRepositionIcons();
             }, 150);
         }
     }, [isMobile]);
 
-    // Función de colisión
     const checkCollision = (id, newPos) => {
         return Object.entries(iconPositions).some(([otherId, pos]) => {
             if (id === otherId) return false;
@@ -618,7 +594,6 @@ export default function ContIconArcEscritorio({
         });
     };
 
-    // Función para validar que la posición esté dentro de los límites
     const validatePositionBounds = (newPos) => {
         const { width, height } = getContainerDimensions();
         const maxX = width - ICON_WIDTH;
@@ -630,34 +605,26 @@ export default function ContIconArcEscritorio({
         };
     };
 
-    // Estado para conservar el tamaño, posición y estado de maximización de la ventana Acerca de
     const [ventanaStateAcercaDe, setVentanaStateAcercaDe] = useState(null);
 
-    // Función para actualizar el estado de la ventana Acerca de
     const handleVentanaStateChangeAcercaDe = (newState) => {
         setVentanaStateAcercaDe(newState);
     };
 
-    // Estado para conservar el tamaño, posición y estado de maximización de la ventana Contacto
     const [ventanaStateContacto, setVentanaStateContacto] = useState(null);
 
-    // Función para actualizar el estado de la ventana Contacto
     const handleVentanaStateChangeContacto = (newState) => {
         setVentanaStateContacto(newState);
     };
 
-    // Estado para conservar el tamaño, posición y estado de maximización de la ventana Habilidades
     const [ventanaStateHabilidades, setVentanaStateHabilidades] = useState(null);
 
-    // Función para actualizar el estado de la ventana Habilidades
     const handleVentanaStateChangeHabilidades = (newState) => {
         setVentanaStateHabilidades(newState);
     };
 
-    // Estado para conservar el tamaño, posición y estado de maximización de la ventana Proyectos
     const [ventanaStateProyectos, setVentanaStateProyectos] = useState(null);
 
-    // Función para actualizar el estado de la ventana Proyectos
     const handleVentanaStateChangeProyectos = (newState) => {
         setVentanaStateProyectos(newState);
     };
@@ -754,12 +721,10 @@ export default function ContIconArcEscritorio({
         }
     };
 
-    // Determinar si una ventana debe estar semitransparente
     const shouldBeTransparent = (ventanaType) => {
         return hoveredVentana && hoveredVentana !== ventanaType;
     };
 
-    // Helper para no repetir props de Rnd
     const rndCommon = {
         bounds: "parent",
         enableResizing: false,
@@ -786,20 +751,16 @@ export default function ContIconArcEscritorio({
         }
     };
 
-    // Función mejorada para manejar drag stop con validación de límites
     const handleDragStop = (iconId) => (e, d) => {
         const rawPos = { x: d.x, y: d.y };
         const boundedPos = validatePositionBounds(rawPos);
 
         if (checkCollision(iconId, boundedPos)) {
-            // Colisión → revertir
             setIconPositions((prev) => ({ ...prev }));
         } else {
-            // Sin colisión → actualizar con posición validada
             setIconPositions((prev) => ({ ...prev, [iconId]: boundedPos }));
         }
 
-        // Manejar el drag común
         const distX = Math.abs(d.x - dragStartPos.current.x);
         const distY = Math.abs(d.y - dragStartPos.current.y);
         const timeDiff = Date.now() - dragStartPos.current.time;

@@ -27,27 +27,22 @@ export default function EspacioCentro({
     const [hoveredVentana, setHoveredVentana] = useState(null);
     const previewRef = useRef(null);
     const iconRef = useRef(null);
-    // *** MODIFICACIÓN 1: Agregado useRef para manejar el timeout ***
     const timeoutRef = useRef(null);
 
-    // Determinar si hay ventanas del bloc de notas abiertas
     const hayVentanasBlocNotas = verAcercaDe || verContacto || verHabilidades || verProyectos;
     const numeroVentanas = (verAcercaDe ? 1 : 0) + (verContacto ? 1 : 0) + (verHabilidades ? 1 : 0) + (verProyectos ? 1 : 0);
 
-    // Función para obtener las clases de ancho automático
     const getPreviewClasses = () => {
-        return 'w-max max-w-50 max-w-screen-lg '; // Se expande según contenido con límite máximo
+        return 'w-max max-w-50 max-w-screen-lg '; 
     };
 
     const handleClickIconoBlocNotas = () => {
-        // *** MODIFICACIÓN 2: Limpiar timeout al hacer clic ***
         if (timeoutRef.current) {
             clearTimeout(timeoutRef.current);
             timeoutRef.current = null;
         }
 
         if (numeroVentanas === 1) {
-            // Si solo hay una ventana, comportamiento actual
             if (!verVentanaInicio && verAcercaDe && toggleMinimizarVentanaAcercaDe) {
                 toggleMinimizarVentanaAcercaDe();
 
@@ -93,20 +88,16 @@ export default function EspacioCentro({
 
 
         } else if (numeroVentanas >= 1) {
-            // Si hay una o más ventanas, mostrar/ocultar preview
             setShowPreview(!showPreview);
         }
     };
 
     const handleMouseEnter = () => {
         if (numeroVentanas >= 1) {
-            // *** MODIFICACIÓN 3: Implementar timeout de 2 segundos ***
-            // Limpiar cualquier timeout existente
             if (timeoutRef.current) {
                 clearTimeout(timeoutRef.current);
             }
 
-            // Establecer nuevo timeout de 2 segundos
             timeoutRef.current = setTimeout(() => {
                 setShowPreview(true);
                 timeoutRef.current = null;
@@ -115,19 +106,16 @@ export default function EspacioCentro({
     };
 
     const handleMouseLeave = () => {
-        // *** MODIFICACIÓN 4: Limpiar timeout al salir del hover ***
         if (timeoutRef.current) {
             clearTimeout(timeoutRef.current);
             timeoutRef.current = null;
         }
 
-        // Pequeño delay para permitir que el usuario mueva el mouse a la preview
         setTimeout(() => {
             if (previewRef.current && !previewRef.current.matches(':hover') &&
                 iconRef.current && !iconRef.current.matches(':hover')) {
                 setShowPreview(false);
                 setHoveredVentana(null);
-                // Limpiar el hover cuando se sale de la preview
                 if (onHoverVentana) {
                     onHoverVentana(null);
                 }
@@ -138,7 +126,6 @@ export default function EspacioCentro({
     const handlePreviewMouseLeave = () => {
         setShowPreview(false);
         setHoveredVentana(null);
-        // Limpiar el hover cuando se sale de la preview
         if (onHoverVentana) {
             onHoverVentana(null);
         }
@@ -188,7 +175,6 @@ export default function EspacioCentro({
         }
         setShowPreview(false);
         setHoveredVentana(null);
-        // Limpiar el hover al seleccionar una ventana
         if (onHoverVentana) {
             onHoverVentana(null);
         }
@@ -206,7 +192,6 @@ export default function EspacioCentro({
             toggleVerProyectos();
         }
 
-        // Ocultar la vista previa después de cerrar una ventana
         setShowPreview(false);
         setHoveredVentana(null);
         if (onHoverVentana) {
@@ -214,7 +199,6 @@ export default function EspacioCentro({
         }
     };
 
-    // Manejar hover sobre las miniaturas individuales
     const handleMiniatureHover = (ventanaType) => {
         setHoveredVentana(ventanaType);
         if (onHoverVentana) {
@@ -229,7 +213,6 @@ export default function EspacioCentro({
         }
     };
 
-    // Efecto para ocultar la vista previa cuando no hay ventanas
     useEffect(() => {
         if (numeroVentanas === 0) {
             setShowPreview(false);
@@ -240,7 +223,6 @@ export default function EspacioCentro({
         }
     }, [numeroVentanas, onHoverVentana]);
 
-    // Cerrar preview al hacer clic fuera
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (previewRef.current && !previewRef.current.contains(event.target) &&
@@ -262,7 +244,6 @@ export default function EspacioCentro({
         };
     }, [showPreview]);
 
-    // *** MODIFICACIÓN 5: useEffect para limpiar timeout al desmontar componente ***
     useEffect(() => {
         return () => {
             if (timeoutRef.current) {

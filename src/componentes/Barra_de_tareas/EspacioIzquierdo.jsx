@@ -5,7 +5,7 @@ import BarradeBusqueda from "./Barra_de_busqueda/BarradeBusqueda";
 export default function EspacioIzquierdo({ toggleVerVentanaInicio, toggleVerVentanaBusqueda,
                                             setVerVentanaBusqueda, verVentanaBusqueda,
                                             setVerVentanaInicio, verVentanaInicio,
-                                            verEspacioDerechoMobile, setVerEspacioDerechoMobile,
+                                            verEspacioDerechoMobile,
                                             toggleVerEspacioDerechoMobile
                                         }) {
 
