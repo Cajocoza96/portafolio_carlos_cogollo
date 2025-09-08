@@ -32,8 +32,8 @@ export default function Archivo({ nombre, onDoubleClick, onTouchEnd, handleClass
     
     return (
         <div className={`${handleClassName} flex flex-col items-center justify-around
-                        hover:border hover:border-gray-300
-                        active:border active:border-gray-300
+                        hover:outline hover:outline-gray-300
+                        active:outline active:outline-gray-300
                         hover:bg-blue-300/30 active:bg-blue-300/30
                         dark:hover:bg-gray-300/30 dark:active:bg-gray-300/30
                             h-20 w-22 px-1 select-none`}

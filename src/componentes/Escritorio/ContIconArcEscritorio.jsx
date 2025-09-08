@@ -41,7 +41,7 @@ const ContenidoContacto = ({ data }) => (
             </p>
         </div>
 
-        <div className="mb-2">
+        <div className="mb-4">
             <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
                 {data.texto2}
             </p>
@@ -53,14 +53,31 @@ const ContenidoContacto = ({ data }) => (
             </p>
         </div>
 
-        <div className="mb-2">
+        <div className="mb-4">
             <a href={data.texto3LinkEnlace}
                 className="inline break-words text-sm
                         text-black dark:text-white whitespace-pre-wrap"
                 target="_blank"
                 rel="noopener noreferrer"
             >
-                {data.texto3LinkEnlace}
+                {data.texto3LinkTextoEnlace}
+            </a>
+        </div>
+
+        <div className="mb-2">
+            <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
+                {data.texto4LinkTexto}
+            </p>
+        </div>
+
+        <div className="mb-2">
+            <a href={data.texto4LinkEnlace}
+                className="inline break-words text-sm
+                        text-black dark:text-white whitespace-pre-wrap"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                {data.texto4LinkEnlace}
             </a>
         </div>
     </>

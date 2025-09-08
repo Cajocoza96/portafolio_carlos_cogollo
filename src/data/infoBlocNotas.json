@@ -11,8 +11,11 @@
         "titulo": "Contacto.txt",
         "texto1": "Correo electrónico: carloscogoza@gmail.com",
         "texto2": "Celular: +57 324 570 0924",
-        "texto3LinkTexto": "LinkedIn:",
-        "texto3LinkEnlace": "https://www.linkedin.com/in/carlos-jose-cogollo-zapateiro-261a26357?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
+        "texto3LinkTexto": "Contáctame por WhatsApp",
+        "texto3LinkTextoEnlace": "Presiona aquí (+57 324 570 0924)",
+        "texto3LinkEnlace": "https://wa.me/573245700924?text=Cordial%20saludo,%20soy%20Carlos%20Cogollo.%20Este%20es%20mi%20WhatsApp%20personal,%20quedo%20atento%20a%20su%20mensaje.",
+        "texto4LinkTexto": "LinkedIn:",
+        "texto4LinkEnlace": "https://www.linkedin.com/in/carlos-jose-cogollo-zapateiro-261a26357?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
     },
 
     "habilidades": {
@@ -22,7 +25,7 @@
         "texto3": "Control de Versiones: Git, GitHub",
         "texto4": "Idiomas:",
         "texto5": "Español (nativo)",
-        "texto6": "Inglés (intermedio - Nivel 4 English Does Work - SENA)"
+        "texto6": "Inglés (básico alto - Nivel 4 English Does Work - SENA)"
     }, 
 
     "proyectos": {
