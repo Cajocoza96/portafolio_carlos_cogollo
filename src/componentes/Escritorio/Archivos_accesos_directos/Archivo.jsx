@@ -46,7 +46,7 @@ export default function Archivo({ nombre, onDoubleClick, onTouchEnd, handleClass
             }}
         >
             <FaRegFileAlt className="text-xl lg:text-2xl 2xl:text-3xl text-white" />
-            <p className="text-xs 2xl:text-base text-white text-center"
+            <p className="text-xs text-white text-center"
                 style={{ textShadow: "0 2px 6px rgba(0,0,0,0.75)" }}>
                 {nombre}
             </p>
