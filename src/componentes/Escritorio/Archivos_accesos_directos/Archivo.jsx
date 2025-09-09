@@ -45,7 +45,7 @@ export default function Archivo({ nombre, onDoubleClick, onTouchEnd, handleClass
                 if (e.key === "Enter" || e.key === " ") onClick?.(e);
             }}
         >
-            <FaRegFileAlt className="text-xl lg:text-2xl 2xl:text-3xl text-white" />
+            <FaRegFileAlt className="text-xl lg:text-2xl text-white" />
             <p className="text-xs text-white text-center"
                 style={{ textShadow: "0 2px 6px rgba(0,0,0,0.75)" }}>
                 {nombre}
