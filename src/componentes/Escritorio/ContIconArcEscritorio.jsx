@@ -465,7 +465,7 @@ export default function ContIconArcEscritorio({
 
     const ICON_WIDTH = 82;
     const ICON_HEIGHT = 72;
-    const MARGIN = 6;
+    const MARGIN = 5;
 
     const getContainerDimensions = () => {
         if (containerRef.current) {
