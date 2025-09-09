@@ -8,8 +8,8 @@ export default function useVentanaPrincipal({ ventanaState, handleVentanaStateCh
 
     // Estado para las dimensiones en tiempo real durante el redimensionamiento
     const [currentDimensions, setCurrentDimensions] = useState({
-        width: ventanaState?.width || (isMobile ? 300 : 600),
-        height: ventanaState?.height || (isMobile ? 200 : 400)
+        width: ventanaState?.width || (isMobile ? 300 : 500),
+        height: ventanaState?.height || (isMobile ? 200 : 300)
     });
 
     const [isMaximized, setIsMaximized] = useState(ventanaState?.isMaximized || false);
@@ -23,8 +23,8 @@ export default function useVentanaPrincipal({ ventanaState, handleVentanaStateCh
         const windowWidth = windowDimensions.width;
         const windowHeight = windowDimensions.height;
 
-        const ventanaWidth = isMobile ? 300 : 600;
-        const ventanaHeight = isMobile ? 200 : 400;
+        const ventanaWidth = isMobile ? 300 : 500;
+        const ventanaHeight = isMobile ? 200 : 300;
 
         return {
             x: Math.max(0, (windowWidth - ventanaWidth) / 2),

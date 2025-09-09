@@ -31,12 +31,12 @@ export default function Archivo({ nombre, onDoubleClick, onTouchEnd, handleClass
     };
     
     return (
-        <div className={`${handleClassName} flex flex-col items-center justify-around
+        <div className={`${handleClassName} flex flex-col items-center justify-between
                         hover:outline hover:outline-gray-300
                         active:outline active:outline-gray-300
                         hover:bg-blue-300/30 active:bg-blue-300/30
                         dark:hover:bg-gray-300/30 dark:active:bg-gray-300/30
-                            h-20 w-22 px-1 select-none`}
+                            h-18 w-22 p-1 select-none my-1`}
             onDoubleClick={onDoubleClick}
             onTouchEnd={handleTouchEnd}
             role="button"
@@ -45,7 +45,7 @@ export default function Archivo({ nombre, onDoubleClick, onTouchEnd, handleClass
                 if (e.key === "Enter" || e.key === " ") onClick?.(e);
             }}
         >
-            <FaRegFileAlt className="text-xl lg:text-2xl text-white" />
+            <FaRegFileAlt className="text-2xl lg:text-3xl text-white" />
             <p className="text-xs text-white text-center"
                 style={{ textShadow: "0 2px 6px rgba(0,0,0,0.75)" }}>
                 {nombre}

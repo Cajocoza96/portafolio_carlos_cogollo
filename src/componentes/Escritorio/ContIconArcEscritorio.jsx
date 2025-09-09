@@ -463,9 +463,34 @@ export default function ContIconArcEscritorio({
     const draggingRef = useRef(false);
     const dragStartPos = useRef({ x: 0, y: 0, time: 0 });
 
-    const ICON_WIDTH = 82;
-    const ICON_HEIGHT = 72;
+    const ICON_WIDTH = 90;
+    const ICON_HEIGHT = 74;
     const MARGIN = 5;
+
+    // Función para determinar el tipo de dispositivo y orientación
+    const getDeviceAndOrientation = () => {
+        const { width, height } = getContainerDimensions();
+        const aspectRatio = width / height;
+        
+        // Detectar tipo de dispositivo
+        const isMobileDevice = width < 768;
+        const isTablet = width >= 768 && width < 1024;
+        const isDesktop = width >= 1024;
+        
+        // Detectar orientación
+        const isLandscape = aspectRatio > 1;
+        const isPortrait = aspectRatio <= 1;
+        
+        return {
+            isMobileDevice,
+            isTablet,
+            isDesktop,
+            isLandscape,
+            isPortrait,
+            width,
+            height
+        };
+    };
 
     const getContainerDimensions = () => {
         if (containerRef.current) {
@@ -477,19 +502,47 @@ export default function ContIconArcEscritorio({
         }
         return {
             width: window.innerWidth,
-            height: window.innerHeight
+            height: window.innerHeight - 40 // Restamos la altura del bottom-10
         };
     };
 
-    const [iconPositions, setIconPositions] = useState(() => {
-        const initialWidth = window.innerWidth;
-        const initialIsMobile = initialWidth < 768; 
+    // Función mejorada para posicionar iconos en línea según el dispositivo
+    const calculateLinePositions = () => {
+        const device = getDeviceAndOrientation();
         const iconKeys = ['acercaDe', 'contacto', 'habilidades', 'proyectos'];
+        const newPositions = {};
 
-        if (initialIsMobile) {
-            const iconsPerRow = Math.floor((initialWidth - MARGIN) / (ICON_WIDTH + MARGIN));
-            const newPositions = {};
+        if (device.isDesktop || (device.isTablet && device.isLandscape) || 
+            (device.isMobileDevice && device.isLandscape)) {
+            // LÍNEA HORIZONTAL para: Desktop, Tablet horizontal, Móvil horizontal
+            const totalIconsWidth = iconKeys.length * ICON_WIDTH + (iconKeys.length - 1) * MARGIN;
+            const startX = Math.max(MARGIN, (device.width - totalIconsWidth) / 2);
+            const centerY = Math.max(MARGIN, (device.height - ICON_HEIGHT) / 2);
 
+            iconKeys.forEach((iconId, index) => {
+                newPositions[iconId] = {
+                    x: startX + index * (ICON_WIDTH + MARGIN),
+                    y: centerY
+                };
+            });
+
+        } else if (device.isMobileDevice && device.isPortrait) {
+            // LÍNEA VERTICAL para: Móvil vertical
+            const totalIconsHeight = iconKeys.length * ICON_HEIGHT + (iconKeys.length - 1) * MARGIN;
+            const centerX = Math.max(MARGIN, (device.width - ICON_WIDTH) / 2);
+            const startY = Math.max(MARGIN, (device.height - totalIconsHeight) / 2);
+
+            iconKeys.forEach((iconId, index) => {
+                newPositions[iconId] = {
+                    x: centerX,
+                    y: startY + index * (ICON_HEIGHT + MARGIN)
+                };
+            });
+
+        } else {
+            // FALLBACK - Grid para casos especiales
+            const iconsPerRow = Math.floor((device.width - MARGIN) / (ICON_WIDTH + MARGIN));
+            
             iconKeys.forEach((iconId, index) => {
                 const row = Math.floor(index / iconsPerRow);
                 const col = index % iconsPerRow;
@@ -499,20 +552,13 @@ export default function ContIconArcEscritorio({
                     y: MARGIN + row * (ICON_HEIGHT + MARGIN)
                 };
             });
-
-            return newPositions;
-        } else {
-            const newPositions = {};
-
-            iconKeys.forEach((iconId, index) => {
-                newPositions[iconId] = {
-                    x: MARGIN,
-                    y: MARGIN + index * (ICON_HEIGHT + 10)
-                };
-            });
-
-            return newPositions;
         }
+
+        return newPositions;
+    };
+
+    const [iconPositions, setIconPositions] = useState(() => {
+        return calculateLinePositions();
     });
 
     const smartRepositionIcons = () => {
@@ -520,10 +566,14 @@ export default function ContIconArcEscritorio({
         const maxX = width - ICON_WIDTH;
         const maxY = height - ICON_HEIGHT;
 
+        // Recalcular posiciones en línea
+        const newLinePositions = calculateLinePositions();
+
         setIconPositions(prevPositions => {
-            const newPositions = { ...prevPositions };
+            const newPositions = { ...newLinePositions };
             const iconKeys = Object.keys(newPositions);
 
+            // Validar límites
             iconKeys.forEach(iconId => {
                 if (newPositions[iconId].x > maxX) {
                     newPositions[iconId].x = Math.max(0, maxX);
@@ -538,34 +588,6 @@ export default function ContIconArcEscritorio({
                     newPositions[iconId].y = 0;
                 }
             });
-
-            if (isMobile) {
-                const hasMultipleCollisions = iconKeys.some((iconId, index) => {
-                    return iconKeys.slice(index + 1).some(otherId => {
-                        const pos1 = newPositions[iconId];
-                        const pos2 = newPositions[otherId];
-                        return !(
-                            pos1.x + ICON_WIDTH < pos2.x ||
-                            pos1.x > pos2.x + ICON_WIDTH ||
-                            pos1.y + ICON_HEIGHT < pos2.y ||
-                            pos1.y > pos2.y + ICON_HEIGHT
-                        );
-                    });
-                });
-
-                if (hasMultipleCollisions) {
-                    const iconsPerRow = Math.floor((width - MARGIN) / (ICON_WIDTH + MARGIN));
-                    iconKeys.forEach((iconId, index) => {
-                        const row = Math.floor(index / iconsPerRow);
-                        const col = index % iconsPerRow;
-
-                        newPositions[iconId] = {
-                            x: MARGIN + col * (ICON_WIDTH + MARGIN),
-                            y: MARGIN + row * (ICON_HEIGHT + MARGIN)
-                        };
-                    });
-                }
-            }
 
             return newPositions;
         });
@@ -585,9 +607,12 @@ export default function ContIconArcEscritorio({
         }
 
         window.addEventListener('resize', handleResize);
+        // También escuchar cambios de orientación
+        window.addEventListener('orientationchange', handleResize);
 
         return () => {
             window.removeEventListener('resize', handleResize);
+            window.removeEventListener('orientationchange', handleResize);
         };
     }, [isMobile]);
 
@@ -622,45 +647,40 @@ export default function ContIconArcEscritorio({
         };
     };
 
+    // Estados de ventana (sin cambios)
     const [ventanaStateAcercaDe, setVentanaStateAcercaDe] = useState(null);
-
     const handleVentanaStateChangeAcercaDe = (newState) => {
         setVentanaStateAcercaDe(newState);
     };
 
     const [ventanaStateContacto, setVentanaStateContacto] = useState(null);
-
     const handleVentanaStateChangeContacto = (newState) => {
         setVentanaStateContacto(newState);
     };
 
     const [ventanaStateHabilidades, setVentanaStateHabilidades] = useState(null);
-
     const handleVentanaStateChangeHabilidades = (newState) => {
         setVentanaStateHabilidades(newState);
     };
 
     const [ventanaStateProyectos, setVentanaStateProyectos] = useState(null);
-
     const handleVentanaStateChangeProyectos = (newState) => {
         setVentanaStateProyectos(newState);
     };
 
+    // Handlers de click (sin cambios)
     const handleClickArchivoAcercaDe = () => {
         if (draggingRef.current) {
             draggingRef.current = false;
             return;
         }
-
         if (verAcercaDe && ventanaMinimizadaAcercaDe) {
             toggleMinimizarVentanaAcercaDe();
             bringToFront('acercaDe');
             return;
-
         } else if (verAcercaDe && !ventanaMinimizadaAcercaDe) {
             bringToFront('acercaDe');
             return;
-
         } else {
             toggleVerAcercaDe();
             setTimeout(() => {
@@ -674,16 +694,13 @@ export default function ContIconArcEscritorio({
             draggingRef.current = false;
             return;
         }
-
         if (verContacto && ventanaMinimizadaContacto) {
             toggleMinimizarVentanaContacto();
             bringToFront('contacto');
             return;
-
         } else if (verContacto && !ventanaMinimizadaContacto) {
             bringToFront('contacto');
             return;
-
         } else {
             toggleVerContacto();
             setTimeout(() => {
@@ -697,16 +714,13 @@ export default function ContIconArcEscritorio({
             draggingRef.current = false;
             return;
         }
-
         if (verHabilidades && ventanaMinimizadaHabilidades) {
             toggleMinimizarVentanaHabilidades();
             bringToFront('habilidades');
             return;
-
         } else if (verHabilidades && !ventanaMinimizadaHabilidades) {
             bringToFront('habilidades');
             return;
-
         } else {
             toggleVerHabilidades();
             setTimeout(() => {
@@ -720,16 +734,13 @@ export default function ContIconArcEscritorio({
             draggingRef.current = false;
             return;
         }
-
         if (verProyectos && ventanaMinimizadaProyectos) {
             toggleMinimizarVentanaProyectos();
             bringToFront('proyectos');
             return;
-
         } else if (verProyectos && !ventanaMinimizadaProyectos) {
             bringToFront('proyectos');
             return;
-
         } else {
             toggleVerProyectos();
             setTimeout(() => {
@@ -786,7 +797,7 @@ export default function ContIconArcEscritorio({
             draggingRef.current = false;
         }
     };
-
+    
     return (
         <div
             ref={containerRef}
