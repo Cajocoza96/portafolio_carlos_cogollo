@@ -265,20 +265,6 @@ export default function Escritorio() {
 
     return (
         <>
-            <div className="w-full">
-                <OptimizedImage
-                    src={imageConfig.src}
-                    alt={imageConfig.alt}
-                    className="w-screen brightness-60 dark:brightness-50"
-                    asBackground={true}
-                    backgroundSize="cover"
-                    backgroundPosition="center"
-                    minHeight="100svh"
-                    showSkeleton={false}
-                    {...IMAGE_CONFIGS.CRITICAL}
-                />
-            </div>
-
             <ContIconArcEscritorio
                 toggleVerAcercaDe={toggleVerAcercaDe}
                 verAcercaDe={verAcercaDe}

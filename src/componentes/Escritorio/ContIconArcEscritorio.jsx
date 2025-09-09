@@ -467,7 +467,6 @@ export default function ContIconArcEscritorio({
     const ICON_HEIGHT = 74;
     const MARGIN = 5;
 
-    // Función para determinar el tipo de dispositivo y orientación
     const getDeviceAndOrientation = () => {
         const { width, height } = getContainerDimensions();
         const aspectRatio = width / height;
@@ -506,7 +505,7 @@ export default function ContIconArcEscritorio({
         };
     };
 
-    // Función mejorada para posicionar iconos en línea según el dispositivo
+    // Posicionar iconos en línea según el dispositivo
     const calculateLinePositions = () => {
         const device = getDeviceAndOrientation();
         const iconKeys = ['acercaDe', 'contacto', 'habilidades', 'proyectos'];
