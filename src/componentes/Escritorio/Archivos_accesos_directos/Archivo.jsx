@@ -36,7 +36,7 @@ export default function Archivo({ nombre, onDoubleClick, onTouchEnd, handleClass
                         active:outline active:outline-gray-300
                         hover:bg-blue-300/30 active:bg-blue-300/30
                         dark:hover:bg-gray-300/30 dark:active:bg-gray-300/30
-                            h-18 w-22 p-1 select-none my-1`}
+                            h-18 w-22 p-1 select-none my-1 mx-1`}
             onDoubleClick={onDoubleClick}
             onTouchEnd={handleTouchEnd}
             role="button"
