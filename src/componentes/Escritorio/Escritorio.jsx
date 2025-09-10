@@ -269,7 +269,7 @@ export default function Escritorio() {
             <OptimizedImage
                 src={imageConfig.src}
                 alt={imageConfig.alt}
-                className="w-screen brightness-60 dark:brightness-50"
+                className="fixed inset-0 w-screen brightness-60 dark:brightness-50"
                 asBackground={true}
                 backgroundSize="cover"
                 backgroundPosition="center"
