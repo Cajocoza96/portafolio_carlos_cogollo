@@ -249,7 +249,7 @@ export default function Escritorio() {
     }, [verAcercaDe, verContacto, verHabilidades, verProyectos]);
 
     return (
-        <>
+        <div className="bg-red-600">
             <ContIconArcEscritorio
                 toggleVerAcercaDe={toggleVerAcercaDe}
                 verAcercaDe={verAcercaDe}
@@ -435,6 +435,6 @@ export default function Escritorio() {
                 verEspacioDerechoMobile={verEspacioDerechoMobile}
                 toggleVerEspacioDerechoMobile={toggleVerEspacioDerechoMobile}
             />
-        </>
+        </div>
     );
 }
