@@ -21,7 +21,7 @@ export default function App() {
   }, [isMobile]);
 
   return (
-    <div className="bg-blue-950 dark:bg-gray-950 min-h-[100svh] flex flex-col">
+    <div className="bg-blue-950 dark:bg-gray-950 h-[100svh] flex flex-col">
       <OptimizedImage
         src={imageConfig.src}
         alt={imageConfig.alt}
@@ -33,7 +33,10 @@ export default function App() {
         showSkeleton={false}
         {...IMAGE_CONFIGS.CRITICAL}
       />
-      <Escritorio />
+
+      <div className="flex 1 min-h-0">
+        <Escritorio />
+      </div>
     </div>
 
   );
