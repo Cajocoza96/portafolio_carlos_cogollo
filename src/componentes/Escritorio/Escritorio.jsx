@@ -369,7 +369,7 @@ export default function Escritorio() {
 
             {verVentanaBloqueo && (
                 <div className="bg-blue-700 w-screen min-h-[100svh]  
-                        fixed inset-0 z-1000">
+                        fixed inset-0 z-1000 touch-pan-x touch-pan-y">
                     <VistaApagadoInicio
                         accionApagadoInicio="Bloqueando"
                         mentiraApagadoInicio="bloqueado"
@@ -380,7 +380,7 @@ export default function Escritorio() {
 
             {verVentanaSuspendido && (
                 <div className="bg-blue-700 w-screen min-h-[100svh]  
-                fixed inset-0 z-1000">
+                fixed inset-0 z-1000 touch-pan-x touch-pan-y">
                     <VistaApagadoInicio
                         accionApagadoInicio="Suspendiendo"
                         mentiraApagadoInicio="suspendido"
@@ -391,7 +391,7 @@ export default function Escritorio() {
 
             {verVentanaApagado && (
                 <div className="bg-blue-700 w-screen min-h-[100svh]  
-                fixed inset-0 z-1000">
+                fixed inset-0 z-1000 touch-pan-x touch-pan-y">
                     <VistaApagadoInicio
                         accionApagadoInicio="Apagando"
                         mentiraApagadoInicio="apagado"
@@ -402,7 +402,7 @@ export default function Escritorio() {
 
             {verVentanaReinicio && (
                 <div className="bg-blue-700 w-screen min-h-[100svh]  
-                fixed inset-0 z-1000">
+                fixed inset-0 z-1000 touch-pan-x touch-pan-y">
                     <VistaApagadoInicio
                         accionApagadoInicio="Reiniciando"
                         mentiraApagadoInicio="reiniciado"
