@@ -368,35 +368,47 @@ export default function Escritorio() {
             */}
 
             {verVentanaBloqueo && (
-                <VistaApagadoInicio
-                    accionApagadoInicio="Bloqueando"
-                    mentiraApagadoInicio="bloqueado"
-                    userInteracted={userInteracted}
-                />
+                <div className="bg-blue-700 w-screen min-h-[100svh]  
+                        fixed inset-0 z-1000">
+                    <VistaApagadoInicio
+                        accionApagadoInicio="Bloqueando"
+                        mentiraApagadoInicio="bloqueado"
+                        userInteracted={userInteracted}
+                    />
+                </div>
             )}
 
             {verVentanaSuspendido && (
-                <VistaApagadoInicio
-                    accionApagadoInicio="Suspendiendo"
-                    mentiraApagadoInicio="suspendido"
-                    userInteracted={userInteracted}
-                />
+                <div className="bg-blue-700 w-screen min-h-[100svh]  
+                fixed inset-0 z-1000">
+                    <VistaApagadoInicio
+                        accionApagadoInicio="Suspendiendo"
+                        mentiraApagadoInicio="suspendido"
+                        userInteracted={userInteracted}
+                    />
+                </div>
             )}
 
             {verVentanaApagado && (
-                <VistaApagadoInicio
-                    accionApagadoInicio="Apagando"
-                    mentiraApagadoInicio="apagado"
-                    userInteracted={userInteracted}
-                />
+                <div className="bg-blue-700 w-screen min-h-[100svh]  
+                fixed inset-0 z-1000">
+                    <VistaApagadoInicio
+                        accionApagadoInicio="Apagando"
+                        mentiraApagadoInicio="apagado"
+                        userInteracted={userInteracted}
+                    />
+                </div>
             )}
 
             {verVentanaReinicio && (
-                <VistaApagadoInicio
-                    accionApagadoInicio="Reiniciando"
-                    mentiraApagadoInicio="reiniciado"
-                    userInteracted={userInteracted}
-                />
+                <div className="bg-blue-700 w-screen min-h-[100svh]  
+                fixed inset-0 z-1000">
+                    <VistaApagadoInicio
+                        accionApagadoInicio="Reiniciando"
+                        mentiraApagadoInicio="reiniciado"
+                        userInteracted={userInteracted}
+                    />
+                </div>
             )}
 
             <BarraDeTareas
