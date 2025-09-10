@@ -21,7 +21,7 @@ export default function App() {
   }, [isMobile]);
 
   return (
-    <div className="bg-blue-950 dark:bg-gray-950 h-[100svh] flex flex-col">
+    <div className="bg-blue-950 dark:bg-gray-950 min-h-[100svh] flex flex-col">
       <OptimizedImage
         src={imageConfig.src}
         alt={imageConfig.alt}
