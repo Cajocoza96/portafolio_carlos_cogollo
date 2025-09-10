@@ -2,6 +2,13 @@ import React, { useState, useEffect, useMemo } from "react";
 
 import { AnimatePresence } from "framer-motion";
 
+import useIsMobile from "../../hooks/useIsMobile";
+
+import OptimizedImage, { IMAGE_CONFIGS } from "../common/OptimizedImage";
+
+import windowsEscritorioHorizontal from "/assets/img/escritorio/normal/windowsEscritorioHorizontal.webp";
+import windowsEscritorioVertical from "/assets/img/escritorio/normal/windowsEscritorioVertical.webp";
+
 import infoBlocNotas from "../../data/infoBlocNotas.json";
 
 import BarraDeTareas from "../Barra_de_tareas/BarraDeTareas";
@@ -17,6 +24,15 @@ import VentanaBusqueda from "../Ventanas/Ventana_busqueda/VentanaBusqueda";
 import ContEspacioDerechoMobile from "../Barra_de_tareas/ContEspacioDerechoMobile";
 
 export default function Escritorio() {
+
+    const isMobile = useIsMobile();
+
+    const imageConfig = useMemo(() => {
+        return {
+            src: isMobile ? windowsEscritorioVertical : windowsEscritorioHorizontal,
+            alt: isMobile ? "Bienvenido vista vertical" : "Bienvenido vista horizontal"
+        };
+    }, [isMobile]);
 
     const ventanaInicio = "ventanaInicio";
 
@@ -249,7 +265,17 @@ export default function Escritorio() {
     }, [verAcercaDe, verContacto, verHabilidades, verProyectos]);
 
     return (
-        <div className="bg-red-600">
+        <>
+            <OptimizedImage
+                src={imageConfig.src}
+                alt={imageConfig.alt}
+                className="w-screen brightness-60 dark:brightness-50"
+                asBackground={true}
+                backgroundSize="cover"
+                backgroundPosition="center"
+                showSkeleton={false}
+                {...IMAGE_CONFIGS.CRITICAL}
+            />
             <ContIconArcEscritorio
                 toggleVerAcercaDe={toggleVerAcercaDe}
                 verAcercaDe={verAcercaDe}
@@ -435,6 +461,6 @@ export default function Escritorio() {
                 verEspacioDerechoMobile={verEspacioDerechoMobile}
                 toggleVerEspacioDerechoMobile={toggleVerEspacioDerechoMobile}
             />
-        </div>
+        </>
     );
 }
