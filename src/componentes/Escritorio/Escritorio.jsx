@@ -273,6 +273,7 @@ export default function Escritorio() {
                 asBackground={true}
                 backgroundSize="cover"
                 backgroundPosition="center"
+                minHeight="100svh"
                 showSkeleton={false}
                 {...IMAGE_CONFIGS.CRITICAL}
             />
