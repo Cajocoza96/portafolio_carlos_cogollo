@@ -2,13 +2,8 @@ import React, { useState, useEffect, useMemo } from "react";
 
 import { AnimatePresence } from "framer-motion";
 
-import useIsMobile from "../../hooks/useIsMobile";
-import windowsEscritorioHorizontal from "/assets/img/escritorio/normal/windowsEscritorioHorizontal.webp";
-import windowsEscritorioVertical from "/assets/img/escritorio/normal/windowsEscritorioVertical.webp";
-
 import infoBlocNotas from "../../data/infoBlocNotas.json";
 
-import OptimizedImage, { IMAGE_CONFIGS } from "../common/OptimizedImage";
 import BarraDeTareas from "../Barra_de_tareas/BarraDeTareas";
 
 import VentanaInicio from "../Ventanas/Ventana_inicio/VentanaInicio";
@@ -39,16 +34,6 @@ export default function Escritorio() {
     const infoContacto = infoBlocNotas.contacto;
     const infoHabilidades = infoBlocNotas.habilidades;
     const infoProyectos = infoBlocNotas.proyectos;
-
-    const isMobile = useIsMobile();
-
-    const imageConfig = useMemo(() => {
-        return {
-            src: isMobile ? windowsEscritorioVertical : windowsEscritorioHorizontal,
-            alt: isMobile ? "Bienvenido vista vertical" : "Bienvenido vista horizontal"
-        };
-    }, [isMobile]);
-
 
     const [zIndexCounter, setZIndexCounter] = useState(1000);
     const [ventanaZIndexes, setVentanaZIndexes] = useState({
@@ -251,12 +236,12 @@ export default function Escritorio() {
             setZIndexCounter(prevCounter => {
                 let newCounter = prevCounter;
                 const newZIndexes = { ...ventanaZIndexes };
-                
+
                 ventanasAbiertas.forEach(ventanaId => {
                     newCounter += 1;
                     newZIndexes[ventanaId] = newCounter;
                 });
-                
+
                 setVentanaZIndexes(newZIndexes);
                 return newCounter;
             });
@@ -430,19 +415,19 @@ export default function Escritorio() {
                 toggleVerEspacioDerechoMobile={toggleVerEspacioDerechoMobile}
             />
 
-            <ContEspacioDerechoMobile 
+            <ContEspacioDerechoMobile
                 verAcercaDe={verAcercaDe}
                 toggleMinimizarVentanaAcercaDe={toggleMinimizarVentanaAcercaDe}
-                ventanaMinimizadaAcercaDe={ventanaMinimizadaAcercaDe} 
-            
+                ventanaMinimizadaAcercaDe={ventanaMinimizadaAcercaDe}
+
                 verContacto={verContacto}
                 toggleMinimizarVentanaContacto={toggleMinimizarVentanaContacto}
                 ventanaMinimizadaContacto={ventanaMinimizadaContacto}
-            
+
                 verHabilidades={verHabilidades}
                 toggleMinimizarVentanaHabilidades={toggleMinimizarVentanaHabilidades}
                 ventanaMinimizadaHabilidades={ventanaMinimizadaHabilidades}
-            
+
                 verProyectos={verProyectos}
                 toggleMinimizarVentanaProyectos={toggleMinimizarVentanaProyectos}
                 ventanaMinimizadaProyectos={ventanaMinimizadaProyectos}

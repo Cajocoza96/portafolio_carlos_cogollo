@@ -45,7 +45,8 @@ export default function BarraDeTareas({
     return (
         <div className="bg-blue-900 dark:bg-gray-900 gap-1
                         grid grid-cols-[7fr_1fr_1fr] md:grid-cols-[3fr_1fr_1fr]
-                        lg:grid-cols-3 z-60 items-center">
+                        lg:grid-cols-3 z-60 items-center
+                        fixed bottom-0 left-0 right-0 w-full">
             <EspacioIzquierdo
                 toggleVerVentanaInicio={toggleVerVentanaInicio}
                 toggleVerVentanaBusqueda={toggleVerVentanaBusqueda}
