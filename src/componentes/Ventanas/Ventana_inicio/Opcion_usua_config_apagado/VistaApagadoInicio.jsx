@@ -75,7 +75,7 @@ export default function VistaApagadoInicio({ accionApagadoInicio, mentiraApagado
             />
 
             {!showSecondContainer && (
-                <div className="h-[100svh] flex flex-col items-center justify-center gap-3">
+                <div className="h-[100dvh] flex flex-col items-center justify-center gap-3">
                     <FaSpinner className="animate-spin text-xl lg:text-2xl 2xl:text-3xl 
                                         text-white text-center"/>
 
@@ -87,7 +87,7 @@ export default function VistaApagadoInicio({ accionApagadoInicio, mentiraApagado
             )}
 
             {showSecondContainer && (
-                <div className="h-[100svh] flex flex-col items-center justify-center gap-3">
+                <div className="h-[100dvh] flex flex-col items-center justify-center gap-3">
                     <Confetti
                         width={confettiDimensions.width}
                         height={confettiDimensions.height}

@@ -273,7 +273,7 @@ export default function Escritorio() {
                 asBackground={true}
                 backgroundSize="cover"
                 backgroundPosition="center"
-                minHeight="100svh"
+                minHeight="100dvh"
                 showSkeleton={false}
                 {...IMAGE_CONFIGS.CRITICAL}
             />
@@ -368,7 +368,7 @@ export default function Escritorio() {
             */}
 
             {verVentanaBloqueo && (
-                <div className="bg-blue-700 w-screen min-h-[100svh]  
+                <div className="bg-blue-700 w-screen min-h-[100dvh]  
                         fixed inset-0 z-1000 touch-pan-x touch-pan-y">
                     <VistaApagadoInicio
                         accionApagadoInicio="Bloqueando"
@@ -379,7 +379,7 @@ export default function Escritorio() {
             )}
 
             {verVentanaSuspendido && (
-                <div className="bg-blue-700 w-screen min-h-[100svh]  
+                <div className="bg-blue-700 w-screen min-h-[100dvh]  
                 fixed inset-0 z-1000 touch-pan-x touch-pan-y">
                     <VistaApagadoInicio
                         accionApagadoInicio="Suspendiendo"
@@ -390,7 +390,7 @@ export default function Escritorio() {
             )}
 
             {verVentanaApagado && (
-                <div className="bg-blue-700 w-screen min-h-[100svh]  
+                <div className="bg-blue-700 w-screen min-h-[100dvh]  
                 fixed inset-0 z-1000 touch-pan-x touch-pan-y">
                     <VistaApagadoInicio
                         accionApagadoInicio="Apagando"
@@ -401,7 +401,7 @@ export default function Escritorio() {
             )}
 
             {verVentanaReinicio && (
-                <div className="bg-blue-700 w-screen min-h-[100svh]  
+                <div className="bg-blue-700 w-screen min-h-[100dvh]  
                 fixed inset-0 z-1000 touch-pan-x touch-pan-y">
                     <VistaApagadoInicio
                         accionApagadoInicio="Reiniciando"
