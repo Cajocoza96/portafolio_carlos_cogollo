@@ -24,15 +24,17 @@ export default function InfoUsuario({ toogleVerInfoUsuario }) {
 
                     <div className="w-full flex flex-row items-center gap-2">
 
-                        <div className="grid grid-cols-2">
+                        <div className="grid grid-cols-3">
                             <div className="bg-red-600 w-2.5 h-2.5"></div>
                             <div className="bg-green-600 w-2.5 h-2.5"></div>
                             <div className="bg-blue-600 w-2-5 h-2.5"></div>
                             <div className="bg-orange-600 w-2.5 h-2.5"></div>
+                            <div className="bg-yellow-600 w-2-5 h-2.5"></div>
+                            <div className="bg-violet-600 w-2.5 h-2.5"></div>
                         </div>
 
                         <p className="text-xs lg:text-sm 2xl:text-base text-white">
-                            Microsoft
+                            Migaton
                         </p>
 
                     </div>

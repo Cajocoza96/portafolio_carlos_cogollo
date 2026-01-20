@@ -6,8 +6,8 @@ import useIsMobile from "../../hooks/useIsMobile";
 
 import OptimizedImage, { IMAGE_CONFIGS } from "../common/OptimizedImage";
 
-import windowsEscritorioHorizontal from "/assets/img/escritorio/normal/windowsEscritorioHorizontal.webp";
-import windowsEscritorioVertical from "/assets/img/escritorio/normal/windowsEscritorioVertical.webp";
+import escritorioHorizontal from "/assets/img/escritorio/normal/escritorioHorizontal.webp";
+import escritorioVertical from "/assets/img/escritorio/normal/escritorioVertical.webp";
 
 import infoBlocNotas from "../../data/infoBlocNotas.json";
 
@@ -29,7 +29,7 @@ export default function Escritorio() {
 
     const imageConfig = useMemo(() => {
         return {
-            src: isMobile ? windowsEscritorioVertical : windowsEscritorioHorizontal,
+            src: isMobile ? escritorioVertical : escritorioHorizontal,
             alt: isMobile ? "Bienvenido vista vertical" : "Bienvenido vista horizontal"
         };
     }, [isMobile]);

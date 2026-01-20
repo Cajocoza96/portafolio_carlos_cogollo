@@ -163,6 +163,23 @@ const ContenidoProyectos = ({ data }) => (
 
         <div className="mb-2">
             <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
+                {data.item5.texto4_1LinkTexto}
+            </p>
+        </div>
+
+        <div className="mb-4">
+            <a href={data.item1.texto4_2LinkEnlace}
+                className="inline break-words text-sm 
+                        text-black dark:text-white whitespace-pre-wrap"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                {data.item5.texto4_2LinkEnlace}
+            </a>
+        </div>
+
+        <div className="mb-2">
+            <p className="text-black dark:text-white text-sm whitespace-pre-wrap">
                 {data.item5.texto5}
             </p>
         </div>

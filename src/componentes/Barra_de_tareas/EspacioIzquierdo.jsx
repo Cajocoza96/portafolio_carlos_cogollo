@@ -1,5 +1,5 @@
 import React from "react";
-import { FaWindows } from "react-icons/fa";
+import { FaCat } from "react-icons/fa";
 import BarradeBusqueda from "./Barra_de_busqueda/BarradeBusqueda";
 
 export default function EspacioIzquierdo({ toggleVerVentanaInicio, toggleVerVentanaBusqueda,
@@ -39,7 +39,7 @@ export default function EspacioIzquierdo({ toggleVerVentanaInicio, toggleVerVent
                             flex items-center justify-center
                             text-sm lg:text-base 2xl:text-xl"
                 onClick={handleClickVentanaInicioBusqueda}>
-                <FaWindows />
+                <FaCat />
             </div>
 
             <BarradeBusqueda
