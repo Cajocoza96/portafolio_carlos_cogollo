@@ -2,8 +2,8 @@
     "acercaDe":{
         "titulo": "Acerca de.txt",
         "texto1": "Hola, soy Carlos José Cogollo Zapateiro, graduado en Ingeniería de Software en la Universidad de Cartagena.",
-        "texto2": "Soy un apasionado por el desarrollo web, actualmente enfocado en el Front-End.",
-        "texto3": "Tengo conocimientos básicos en HTML, CSS y JavaScript, y me encuentro en continuo aprendizaje de React para perfeccionar mis habilidades. Explorando Node.js, Express y PostgreSQL",
+        "texto2": "Soy un apasionado por el desarrollo web, tengo conocimientos básicos en HTML, CSS y JavaScript.",
+        "texto3": "Actualmente enfocado en el Frontend con React, Backend con Node.js y Express, y base de datos PostgreSQL. Me encuentro en continuo aprendizaje para perfeccionar mis habilidades.",
         "texto4": "Me inspira la evolución constante de la tecnología y el reto de diseñar interfaces intuitivas, dinámicas y atractivas. Siempre busco nuevas oportunidades para crecer profesionalmente y aportar valor con mi trabajo."
     },
 
@@ -33,12 +33,12 @@
     "proyectos": {
         "titulo": "Proyectos.txt",
         "item5": {
-            "texto1": "Proyecto #1 (En desarrollo)",
+            "texto1": "Proyecto #1",
             "texto2": "Nombre proyecto: MisNotas360 – Aplicación Web de anotaciones",
             "texto3": "Descripción: Aplicación web para la creación, organización y gestión de anotaciones personales, impulsada con herramientas de Inteligencia Artificial.",
-            "texto4": "Funcionalidades:",
             "texto4_1LinkTexto": "Video demostración (Youtube):",
-            "texto4_2LinkEnlace": "Aun falta ya en esto....",
+            "texto4_2LinkEnlace": "https://www.youtube.com/watch?v=m8p1I6rHZCM",
+            "texto4": "Funcionalidades:",
             "texto5": "1 Crear anotaciones con:",
             "texto5_1": "-Título",
             "texto5_2": "-Cuerpo de la nota",
@@ -88,16 +88,14 @@
             "texto18_1": "-Usuario y contraseña",
             "texto18_2": "-Autenticación con Google",
             "texto19": "Frontend: React 19, Vite, React Router DOM, Redux Toolkit, Tailwind CSS, Framer Motion, Lottie React, React Icons, React Loading Skeleton, JWT Decode, OAuth con Google, tsParticles",
-            "texto20": "Backend: Node.js, Express, PostgreSQL, JSON Web Tokens (JWT), Bcrypt.js, Groq SDK (IA), Google Auth Library, Axios, Helmet, Express Rate Limit, CORS, Dotenv",
+            "texto20": "Backend: Node.js, Express, PostgreSQL, JSON Web Tokens (JWT), Bcrypt.js, Groq SDK (IA), Axios, Helmet, Express Rate Limit, CORS, Dotenv",
             "texto21": "Base de datos: PostgreSQL",
             "texto22": "API: Groq API AI",
             "texto23": "Repositorios:", 
             "texto24LinkTexto": "Frontend en GitHub:",
-            "texto24LinkEnlace": "...",
-            "texto25LinkTexto": "Backend en GitHub:",
-            "texto25LinkEnlace": "...",
+            "texto24LinkEnlace": "https://github.com/Cajocoza96/mis_notas_360_frontend.git",
             "texto26LinkTexto": "Vista en Vercel:",
-            "texto26LinkEnlace": "..."
+            "texto26LinkEnlace": "https://mis-notas-360-frontend.vercel.app/"
         },
         "item1": {
             "texto1": "Proyecto #2",
