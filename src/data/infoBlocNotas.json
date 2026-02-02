@@ -88,7 +88,7 @@
             "texto18_1": "-Usuario y contraseña",
             "texto18_2": "-Autenticación con Google",
             "texto19": "Frontend: React 19, Vite, React Router DOM, Redux Toolkit, Tailwind CSS, Framer Motion, Lottie React, React Icons, React Loading Skeleton, JWT Decode, OAuth con Google, tsParticles",
-            "texto20": "Backend: Node.js, Express, PostgreSQL, JSON Web Tokens (JWT), Bcrypt.js, Groq SDK (IA), Axios, Helmet, Express Rate Limit, CORS, Dotenv",
+            "texto20": "Backend: Node.js, Express, JSON Web Tokens (JWT), Bcrypt.js, Groq SDK (IA), Axios, Helmet, Express Rate Limit, CORS, Dotenv",
             "texto21": "Base de datos: PostgreSQL",
             "texto22": "API: Groq API AI",
             "texto23": "Repositorios:", 
