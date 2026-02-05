@@ -378,7 +378,7 @@ export default function Escritorio() {
                         right: 0,
                         bottom: 0
                     }}>
-                    <div className="bg-blue-700 absolute inset-0 w-full h-full">
+                    <div className="bg-blue-700 dark:bg-gray-900 absolute inset-0 w-full h-full">
                         <VistaApagadoInicio
                             accionApagadoInicio="Bloqueando"
                             mentiraApagadoInicio="bloqueado"
@@ -399,7 +399,7 @@ export default function Escritorio() {
                         right: 0,
                         bottom: 0
                     }}>
-                    <div className="bg-blue-700 absolute inset-0 w-full h-full">
+                    <div className="bg-blue-700 dark:bg-gray-900 absolute inset-0 w-full h-full">
                         <VistaApagadoInicio
                             accionApagadoInicio="Suspendiendo"
                             mentiraApagadoInicio="suspendido"
@@ -420,7 +420,7 @@ export default function Escritorio() {
                         right: 0,
                         bottom: 0
                     }}>
-                    <div className="bg-blue-700 absolute inset-0 w-full h-full">
+                    <div className="bg-blue-700 dark:bg-gray-900 absolute inset-0 w-full h-full">
                         <VistaApagadoInicio
                             accionApagadoInicio="Apagando"
                             mentiraApagadoInicio="apagado"
@@ -441,7 +441,7 @@ export default function Escritorio() {
                         right: 0,
                         bottom: 0
                     }}>
-                    <div className="bg-blue-700 absolute inset-0 w-full h-full">
+                    <div className="bg-blue-700 dark:bg-gray-900 absolute inset-0 w-full h-full">
                         <VistaApagadoInicio
                             accionApagadoInicio="Reiniciando"
                             mentiraApagadoInicio="reiniciado"
