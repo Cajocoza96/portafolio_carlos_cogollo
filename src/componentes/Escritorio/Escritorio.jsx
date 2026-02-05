@@ -451,48 +451,52 @@ export default function Escritorio() {
                 </div>
             )}
 
-            <BarraDeTareas
-                toggleVerVentanaInicio={toggleVerVentanaInicio}
-                toggleVerVentanaBusqueda={toggleVerVentanaBusqueda}
+            {verVentanaBloqueo || verVentanaSuspendido ||
+                verVentanaApagado || verVentanaReinicio || (
+                    <BarraDeTareas
+                        toggleVerVentanaInicio={toggleVerVentanaInicio}
+                        toggleVerVentanaBusqueda={toggleVerVentanaBusqueda}
 
-                verVentanaInicio={verVentanaInicio}
-                setVerVentanaInicio={setVerVentanaInicio}
+                        verVentanaInicio={verVentanaInicio}
+                        setVerVentanaInicio={setVerVentanaInicio}
 
-                verVentanaBusqueda={verVentanaBusqueda}
-                setVerVentanaBusqueda={setVerVentanaBusqueda}
+                        verVentanaBusqueda={verVentanaBusqueda}
+                        setVerVentanaBusqueda={setVerVentanaBusqueda}
 
-                verAcercaDe={verAcercaDe}
-                toggleVerAcercaDe={toggleVerAcercaDe}
-                toggleMinimizarVentanaAcercaDe={toggleMinimizarVentanaAcercaDe}
-                ventanaMinimizadaAcercaDe={ventanaMinimizadaAcercaDe}
-                infoAcercaDe={infoAcercaDe}
+                        verAcercaDe={verAcercaDe}
+                        toggleVerAcercaDe={toggleVerAcercaDe}
+                        toggleMinimizarVentanaAcercaDe={toggleMinimizarVentanaAcercaDe}
+                        ventanaMinimizadaAcercaDe={ventanaMinimizadaAcercaDe}
+                        infoAcercaDe={infoAcercaDe}
 
-                verContacto={verContacto}
-                toggleVerContacto={toggleVerContacto}
-                toggleMinimizarVentanaContacto={toggleMinimizarVentanaContacto}
-                ventanaMinimizadaContacto={ventanaMinimizadaContacto}
-                infoContacto={infoContacto}
+                        verContacto={verContacto}
+                        toggleVerContacto={toggleVerContacto}
+                        toggleMinimizarVentanaContacto={toggleMinimizarVentanaContacto}
+                        ventanaMinimizadaContacto={ventanaMinimizadaContacto}
+                        infoContacto={infoContacto}
 
-                verHabilidades={verHabilidades}
-                toggleVerHabilidades={toggleVerHabilidades}
-                toggleMinimizarVentanaHabilidades={toggleMinimizarVentanaHabilidades}
-                ventanaMinimizadaHabilidades={ventanaMinimizadaHabilidades}
-                infoHabilidades={infoHabilidades}
+                        verHabilidades={verHabilidades}
+                        toggleVerHabilidades={toggleVerHabilidades}
+                        toggleMinimizarVentanaHabilidades={toggleMinimizarVentanaHabilidades}
+                        ventanaMinimizadaHabilidades={ventanaMinimizadaHabilidades}
+                        infoHabilidades={infoHabilidades}
 
-                verProyectos={verProyectos}
-                toggleVerProyectos={toggleVerProyectos}
-                toggleMinimizarVentanaProyectos={toggleMinimizarVentanaProyectos}
-                ventanaMinimizadaProyectos={ventanaMinimizadaProyectos}
-                infoProyectos={infoProyectos}
+                        verProyectos={verProyectos}
+                        toggleVerProyectos={toggleVerProyectos}
+                        toggleMinimizarVentanaProyectos={toggleMinimizarVentanaProyectos}
+                        ventanaMinimizadaProyectos={ventanaMinimizadaProyectos}
+                        infoProyectos={infoProyectos}
 
-                bringToFront={bringToFront}
+                        bringToFront={bringToFront}
 
-                onHoverVentana={handleHoverVentana}
+                        onHoverVentana={handleHoverVentana}
 
-                verEspacioDerechoMobile={verEspacioDerechoMobile}
-                setVerEspacioDerechoMobile={setVerEspacioDerechoMobile}
-                toggleVerEspacioDerechoMobile={toggleVerEspacioDerechoMobile}
-            />
+                        verEspacioDerechoMobile={verEspacioDerechoMobile}
+                        setVerEspacioDerechoMobile={setVerEspacioDerechoMobile}
+                        toggleVerEspacioDerechoMobile={toggleVerEspacioDerechoMobile}
+                    />
+                )}
+
 
             <ContEspacioDerechoMobile
                 verAcercaDe={verAcercaDe}
