@@ -368,46 +368,86 @@ export default function Escritorio() {
             */}
 
             {verVentanaBloqueo && (
-                <div className="bg-blue-700 w-screen min-h-[100dvh]  
-                        fixed inset-0 z-1000 touch-pan-x touch-pan-y">
-                    <VistaApagadoInicio
-                        accionApagadoInicio="Bloqueando"
-                        mentiraApagadoInicio="bloqueado"
-                        userInteracted={userInteracted}
-                    />
+                <div className="fixed inset-0 z-[1000] overflow-hidden"
+                    style={{
+                        width: '100%',
+                        height: '100%',
+                        position: 'fixed',
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        bottom: 0
+                    }}>
+                    <div className="bg-blue-700 absolute inset-0 w-full h-full">
+                        <VistaApagadoInicio
+                            accionApagadoInicio="Bloqueando"
+                            mentiraApagadoInicio="bloqueado"
+                            userInteracted={userInteracted}
+                        />
+                    </div>
                 </div>
             )}
 
             {verVentanaSuspendido && (
-                <div className="bg-blue-700 w-screen min-h-[100dvh]  
-                fixed inset-0 z-1000 touch-pan-x touch-pan-y">
-                    <VistaApagadoInicio
-                        accionApagadoInicio="Suspendiendo"
-                        mentiraApagadoInicio="suspendido"
-                        userInteracted={userInteracted}
-                    />
+                <div className="fixed inset-0 z-[1000] overflow-hidden"
+                    style={{
+                        width: '100%',
+                        height: '100%',
+                        position: 'fixed',
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        bottom: 0
+                    }}>
+                    <div className="bg-blue-700 absolute inset-0 w-full h-full">
+                        <VistaApagadoInicio
+                            accionApagadoInicio="Suspendiendo"
+                            mentiraApagadoInicio="suspendido"
+                            userInteracted={userInteracted}
+                        />
+                    </div>
                 </div>
             )}
 
             {verVentanaApagado && (
-                <div className="bg-blue-700 w-screen min-h-[100dvh]  
-                fixed inset-0 z-1000 touch-pan-x touch-pan-y">
-                    <VistaApagadoInicio
-                        accionApagadoInicio="Apagando"
-                        mentiraApagadoInicio="apagado"
-                        userInteracted={userInteracted}
-                    />
+                <div className="fixed inset-0 z-[1000] overflow-hidden"
+                    style={{
+                        width: '100%',
+                        height: '100%',
+                        position: 'fixed',
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        bottom: 0
+                    }}>
+                    <div className="bg-blue-700 absolute inset-0 w-full h-full">
+                        <VistaApagadoInicio
+                            accionApagadoInicio="Apagando"
+                            mentiraApagadoInicio="apagado"
+                            userInteracted={userInteracted}
+                        />
+                    </div>
                 </div>
             )}
 
             {verVentanaReinicio && (
-                <div className="bg-blue-700 w-screen min-h-[100dvh]  
-                fixed inset-0 z-1000 touch-pan-x touch-pan-y">
-                    <VistaApagadoInicio
-                        accionApagadoInicio="Reiniciando"
-                        mentiraApagadoInicio="reiniciado"
-                        userInteracted={userInteracted}
-                    />
+                <div className="fixed inset-0 z-[1000] overflow-hidden"
+                    style={{
+                        width: '100%',
+                        height: '100%',
+                        position: 'fixed',
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        bottom: 0
+                    }}>
+                    <div className="bg-blue-700 absolute inset-0 w-full h-full">
+                        <VistaApagadoInicio
+                            accionApagadoInicio="Reiniciando"
+                            mentiraApagadoInicio="reiniciado"
+                            userInteracted={userInteracted}
+                        />
+                    </div>
                 </div>
             )}
 
